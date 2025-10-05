@@ -1,0 +1,74 @@
+<app-page-layout>
+  <app-page-header
+    title="Let's Build Something Amazing"
+    subtitle="Senior Frontend Engineer actively seeking a permanent role">
+  </app-page-header>
+
+  <div class="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+
+    <app-card>
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Get In Touch</h2>
+
+      <div class="space-y-6">
+        <app-contact-info-item
+          icon="mail"
+          label="Email"
+          value="adrien.gerday@gmail.com"
+          link="mailto:adrien.gerday@gmail.com">
+        </app-contact-info-item>
+
+        <app-contact-info-item
+          icon="location_on"
+          label="Location"
+          value="APAC Region">
+        </app-contact-info-item>
+
+        <app-contact-info-item
+          icon="check_circle"
+          label="Status"
+          value="Available for Remote/Hybrid"
+          [pulse]="true">
+        </app-contact-info-item>
+
+        <app-contact-info-item
+          icon="bolt"
+          label="Response Time"
+          value="Within 24 Hours">
+        </app-contact-info-item>
+      </div>
+    </app-card>
+
+    <app-card [gradient]="true">
+      <div class="text-center">
+        <div class="inline-flex p-6 bg-white/20 backdrop-blur-sm rounded-3xl mb-6">
+          <i class="fab fa-linkedin text-white text-6xl"></i>
+        </div>
+
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">Let's Connect</h2>
+        <p class="text-lg md:text-xl text-white/90 mb-8 max-w-md mx-auto">
+          The fastest way to reach me
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="https://www.linkedin.com/in/adrien-gerday" target="_blank" rel="noopener noreferrer">
+            <app-button>View Profile</app-button>
+          </a>
+          <a href="https://www.linkedin.com/messaging/compose/?recipient=adrien-gerday" target="_blank" rel="noopener noreferrer">
+            <app-button>Send Message</app-button>
+          </a>
+        </div>
+
+        <div class="flex items-center justify-center gap-6 pt-8 mt-8 border-t border-white/20">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-white text-xl">verified</span>
+            <span class="text-sm text-white/90">Verified</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-white text-xl">star</span>
+            <span class="text-sm text-white/90">Top Rated</span>
+          </div>
+        </div>
+      </div>
+    </app-card>
+  </div>
+</app-page-layout>
