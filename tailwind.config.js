@@ -64,13 +64,24 @@ module.exports = {
         bounce: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
       },
       animation: {
-        float: 'float 8s ease-in-out infinite',
+        float: 'float 6s ease-in-out infinite',
         'pulse-slow': 'pulse 5s ease-in-out infinite',
+        radiant: 'radiant 8s ease infinite',
       },
       keyframes: {
         float: {
-          '0%, 100%': { transform: 'translateY(0) scale(1)' },
-          '50%': { transform: 'translateY(-12px) scale(1.05)' },
+          '0%, 100%': {
+            transform: 'translateY(0) translateX(0)',
+            opacity: '0.8'
+          },
+          '50%': {
+            transform: 'translateY(-20px) translateX(10px)',
+            opacity: '0.3'
+          },
+        },
+        radiant: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
         },
       },
       backgroundImage: {

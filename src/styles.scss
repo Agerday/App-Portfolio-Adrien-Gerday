@@ -203,6 +203,20 @@
   }
 }
 
+.float-icon-card:hover .text-5xl,
+.float-icon-card:hover .text-4xl {
+  animation: float-icon 2s ease-in-out infinite;
+}
+
+@keyframes float-icon {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+}
+
 * {
   transition-property: background-color, border-color, color;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
