@@ -16,8 +16,7 @@ import {PageLayoutComponent} from '@components/layout';
     ContactInfoItemComponent,
     PageLayoutComponent,
   ],
-  templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  templateUrl: './contact.component.html'
 })
 export class ContactComponent implements OnInit {
   private seoService = inject(SeoService);

@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, effect, inject, isDevMode, OnInit} from '@angular/core';
-import {NavigationEnd, NavigationStart, Router, RouterOutlet} from '@angular/router';
+import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterOutlet} from '@angular/router';
 import {filter} from 'rxjs/operators';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
@@ -65,14 +65,21 @@ export class AppComponent implements OnInit {
 
     this.router.events
       .pipe(
-        filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+        filter(e =>
+          e instanceof NavigationEnd ||
+          e instanceof NavigationCancel ||
+          e instanceof NavigationError
+        ),
         takeUntilDestroyed()
       )
-      .subscribe((e: NavigationEnd) => {
+      .subscribe((e) => {
         this.loaderService.hide();
-        this.analyticsService.trackPageView(e.urlAfterRedirects);
-        this.scrollService.scrollToTop();
-        this.updateSeoFromRoute();
+
+        if (e instanceof NavigationEnd) {
+          this.analyticsService.trackPageView(e.urlAfterRedirects);
+          this.scrollService.scrollToTop();
+          this.updateSeoFromRoute();
+        }
       });
   }
 

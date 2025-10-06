@@ -5,3 +5,6 @@ export * from './page-header/page-header.component';
 export * from './loader/loader.component';
 export * from './contact-info-item/contact-info-item.component';
 export * from './icon/icon.component';
+export * from './badge/badge.component';
+export * from './section/section.component';
+export * from './empty-state/empty-state.component';

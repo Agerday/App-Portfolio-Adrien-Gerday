@@ -1,11 +1,11 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, signal} from '@angular/core';
 import {RouterLink} from '@angular/router';
-import {NgClass} from '@angular/common';
 import {SeoService} from '@services/seo.service';
 import {PageLayoutComponent} from '@components/layout/page-layout/page-layout.component';
 import {PageHeaderComponent} from '@components/ui/page-header/page-header.component';
 import {CardComponent} from '@components/ui/card/card.component';
-import {ButtonComponent} from '@components/ui';
+import {ButtonComponent, SectionComponent} from '@components/ui';
+import {BadgeComponent} from '@components/ui/badge/badge.component';
 
 interface Timeline {
   year: string;
@@ -25,15 +25,15 @@ interface Value {
   standalone: true,
   imports: [
     RouterLink,
-    NgClass,
     PageLayoutComponent,
     PageHeaderComponent,
     CardComponent,
-    ButtonComponent
+    ButtonComponent,
+    BadgeComponent,
+    SectionComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './about.component.html',
-  styleUrls: ['./about.component.scss']
+  templateUrl: './about.component.html'
 })
 export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly seoService = inject(SeoService);
