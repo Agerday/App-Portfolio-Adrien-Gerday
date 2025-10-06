@@ -5,7 +5,7 @@ export interface Project {
   shortDescription: string;
   image: string;
   technologies: string[];
-  category: 'web' | 'mobile' | 'enterprise' | 'opensource';
+  category: 'web' | 'mobile' | 'enterprise' | 'personal';
   liveUrl?: string;
   githubUrl?: string;
   featured: boolean;
@@ -14,6 +14,17 @@ export interface Project {
   role: string;
   teamSize?: number;
   highlights: string[];
+  longDescription?: string;
+  images?: string[];
+  client?: string;
+  challenges?: string[];
+  solutions?: string[];
+  features?: string[];
+  testimonial?: {
+    text: string;
+    author: string;
+    position: string;
+  };
 }
 
 export interface FeaturedProject {
@@ -22,4 +33,9 @@ export interface FeaturedProject {
   description: string;
   technologies: string;
   badge: string;
+}
+
+export interface ProjectCategory {
+  value: string;
+  label: string;
 }

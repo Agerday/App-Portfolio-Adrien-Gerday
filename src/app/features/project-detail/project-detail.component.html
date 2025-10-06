@@ -1,0 +1,197 @@
+@if (project(); as proj) {
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+
+    <!-- Header -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+      <div class="container mx-auto px-6 py-8">
+
+        <a routerLink="/projects"
+        class="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-6"
+        >
+        <span class="material-symbols-rounded text-[18px]">arrow_back</span>
+        <span>Back to Projects</span>
+        </a>
+
+        <div class="flex items-start justify-between gap-6">
+          <div>
+            <span class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 font-medium">
+              {{ proj.category | titlecase }}
+            </span>
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mt-2 mb-4">
+              {{ proj.title }}
+            </h1>
+            <p class="text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl">
+              {{ proj.description }}
+            </p>
+          </div>
+
+          <div class="flex gap-2">
+            @if (proj.liveUrl) {
+
+              <a [href]="proj.liveUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700"
+                >
+              <span class="material-symbols-rounded text-[16px]">open_in_new</span>
+              <span>Live</span>
+              </a>
+            }
+
+            @if (proj.githubUrl) {
+
+              <a [href]="proj.githubUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+                >
+              <i class="fab fa-github"></i>
+              <span>Code</span>
+              </a>
+            }
+          </div>
+        </div>
+
+        <!-- Meta Info -->
+        <div class="flex flex-wrap gap-6 mt-8 text-sm">
+          <div>
+            <span class="text-gray-500 dark:text-gray-400">Year</span>
+            <p class="font-medium text-gray-900 dark:text-white">{{ proj.year }}</p>
+          </div>
+          <div>
+            <span class="text-gray-500 dark:text-gray-400">Duration</span>
+            <p class="font-medium text-gray-900 dark:text-white">{{ proj.duration }}</p>
+          </div>
+          <div>
+            <span class="text-gray-500 dark:text-gray-400">Role</span>
+            <p class="font-medium text-gray-900 dark:text-white">{{ proj.role }}</p>
+          </div>
+          @if (proj.teamSize) {
+            <div>
+              <span class="text-gray-500 dark:text-gray-400">Team</span>
+              <p class="font-medium text-gray-900 dark:text-white">{{ proj.teamSize }} members</p>
+            </div>
+          }
+          @if (proj.client) {
+            <div>
+              <span class="text-gray-500 dark:text-gray-400">Client</span>
+              <p class="font-medium text-gray-900 dark:text-white">{{ proj.client }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container mx-auto px-6 py-12">
+      <div class="grid lg:grid-cols-3 gap-12">
+
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-12">
+
+          @if (proj.longDescription) {
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Overview</h2>
+              <div class="prose dark:prose-invert max-w-none">
+                @for (paragraph of proj.longDescription.split('\n\n'); track paragraph) {
+                  <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">{{ paragraph }}</p>
+                }
+              </div>
+            </div>
+          }
+
+          @if (proj.highlights && proj.highlights.length > 0) {
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Highlights</h2>
+              <ul class="space-y-3">
+                @for (highlight of proj.highlights; track highlight) {
+                  <li class="flex items-start gap-3">
+                    <span class="material-symbols-rounded text-blue-600 dark:text-blue-400 text-[20px] mt-0.5">
+                      check_circle
+                    </span>
+                    <span class="text-gray-600 dark:text-gray-400">{{ highlight }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+
+          @if (proj.features && proj.features.length > 0) {
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Features</h2>
+              <ul class="grid sm:grid-cols-2 gap-3">
+                @for (feature of proj.features; track feature) {
+                  <li class="text-sm text-gray-600 dark:text-gray-400">• {{ feature }}</li>
+                }
+              </ul>
+            </div>
+          }
+
+          @if (proj.challenges && proj.solutions) {
+            <div class="grid sm:grid-cols-2 gap-8">
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Challenges</h3>
+                <ul class="space-y-2">
+                  @for (challenge of proj.challenges; track challenge) {
+                    <li class="text-sm text-gray-600 dark:text-gray-400">• {{ challenge }}</li>
+                  }
+                </ul>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Solutions</h3>
+                <ul class="space-y-2">
+                  @for (solution of proj.solutions; track solution) {
+                    <li class="text-sm text-gray-600 dark:text-gray-400">• {{ solution }}</li>
+                  }
+                </ul>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+          <div class="sticky top-6 space-y-8">
+
+            <!-- Technologies -->
+            <div>
+              <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">Technologies</h3>
+              <div class="flex flex-wrap gap-2">
+                @for (tech of proj.technologies; track tech) {
+                  <span class="text-sm text-gray-600 dark:text-gray-400">{{ tech }}</span>
+                }
+              </div>
+            </div>
+
+            <!-- Navigation -->
+            <div>
+              <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">More Projects</h3>
+              <div class="space-y-2">
+                @if (previousProject(); as prev) {
+
+                  <a [routerLink]="['/projects', prev.id]"
+                    class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                    >
+                    ← {{ prev.title }}
+                  </a>
+                }
+                @if (nextProject(); as next) {
+
+                  <a [routerLink]="['/projects', next.id]"
+                    class="block text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                    >
+                  {{ next.title }} →
+                  </a>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="min-h-screen flex items-center justify-center">
+    <div class="animate-spin rounded-full h-12 w-12 border-2 border-blue-600 border-t-transparent"></div>
+  </div>
+}

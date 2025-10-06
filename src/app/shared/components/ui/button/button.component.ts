@@ -36,18 +36,16 @@ export class ButtonComponent {
 
   buttonClasses = computed(() => {
     const base = `
-      group relative overflow-hidden px-8 py-4 font-semibold rounded-2xl shadow-lg
-      hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300
-      disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
-      flex items-center justify-center gap-3 inline-flex
-    `;
+    group relative overflow-hidden px-4 py-2 font-semibold rounded-lg shadow-md
+    hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300
+    disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
+    flex items-center justify-center gap-2 inline-flex text-sm
+  `;
 
     const variants = {
       primary: 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-blue-500/30 hover:shadow-blue-500/40',
-      white: 'bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-blue-600 dark:text-white border border-gray-200/50 ' +
-        'dark:border-gray-700/50 hover:bg-white dark:hover:bg-gray-700/70 hover:border-gray-300 dark:hover:border-gray-600',
-      ghost: 'bg-white/10 dark:bg-gray-700/50 backdrop-blur-sm text-white border border-white/20 ' +
-        'dark:border-gray-600 hover:bg-white/20 dark:hover:bg-gray-600/50'
+      white: 'bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-blue-600 dark:text-white border border-gray-200/50 dark:border-gray-700/50 hover:bg-white dark:hover:bg-gray-700/70',
+      ghost: 'bg-white/10 dark:bg-gray-700/50 backdrop-blur-sm text-white border border-white/20 dark:border-gray-600 hover:bg-white/20 dark:hover:bg-gray-600/50'
     };
 
     return `${base} ${variants[this.variant()]}`;

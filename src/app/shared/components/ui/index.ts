@@ -1,5 +1,8 @@
 export * from './button/button.component';
 export * from '@components/ui/cards/card/card.component';
+export * from '@components/ui/cards/project-card/project-card.component';
+export * from '@components/ui/cards/featured-project-card/featured-project-card.component';
+export * from '@components/ui/cards/project-stats-card/project-stats-card.component';
 export * from './icon-box/icon-box.component';
 export * from './page-header/page-header.component';
 export * from './loader/loader.component';
@@ -10,3 +13,5 @@ export * from './section/section.component';
 export * from './empty-state/empty-state.component';
 export * from '@components/ui/cards/stat-card/stat-card.component';
 export * from '@components/ui/cards/certification-card/certification-card.component';
+export * from './search-input/search-input.component';
+

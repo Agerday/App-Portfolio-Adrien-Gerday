@@ -10,7 +10,7 @@ import {LoaderService} from '@services/loader.service';
 import {PerformanceMonitoringService} from '@services/performance-monitoring.service';
 import {ScrollService} from '@shared/services/scroll-to-top.service';
 
-import {FooterComponent, HeaderComponent, ScrollToTopComponent} from '@components/layout';
+import {FooterComponent, TopMenuComponent, ScrollToTopComponent} from '@components/layout';
 import {LoaderComponent} from '@components/ui';
 
 @Component({
@@ -18,7 +18,7 @@ import {LoaderComponent} from '@components/ui';
   standalone: true,
   imports: [
     RouterOutlet,
-    HeaderComponent,
+    TopMenuComponent,
     FooterComponent,
     LoaderComponent,
     ScrollToTopComponent

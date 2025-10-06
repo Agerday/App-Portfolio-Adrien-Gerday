@@ -1,0 +1,91 @@
+<app-page-layout>
+  <app-page-header
+    title="Projects"
+    subtitle="Building scalable applications with modern technologies"
+  />
+
+  <!-- Filters -->
+  <app-section>
+    <div class="flex flex-wrap items-center gap-6 mb-8">
+      <!-- Category Filters -->
+      <div class="flex flex-wrap gap-2">
+        <button
+          (click)="selectedCategory.set('all')"
+          [class.text-blue-600]="selectedCategory() === 'all'"
+          [class.dark:text-blue-400]="selectedCategory() === 'all'"
+          [class.font-semibold]="selectedCategory() === 'all'"
+          class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+        >
+          All ({{ projects.length }})
+        </button>
+
+        @for (category of categories; track category.value) {
+          <span class="text-gray-300 dark:text-gray-700">•</span>
+          <button
+            (click)="selectedCategory.set(category.value)"
+            [class.text-blue-600]="selectedCategory() === category.value"
+            [class.dark:text-blue-400]="selectedCategory() === category.value"
+            [class.font-semibold]="selectedCategory() === category.value"
+            class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+          >
+            {{ category.label }} ({{ getProjectCountByCategory(category.value) }})
+          </button>
+        }
+      </div>
+
+      <!-- Search -->
+      <div class="ml-auto w-full sm:w-64">
+        <app-search-input
+          [value]="searchQuery()"
+          (valueChange)="searchQuery.set($event)"
+          placeholder="Search..."
+        />
+      </div>
+    </div>
+  </app-section>
+
+  <!-- Featured Projects -->
+  @if (featuredProjects.length > 0) {
+    <app-section>
+      <div class="grid lg:grid-cols-2 gap-6">
+        @for (project of featuredProjects; track project.id) {
+          <app-featured-project-card
+            [project]="project"
+            [categoryLabel]="getCategoryLabel(project.category)"
+            [badge]="project.id === 'numbr-accounting-system' ? 'Latest' : 'Featured'"
+            (liveClick)="trackProjectClick(project.id, 'live')"
+            (githubClick)="trackProjectClick(project.id, 'github')"
+            (detailClick)="trackProjectClick(project.id, 'view')"
+          />
+        }
+      </div>
+    </app-section>
+  }
+
+  <!-- All Projects -->
+  <app-section>
+    @if (filteredProjects().length > 0) {
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for (project of filteredProjects(); track project.id) {
+          <app-project-card
+            [project]="project"
+            [categoryLabel]="getCategoryLabel(project.category)"
+            (liveClick)="trackProjectClick(project.id, 'live')"
+            (githubClick)="trackProjectClick(project.id, 'github')"
+            (detailClick)="trackProjectClick(project.id, 'view')"
+          />
+        }
+      </div>
+    } @else {
+      <div class="text-center py-16">
+        <p class="text-gray-500 dark:text-gray-400 mb-4">No projects found</p>
+        <button
+          (click)="searchQuery.set(''); selectedCategory.set('all')"
+          class="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+        >
+          Clear filters
+        </button>
+      </div>
+    }
+  </app-section>
+</app-page-layout>
