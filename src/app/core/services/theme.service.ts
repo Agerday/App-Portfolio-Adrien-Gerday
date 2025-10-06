@@ -1,4 +1,4 @@
-import { effect, Injectable, signal } from '@angular/core';
+import {effect, Injectable, signal} from '@angular/core';
 
 export type Theme = 'light' | 'dark';
 
@@ -54,14 +54,6 @@ export class ThemeService {
     this._isDarkMode.set(isDark);
   }
 
-  private setupEffects(): void {
-    effect(() => {
-      const isDark = this._isDarkMode();
-      this.applyThemeToDOM(isDark);
-      this.saveTheme(isDark ? 'dark' : 'light');
-    });
-  }
-
   toggleTheme(): void {
     this._isDarkMode.update(current => !current);
   }
@@ -72,6 +64,50 @@ export class ThemeService {
 
   getTheme(): Theme {
     return this._isDarkMode() ? 'dark' : 'light';
+  }
+
+  setCustomTheme(config: Partial<ThemeConfig>): void {
+    const currentConfig = this._isDarkMode() ? this.themes.dark : this.themes.light;
+    const newConfig = {...currentConfig, ...config};
+
+    this.saveCustomTheme(newConfig);
+    this.applyCustomTheme(newConfig);
+  }
+
+  resetCustomTheme(): void {
+    try {
+      localStorage.removeItem(this.CUSTOM_THEME_KEY);
+      const root = document.documentElement;
+      ['primary', 'secondary', 'accent', 'background', 'surface', 'text'].forEach(key => {
+        root.style.removeProperty(`--custom-${key}`);
+      });
+    } catch (error) {
+      console.error('Failed to reset custom theme:', error);
+    }
+  }
+
+  enableHighContrast(): void {
+    document.documentElement.classList.add('high-contrast');
+  }
+
+  disableHighContrast(): void {
+    document.documentElement.classList.remove('high-contrast');
+  }
+
+  enableReducedMotion(): void {
+    document.documentElement.classList.add('reduce-motion');
+  }
+
+  disableReducedMotion(): void {
+    document.documentElement.classList.remove('reduce-motion');
+  }
+
+  private setupEffects(): void {
+    effect(() => {
+      const isDark = this._isDarkMode();
+      this.applyThemeToDOM(isDark);
+      this.saveTheme(isDark ? 'dark' : 'light');
+    });
   }
 
   private applyThemeToDOM(isDark: boolean): void {
@@ -110,14 +146,6 @@ export class ThemeService {
     return null;
   }
 
-  setCustomTheme(config: Partial<ThemeConfig>): void {
-    const currentConfig = this._isDarkMode() ? this.themes.dark : this.themes.light;
-    const newConfig = { ...currentConfig, ...config };
-
-    this.saveCustomTheme(newConfig);
-    this.applyCustomTheme(newConfig);
-  }
-
   private saveCustomTheme(config: ThemeConfig): void {
     try {
       localStorage.setItem(this.CUSTOM_THEME_KEY, JSON.stringify(config));
@@ -131,33 +159,5 @@ export class ThemeService {
     Object.entries(config).forEach(([key, value]) => {
       root.style.setProperty(`--custom-${key}`, value);
     });
-  }
-
-  resetCustomTheme(): void {
-    try {
-      localStorage.removeItem(this.CUSTOM_THEME_KEY);
-      const root = document.documentElement;
-      ['primary', 'secondary', 'accent', 'background', 'surface', 'text'].forEach(key => {
-        root.style.removeProperty(`--custom-${key}`);
-      });
-    } catch (error) {
-      console.error('Failed to reset custom theme:', error);
-    }
-  }
-
-  enableHighContrast(): void {
-    document.documentElement.classList.add('high-contrast');
-  }
-
-  disableHighContrast(): void {
-    document.documentElement.classList.remove('high-contrast');
-  }
-
-  enableReducedMotion(): void {
-    document.documentElement.classList.add('reduce-motion');
-  }
-
-  disableReducedMotion(): void {
-    document.documentElement.classList.remove('reduce-motion');
   }
 }

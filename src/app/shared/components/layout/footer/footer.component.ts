@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {environment} from '../../../../../environment';
+import {PERSONAL_INFO} from '@core/data/resume.data';
 
 interface SocialLink {
   name: string;
@@ -19,20 +19,21 @@ export class FooterComponent {
   readonly socialLinks: SocialLink[] = [
     {
       name: 'GitHub',
-      url: environment.social.github,
+      url: PERSONAL_INFO.contact.github,
       ariaLabel: 'Visit my GitHub profile'
     },
     {
       name: 'LinkedIn',
-      url: environment.social.linkedin,
+      url: PERSONAL_INFO.contact.linkedin,
       ariaLabel: 'Connect with me on LinkedIn'
     },
     {
       name: 'Email',
-      url: `mailto:${environment.social.email}`,
+      url: `mailto:${PERSONAL_INFO.contact.email}`,
       ariaLabel: 'Send me an email'
     },
   ];
+  protected readonly PERSONAL_INFO = PERSONAL_INFO;
 
   getSocialIcon(name: string): string {
     const icons: Record<string, string> = {

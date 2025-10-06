@@ -4,6 +4,7 @@ import {SeoService} from '@services/seo.service';
 import {AnalyticsService} from '@services/analytics.service';
 import {ButtonComponent, CardComponent, ContactInfoItemComponent, PageHeaderComponent} from '@components/ui';
 import {PageLayoutComponent} from '@components/layout';
+import {PERSONAL_INFO} from '@core/data/resume.data';
 
 @Component({
   selector: 'app-contact',
@@ -19,6 +20,7 @@ import {PageLayoutComponent} from '@components/layout';
   templateUrl: './contact.component.html'
 })
 export class ContactComponent implements OnInit {
+  protected readonly PERSONAL_INFO = PERSONAL_INFO;
   private seoService = inject(SeoService);
   private analyticsService = inject(AnalyticsService);
 

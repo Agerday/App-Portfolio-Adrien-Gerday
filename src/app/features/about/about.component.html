@@ -1,7 +1,7 @@
 <app-page-layout>
   <app-page-header
-    title="About Me"
     subtitle="Passionate Senior Angular Developer with 8+ years of experience building scalable web applications"
+    title="About Me"
   />
 
   <app-section>
@@ -55,10 +55,10 @@
   <app-section title="My Journey">
     <div class="max-w-5xl mx-auto relative">
       <div
+        [style.height]="timelineProgress() + '%'"
         class="absolute left-4 md:left-1/2 md:-translate-x-1/2 top-0 w-0.5
          bg-gradient-to-b from-blue-500 via-blue-600 to-transparent rounded-full
          transition-all duration-1000 ease-out"
-        [style.height]="timelineProgress() + '%'"
       ></div>
 
       @for (item of timeline; track item.year; let i = $index) {

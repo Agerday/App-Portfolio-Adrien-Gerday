@@ -32,6 +32,11 @@ export class PerformanceMonitoringService implements OnDestroy {
     this.observeNavigationTiming();
   }
 
+  ngOnDestroy(): void {
+    this.observers.forEach(observer => observer.disconnect());
+    this.observers = [];
+  }
+
   private observeWebVitals(): void {
     if (!('PerformanceObserver' in window)) return;
 
@@ -117,10 +122,5 @@ export class PerformanceMonitoringService implements OnDestroy {
     return typeof window !== 'undefined' &&
       'performance' in window &&
       'PerformanceObserver' in window;
-  }
-
-  ngOnDestroy(): void {
-    this.observers.forEach(observer => observer.disconnect());
-    this.observers = [];
   }
 }

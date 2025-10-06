@@ -1,6 +1,6 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
-import { IconBoxComponent } from '@components/ui';
-import { IconComponent } from '@components/ui/icon/icon.component';
+import {ChangeDetectionStrategy, Component, input} from '@angular/core';
+import {IconBoxComponent} from '@components/ui';
+import {IconComponent} from '@components/ui/icon/icon.component';
 
 @Component({
   selector: 'app-contact-info-item',
@@ -8,7 +8,8 @@ import { IconComponent } from '@components/ui/icon/icon.component';
   imports: [IconBoxComponent, IconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="flex items-center gap-4 group cursor-pointer p-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all">
+    <div
+      class="flex items-center gap-4 group cursor-pointer p-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all">
       <app-icon-box [size]="'md'" [pulse]="pulse()">
         <app-icon [name]="icon()" [size]="'md'" [iconStyle]="'outlined'"></app-icon>
       </app-icon-box>

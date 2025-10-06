@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpResponse} from '@angular/common/http';
 
 interface CacheEntry {
   response: HttpResponse<unknown>;
   expiry: number;
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class CacheService {
   private cache = new Map<string, CacheEntry>();
 

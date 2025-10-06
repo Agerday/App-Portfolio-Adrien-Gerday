@@ -1,5 +1,5 @@
-import { Component, inject, input, computed, ChangeDetectionStrategy } from '@angular/core';
-import { LoaderService } from '@services/loader.service';
+import {ChangeDetectionStrategy, Component, computed, inject, input} from '@angular/core';
+import {LoaderService} from '@services/loader.service';
 
 @Component({
   selector: 'app-loader',
@@ -96,13 +96,21 @@ import { LoaderService } from '@services/loader.service';
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
     @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
     }
 
     .loader-message {
@@ -113,8 +121,12 @@ import { LoaderService } from '@services/loader.service';
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.7;
+      }
     }
 
     .progress-bar {
@@ -135,17 +147,14 @@ import { LoaderService } from '@services/loader.service';
   `]
 })
 export class LoaderComponent {
-  private readonly loader = inject(LoaderService);
-
   isLoading = input<boolean>();
   message = input<string>();
   progress = input<number>();
-
+  private readonly loader = inject(LoaderService);
   private readonly serviceIsLoading = this.loader.isLoading;
-  private readonly serviceMessage = this.loader.message;
-  private readonly serviceProgress = this.loader.progress;
-
   readonly active = computed(() => this.isLoading() ?? this.serviceIsLoading());
+  private readonly serviceMessage = this.loader.message;
   readonly text = computed(() => this.message() ?? this.serviceMessage());
+  private readonly serviceProgress = this.loader.progress;
   readonly progressValue = computed(() => this.progress() ?? this.serviceProgress());
 }

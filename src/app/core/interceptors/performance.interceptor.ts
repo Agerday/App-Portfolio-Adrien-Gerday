@@ -1,6 +1,6 @@
-import { HttpInterceptorFn } from '@angular/common/http';
-import { finalize } from 'rxjs/operators';
-import { isDevMode } from '@angular/core';
+import {HttpInterceptorFn} from '@angular/common/http';
+import {finalize} from 'rxjs/operators';
+import {isDevMode} from '@angular/core';
 
 export const performanceInterceptor: HttpInterceptorFn = (req, next) => {
   if (!isDevMode()) {

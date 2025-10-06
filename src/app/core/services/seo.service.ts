@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {Meta, Title} from '@angular/platform-browser';
 import {DOCUMENT} from '@angular/common';
-import {environment} from '../../../environment';
+import {PERSONAL_INFO} from '@core/data/resume.data';
 
 interface SeoConfig {
   title?: string;
@@ -17,6 +17,7 @@ interface SeoConfig {
 interface StructuredData {
   '@context': string;
   '@type': string;
+
   [key: string]: any;
 }
 
@@ -64,6 +65,16 @@ export class SeoService {
     this.updateCanonical(finalConfig.canonical || this.getCurrentUrl());
   }
 
+  setStructuredData(data: StructuredData | StructuredData[]): void {
+    const existing = this.document.querySelector('script[type="application/ld+json"]');
+    if (existing) existing.remove();
+
+    const script = this.document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(data);
+    this.document.head.appendChild(script);
+  }
+
   private updateTag(name: string, content: string, attr: string = 'name'): void {
     if (!content) return;
 
@@ -93,24 +104,14 @@ export class SeoService {
     return `${window.location.origin}${window.location.pathname}`;
   }
 
-  setStructuredData(data: StructuredData | StructuredData[]): void {
-    const existing = this.document.querySelector('script[type="application/ld+json"]');
-    if (existing) existing.remove();
-
-    const script = this.document.createElement('script');
-    script.type = 'application/ld+json';
-    script.text = JSON.stringify(data);
-    this.document.head.appendChild(script);
-  }
-
   private getDefaultStructuredData(): StructuredData[] {
     return [
       {
         '@context': 'https://schema.org',
         '@type': 'Person',
-        name: 'Adrien Gerday',
+        name: PERSONAL_INFO.name,
         url: window.location.origin,
-        sameAs: [environment.social.github, environment.social.linkedin],
+        sameAs: [PERSONAL_INFO.contact.github, PERSONAL_INFO.contact.linkedin],
         jobTitle: 'Senior Frontend Developer',
         knowsAbout: ['Angular', 'React', 'TypeScript', 'JavaScript', 'Web Development'],
       },
@@ -119,7 +120,7 @@ export class SeoService {
         '@type': 'WebSite',
         url: window.location.origin,
         name: 'Developer Portfolio',
-        author: { '@type': 'Person', name: 'Adrien Gerday' },
+        author: {'@type': 'Person', name: PERSONAL_INFO.name},
         description: this.defaultConfig.description,
       },
     ];

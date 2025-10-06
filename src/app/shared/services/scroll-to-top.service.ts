@@ -1,16 +1,12 @@
-import { Injectable, signal } from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class ScrollService {
-  private scrollThreshold = 200;
   isVisible = signal(false);
+  private scrollThreshold = 200;
 
   constructor() {
-    window.addEventListener('scroll', this.onScroll.bind(this), { passive: true });
-  }
-
-  private onScroll(): void {
-    this.isVisible.set(window.scrollY > this.scrollThreshold);
+    window.addEventListener('scroll', this.onScroll.bind(this), {passive: true});
   }
 
   scrollToTop(smooth = true): void {
@@ -18,5 +14,9 @@ export class ScrollService {
       top: 0,
       behavior: smooth ? 'smooth' : 'auto',
     });
+  }
+
+  private onScroll(): void {
+    this.isVisible.set(window.scrollY > this.scrollThreshold);
   }
 }

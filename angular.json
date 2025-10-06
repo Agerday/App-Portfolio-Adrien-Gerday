@@ -16,7 +16,9 @@
             "outputPath": "dist/angular-portfolio",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -29,15 +31,27 @@
                 "output": "/assets/icons"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/styles.scss"
+            ],
             "scripts": [],
-            "allowedCommonJsDependencies": ["aos", "prismjs"]
+            "allowedCommonJsDependencies": [
+              "aos",
+              "prismjs"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
-                { "type": "initial", "maximumWarning": "2mb", "maximumError": "5mb" },
-                { "type": "anyComponentStyle", "maximumWarning": "6kb" }
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
               ],
               "outputHashing": "all"
             },
@@ -55,14 +69,20 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": { "buildTarget": "angular-portfolio:build:production" },
-            "development": { "buildTarget": "angular-portfolio:build:development" }
+            "production": {
+              "buildTarget": "angular-portfolio:build:production"
+            },
+            "development": {
+              "buildTarget": "angular-portfolio:build:development"
+            }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": { "buildTarget": "angular-portfolio:build" }
+          "options": {
+            "buildTarget": "angular-portfolio:build"
+          }
         },
         "test": {
           "builder": "@angular-builders/jest:run",
@@ -80,7 +100,9 @@
             "devServerTarget": "angular-portfolio:serve"
           },
           "configurations": {
-            "production": { "devServerTarget": "angular-portfolio:serve:production" }
+            "production": {
+              "devServerTarget": "angular-portfolio:serve:production"
+            }
           }
         }
       }

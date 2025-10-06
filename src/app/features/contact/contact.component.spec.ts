@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { By } from '@angular/platform-browser';
-import { ContactComponent } from './contact.component';
-import { AnalyticsService } from '../../core/services/analytics.service';
-import { SeoService } from '../../core/services/seo.service';
-import { NotificationService } from '../../core/services/notifications.service';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {ReactiveFormsModule} from '@angular/forms';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {By} from '@angular/platform-browser';
+import {ContactComponent} from './contact.component';
+import {AnalyticsService} from '../../core/services/analytics.service';
+import {SeoService} from '../../core/services/seo.service';
+import {NotificationService} from '../../core/services/notifications.service';
 
 describe('ContactComponent (Jest)', () => {
   let component: ContactComponent;
@@ -40,9 +40,9 @@ describe('ContactComponent (Jest)', () => {
         NoopAnimationsModule
       ],
       providers: [
-        { provide: NotificationService, useValue: notificationMock },
-        { provide: AnalyticsService, useValue: analyticsMock },
-        { provide: SeoService, useValue: seoMock }
+        {provide: NotificationService, useValue: notificationMock},
+        {provide: AnalyticsService, useValue: analyticsMock},
+        {provide: SeoService, useValue: seoMock}
       ]
     }).compileComponents();
 
@@ -166,14 +166,14 @@ describe('ContactComponent (Jest)', () => {
     });
 
     it('should not submit if form is invalid', () => {
-      component.contactForm.patchValue({ email: 'bad' });
+      component.contactForm.patchValue({email: 'bad'});
       component.onSubmit();
       expect(component.isSubmitting()).toBe(false);
       expect(notificationService.success).not.toHaveBeenCalled();
     });
 
     it('should mark all fields as touched when invalid', () => {
-      component.contactForm.patchValue({ name: '', email: '', subject: '', message: '' });
+      component.contactForm.patchValue({name: '', email: '', subject: '', message: ''});
       component.onSubmit();
       expect(component.contactForm.get('name')?.touched).toBe(true);
       expect(component.contactForm.get('email')?.touched).toBe(true);

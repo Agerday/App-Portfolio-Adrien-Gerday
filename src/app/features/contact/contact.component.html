@@ -1,7 +1,7 @@
 <app-page-layout>
   <app-page-header
-    title="Let's Build Something Amazing"
-    subtitle="Senior Frontend Engineer actively seeking a permanent role">
+    subtitle="Senior Frontend Engineer actively seeking a permanent role"
+    title="Let's Build Something Amazing">
   </app-page-header>
 
   <div class="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
@@ -13,8 +13,8 @@
         <app-contact-info-item
           icon="mail"
           label="Email"
-          value="adrien.gerday@gmail.com"
-          link="mailto:adrien.gerday@gmail.com">
+          link="mailto:adrien.gerday@gmail.com"
+          value="adrien.gerday@gmail.com">
         </app-contact-info-item>
 
         <app-contact-info-item
@@ -24,10 +24,10 @@
         </app-contact-info-item>
 
         <app-contact-info-item
+          [pulse]="true"
           icon="check_circle"
           label="Status"
-          value="Available for Remote/Hybrid"
-          [pulse]="true">
+          value="Available for Remote/Hybrid">
         </app-contact-info-item>
 
         <app-contact-info-item
@@ -50,10 +50,11 @@
         </p>
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="https://www.linkedin.com/in/adrien-gerday" target="_blank" rel="noopener noreferrer">
+          <a [href]="PERSONAL_INFO.contact.linkedin" rel="noopener noreferrer" target="_blank">
             <app-button>View Profile</app-button>
           </a>
-          <a href="https://www.linkedin.com/messaging/compose/?recipient=adrien-gerday" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.linkedin.com/messaging/compose/?recipient=adrien-gerday" rel="noopener noreferrer"
+             target="_blank">
             <app-button>Send Message</app-button>
           </a>
         </div>

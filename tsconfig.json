@@ -18,21 +18,50 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": ["ES2022", "DOM"],
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
     "paths": {
-      "@core/*": ["app/core/*"],
-      "@shared/*": ["app/shared/*"],
-      "@features/*": ["app/features/*"],
-      "@environments/*": ["environments/*"],
-      "@assets/*": ["assets/*"],
-      "@models/*": ["app/core/models/*"],
-      "@services/*": ["app/core/services/*"],
-      "@guards/*": ["app/core/guards/*"],
-      "@interceptors/*": ["app/core/interceptors/*"],
-      "@directives/*": ["app/shared/directives/*"],
-      "@pipes/*": ["app/shared/pipes/*"],
-      "@components/*": ["app/shared/components/*"],
-      "@utils/*": ["app/core/utils/*"]
+      "@core/*": [
+        "app/core/*"
+      ],
+      "@shared/*": [
+        "app/shared/*"
+      ],
+      "@features/*": [
+        "app/features/*"
+      ],
+      "@environments/*": [
+        "environments/*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@models/*": [
+        "app/core/models/*"
+      ],
+      "@services/*": [
+        "app/core/services/*"
+      ],
+      "@guards/*": [
+        "app/core/guards/*"
+      ],
+      "@interceptors/*": [
+        "app/core/interceptors/*"
+      ],
+      "@directives/*": [
+        "app/shared/directives/*"
+      ],
+      "@pipes/*": [
+        "app/shared/pipes/*"
+      ],
+      "@components/*": [
+        "app/shared/components/*"
+      ],
+      "@utils/*": [
+        "app/core/utils/*"
+      ]
     },
     "types": []
   },
@@ -43,6 +72,11 @@
     "enableI18nLegacyMessageIdFormat": false,
     "enableControlFlow": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["src/**/*.spec.ts", "cypress/**/*"]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts",
+    "cypress/**/*"
+  ]
 }
