@@ -4,7 +4,7 @@ import {RouterLink} from '@angular/router';
 import {SeoService} from '@services/seo.service';
 import {PageLayoutComponent} from '@components/layout/page-layout/page-layout.component';
 import {PageHeaderComponent} from '@components/ui/page-header/page-header.component';
-import {CardComponent} from '@components/ui/card/card.component';
+import {CardComponent} from '@components/ui/cards/card/card.component';
 import {ButtonComponent, SectionComponent} from '@components/ui';
 import {BadgeComponent} from '@components/ui/badge/badge.component';
 

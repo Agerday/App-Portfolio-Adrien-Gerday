@@ -1,5 +1,5 @@
 export * from './button/button.component';
-export * from './card/card.component';
+export * from '@components/ui/cards/card/card.component';
 export * from './icon-box/icon-box.component';
 export * from './page-header/page-header.component';
 export * from './loader/loader.component';
@@ -8,3 +8,5 @@ export * from './icon/icon.component';
 export * from './badge/badge.component';
 export * from './section/section.component';
 export * from './empty-state/empty-state.component';
+export * from '@components/ui/cards/stat-card/stat-card.component';
+export * from '@components/ui/cards/certification-card/certification-card.component';

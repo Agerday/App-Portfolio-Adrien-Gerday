@@ -1,0 +1,75 @@
+<app-page-layout>
+  <app-page-header
+    title="Professional Certifications"
+    subtitle="Formal training and credentials in modern web development"
+  />
+
+  <app-section>
+    <!-- Stats -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" data-aos="fade-up">
+      <app-stat-card
+        [value]="certifications.length"
+        label="Professional Certifications"
+        color="text-blue-600 dark:text-blue-400"
+      />
+
+      <app-stat-card
+        value="600+"
+        label="Training Hours"
+        color="text-green-600 dark:text-green-400"
+      />
+
+      <app-stat-card
+        value="6+"
+        label="Years Experience"
+        color="text-purple-600 dark:text-purple-400"
+      />
+    </div>
+
+    <!-- Certifications Grid -->
+    <div class="grid md:grid-cols-2 gap-8">
+      @for (cert of certifications; track cert.id; let i = $index) {
+        <app-certification-card
+          [cert]="cert"
+          [date]="formatDate(cert.issueDate)"
+          (cardClicked)="openCertificate(cert.verificationUrl)"
+          data-aos="fade-up"
+          [attr.data-aos-delay]="i * 100"
+        />
+      }
+    </div>
+  </app-section>
+
+  <!-- Continuous Learning -->
+  <app-section title="Commitment to Growth">
+    <app-card>
+      <div class="text-center max-w-3xl mx-auto">
+        <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex
+        items-center justify-center">
+          <span class="material-symbols-rounded text-white text-4xl">school</span>
+        </div>
+
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          Continuous Learning & Development
+        </h3>
+
+        <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+          Beyond formal certifications, I maintain a strong commitment to continuous learning through hands-on projects
+          and staying current with the latest developments in web technologies.
+        </p>
+
+        <div class="flex flex-wrap gap-3 justify-center">
+          <span class="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full font-semibold">
+            Self-Directed Learning
+          </span>
+          <span class="px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-full font-semibold">
+            Real-World Projects
+          </span>
+          <span class="px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full font-semibold">
+            Best Practices
+          </span>
+        </div>
+      </div>
+    </app-card>
+  </app-section>
+</app-page-layout>
