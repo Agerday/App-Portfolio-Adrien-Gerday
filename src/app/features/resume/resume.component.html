@@ -1,0 +1,127 @@
+<app-page-layout>
+  <!-- Header -->
+  <div class="text-center mb-12" data-aos="fade-up">
+    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+      Resume
+    </h1>
+    <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-8">
+      Download my resume or view it online
+    </p>
+
+    <!-- Download Buttons -->
+    <div class="flex flex-wrap gap-4 justify-center">
+      <app-button (clicked)="downloadPDF()" variant="primary">
+        <span class="material-symbols-rounded text-[20px]">download</span>
+        <span>Download PDF</span>
+      </app-button>
+
+      <app-button (clicked)="print()" variant="white">
+        <span class="material-symbols-rounded text-[20px]">print</span>
+        <span>Print</span>
+      </app-button>
+    </div>
+  </div>
+
+  <!-- Resume Content -->
+  <app-card class="max-w-4xl mx-auto">
+    <!-- Resume Header -->
+    <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8 -m-6 mb-8 rounded-t-2xl">
+      <div class="text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-2">{{ personalInfo.name }}</h2>
+        <p class="text-xl mb-4">{{ personalInfo.title }}</p>
+        <div class="flex flex-wrap gap-4 justify-center text-sm">
+          <a [href]="'mailto:' + personalInfo.contact.email" class="flex items-center gap-1 hover:underline">
+            <span class="material-symbols-rounded text-[18px]">mail</span>
+            <span>{{ personalInfo.contact.email }}</span>
+          </a>
+          <a [href]="personalInfo.contact.linkedin" class="flex items-center gap-1 hover:underline" rel="noopener"
+             target="_blank">
+            <i class="fab fa-linkedin text-lg"></i>
+            <span>LinkedIn</span>
+          </a>
+          <a [href]="personalInfo.contact.github" class="flex items-center gap-1 hover:underline" rel="noopener"
+             target="_blank">
+            <i class="fab fa-github text-lg"></i>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resume Body -->
+    <div class="space-y-8">
+      <!-- Professional Summary -->
+      <section>
+        <h3
+          class="text-2xl font-bold text-gray-900 dark:text-white mb-4 pb-2 border-b-2 border-gray-200 dark:border-gray-700">
+          Professional Summary
+        </h3>
+        <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+          {{ personalInfo.summary }}
+        </p>
+      </section>
+
+      <!-- Experience -->
+      <section>
+        <h3
+          class="text-2xl font-bold text-gray-900 dark:text-white mb-4 pb-2 border-b-2 border-gray-200 dark:border-gray-700">
+          Professional Experience
+        </h3>
+
+        <div class="space-y-6">
+          @for (job of experience; track job.position) {
+            <div>
+              <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-2">
+                <div>
+                  <h4 class="text-lg font-semibold text-gray-900 dark:text-white">{{ job.position }}</h4>
+                  <p class="text-gray-600 dark:text-gray-400">{{ job.company }}</p>
+                </div>
+                <span class="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ job.duration }}</span>
+              </div>
+              <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1">
+                @for (responsibility of job.responsibilities; track responsibility) {
+                  <li>{{ responsibility }}</li>
+                }
+              </ul>
+            </div>
+          }
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section>
+        <h3
+          class="text-2xl font-bold text-gray-900 dark:text-white mb-4 pb-2 border-b-2 border-gray-200 dark:border-gray-700">
+          Education
+        </h3>
+        @for (edu of education; track edu.degree) {
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 dark:text-white">{{ edu.degree }}</h4>
+              <p class="text-gray-600 dark:text-gray-400">{{ edu.school }} • {{ edu.location }}</p>
+              @if (edu.description) {
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ edu.description }}</p>
+              }
+            </div>
+            <span class="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ edu.duration }}</span>
+          </div>
+        }
+      </section>
+
+      <!-- Skills -->
+      <section>
+        <h3
+          class="text-2xl font-bold text-gray-900 dark:text-white mb-4 pb-2 border-b-2 border-gray-200 dark:border-gray-700">
+          Technical Skills
+        </h3>
+        <div class="text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">
+          @for (category of skills; track category.name) {
+            <p>
+              <strong>{{ category.name }}:</strong> {{ category.items.join(', ') }}
+            </p>
+          }
+        </div>
+      </section>
+    </div>
+  </app-card>
+</app-page-layout>

@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+
+@media print {
+  app-page-layout {
+    background: white;
+  }
+
+  button {
+    display: none;
+  }
+}
