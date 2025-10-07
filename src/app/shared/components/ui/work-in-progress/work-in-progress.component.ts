@@ -1,3 +1,4 @@
+// src/app/shared/components/ui/work-in-progress/work-in-progress.component.ts
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {ButtonComponent} from '@components/ui';
@@ -8,24 +9,38 @@ import {ButtonComponent} from '@components/ui';
   imports: [RouterLink, ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="min-h-[60vh] flex items-center justify-center p-4 sm:p-6 md:p-8">
-      <div class="max-w-2xl w-full text-center">
-        <div class="relative mb-8 sm:mb-10 md:mb-12">
+    <div class="min-h-[70vh] flex items-center justify-center p-4 sm:p-6 md:p-8">
+      <div class="max-w-3xl w-full text-center">
+        <!-- Animated Icon with improved visual hierarchy -->
+        <div class="relative mb-10 sm:mb-12 md:mb-16">
+          <!-- Outer glow circle -->
           <div class="absolute inset-0 flex items-center justify-center">
-            <div class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 bg-blue-100 dark:bg-blue-900/30
-                        rounded-full animate-ping opacity-20"></div>
-          </div>
-          <div class="absolute inset-0 flex items-center justify-center">
-            <div class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 bg-purple-100 dark:bg-purple-900/30
-                        rounded-full animate-pulse"></div>
+            <div class="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 bg-gradient-to-r from-blue-200
+                        to-purple-200 dark:from-blue-900/20 dark:to-purple-900/20
+                        rounded-full animate-ping opacity-10"></div>
           </div>
 
+          <!-- Middle pulse circle -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 bg-gradient-to-br from-blue-100
+                        to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30
+                        rounded-full animate-pulse-slow opacity-30"></div>
+          </div>
+
+          <!-- Main icon container with enhanced shadow -->
           <div class="relative flex items-center justify-center">
-            <div class="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 bg-gradient-to-br from-blue-500
-                        via-purple-500 to-blue-600 rounded-2xl sm:rounded-3xl shadow-2xl
+            <div class="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 bg-gradient-to-br from-blue-500
+                        via-purple-500 to-blue-600 rounded-3xl sm:rounded-[2rem]
+                        shadow-2xl shadow-purple-500/30 dark:shadow-purple-500/50
                         flex items-center justify-center transform hover:scale-110
-                        hover:rotate-6 transition-all duration-500">
-              <span class="material-symbols-rounded text-white text-5xl sm:text-6xl md:text-7xl animate-pulse">
+                        hover:rotate-3 transition-all duration-500 group">
+              <!-- Shine effect -->
+              <div class="absolute inset-0 rounded-3xl sm:rounded-[2rem] bg-gradient-to-tr
+                          from-white/20 to-transparent opacity-0 group-hover:opacity-100
+                          transition-opacity duration-500"></div>
+
+              <span class="material-symbols-rounded text-white text-5xl sm:text-6xl md:text-7xl
+                           relative z-10 animate-pulse-slow">
                 {{ icon() }}
               </span>
             </div>
@@ -140,6 +155,7 @@ import {ButtonComponent} from '@components/ui';
   `]
 })
 export class WorkInProgressComponent {
+  // Inputs
   icon = input('construction');
   title = input('Work in Progress');
   description = input('This feature is currently under development. Check back soon!');
@@ -148,6 +164,7 @@ export class WorkInProgressComponent {
   showProgressBar = input(false);
   progressPercentage = input(45);
 
+  // Stage configuration
   stages = [
     { label: 'Design', icon: 'design_services', status: 'Done' },
     { label: 'Development', icon: 'code', status: 'In Progress' },

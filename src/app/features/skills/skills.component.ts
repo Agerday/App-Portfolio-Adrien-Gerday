@@ -2,7 +2,6 @@ import {Component, computed, inject, OnInit, signal} from '@angular/core';
 import {SeoService} from '@services/seo.service';
 import {AnalyticsService} from '@services/analytics.service';
 import {FormsModule} from '@angular/forms';
-import {NgClass} from '@angular/common';
 import {PageLayoutComponent} from '@components/layout';
 import {WorkInProgressComponent} from '@components/ui/work-in-progress/work-in-progress.component';
 
@@ -29,7 +28,6 @@ interface SkillCategory {
   standalone: true,
   imports: [
     FormsModule,
-    NgClass,
     PageLayoutComponent,
     WorkInProgressComponent
   ],
@@ -191,12 +189,10 @@ export class SkillsComponent implements OnInit {
   filteredSkills = computed(() => {
     let filtered = [...this.skills];
 
-    // Filter by category
     if (this.selectedCategory() !== 'all') {
       filtered = filtered.filter(s => s.category === this.selectedCategory());
     }
 
-    // Filter by search
     const search = this.searchQuery().toLowerCase();
     if (search) {
       filtered = filtered.filter(s =>
