@@ -1,0 +1,143 @@
+<div
+  class="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center px-4">
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="relative mb-8" data-aos="zoom-in">
+      <div class="text-[150px] md:text-[200px] font-bold text-red-100 dark:text-red-900/30 select-none animate-pulse">
+        {{ errorCode || '500' }}
+      </div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="text-6xl md:text-8xl">
+          @switch (errorCode) {
+            @case ('400') {
+              <span>🤔</span>
+            }
+            @case ('401') {
+              <span>🔒</span>
+            }
+            @case ('403') {
+              <span>⛔</span>
+            }
+            @case ('404') {
+              <span>🔍</span>
+            }
+            @case ('500') {
+              <span>🔥</span>
+            }
+            @case ('503') {
+              <span>🚧</span>
+            }
+            @default {
+              <span>⚠️</span>
+            }
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div data-aos="fade-up" data-aos-delay="100">
+      <h1 class="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        {{ getErrorTitle() }}
+      </h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+        {{ errorMessage || getErrorDescription() }}
+      </p>
+    </div>
+
+    <!-- Error Details -->
+    @if (showDetails) {
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 mb-8 text-left max-w-2xl mx-auto" data-aos="fade-up"
+           data-aos-delay="200">
+        <h3 class="font-semibold text-gray-900 dark:text-white mb-3">What happened?</h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-4">
+          {{ getDetailedExplanation() }}
+        </p>
+        @if (errorCode === '500' || errorCode === '503') {
+          <div
+            class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+            <p class="text-sm text-yellow-800 dark:text-yellow-300">
+              Our team has been notified and is working to fix this issue. Please try again in a few moments.
+            </p>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- Suggested Actions -->
+    <div class="grid md:grid-cols-3 gap-4 mb-8" data-aos="fade-up" data-aos-delay="300">
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6">
+        <div class="text-3xl mb-3">🔄</div>
+        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Try Again</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          The issue might be temporary. Refresh the page to try again.
+        </p>
+        <button
+          (click)="refresh()"
+          class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm"
+        >
+          Refresh Page →
+        </button>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6">
+        <div class="text-3xl mb-3">🏠</div>
+        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Go Home</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          Start fresh from the homepage and navigate to your destination.
+        </p>
+        <a
+          class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm"
+          routerLink="/"
+        >
+          Go to Homepage →
+        </a>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6">
+        <div class="text-3xl mb-3">💬</div>
+        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Get Help</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          If the problem persists, please contact support.
+        </p>
+        <a
+          class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm"
+          routerLink="/contact"
+        >
+          Contact Support →
+        </a>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div data-aos="fade-up" data-aos-delay="400">
+      <p class="text-gray-600 dark:text-gray-400 mb-4">Popular pages you might be looking for:</p>
+      <div class="flex flex-wrap gap-3 justify-center">
+        @for (link of quickLinks; track link.path) {
+          <a
+            [routerLink]="link.path"
+            class="px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          >
+            {{ link.label }}
+          </a>
+        }
+      </div>
+    </div>
+
+    <!-- Error ID -->
+    @if (errorId) {
+      <div class="mt-8 text-center" data-aos="fade-up" data-aos-delay="500">
+        <p class="text-xs text-gray-500 dark:text-gray-500">
+          Error ID: {{ errorId }} | Time: {{ errorTime }}
+        </p>
+      </div>
+    }
+  </div>
+
+  <!-- Background decoration -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden opacity-10">
+    <div
+      class="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-r from-red-500 to-orange-500 rounded-full blur-3xl"></div>
+    <div
+      class="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-l from-orange-500 to-red-500 rounded-full blur-3xl"></div>
+  </div>
+</div>

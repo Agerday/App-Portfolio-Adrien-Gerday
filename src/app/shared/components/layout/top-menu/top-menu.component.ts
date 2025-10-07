@@ -40,16 +40,8 @@ export class TopMenuComponent {
       children: [
         { label: 'Projects', path: '/projects' },
         { label: 'Experience', path: '/experience' },
-        { label: 'Skills', path: '/skills' },
-      ],
-    },
-    {
-      label: 'Content',
-      path: '/content',
-      children: [
-        { label: 'Blog', path: '/blog' },
-        { label: 'Testimonials', path: '/testimonials' },
         { label: 'Certifications', path: '/certifications' },
+        { label: 'Skills', path: '/skills' },
       ],
     },
     { label: 'Resume', path: '/resume' },

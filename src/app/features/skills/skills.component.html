@@ -1,0 +1,178 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-16">
+  <div class="container mx-auto px-4">
+    <!-- Header -->
+    <div class="text-center mb-12" data-aos="fade-up">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        Technical Skills
+      </h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+        A comprehensive overview of my technical expertise and proficiency levels
+      </p>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up" data-aos-delay="100">
+      <button
+        (click)="selectedCategory.set('all')"
+        [class.active]="selectedCategory() === 'all'"
+        [ngClass]="selectedCategory() === 'all'
+              ? 'bg-primary-600 text-white border-primary-600'
+              : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary-600'"
+        class="px-6 py-2 rounded-full border-2 transition-all"
+      >
+        All Skills ({{ skills.length }})
+      </button>
+      @for (category of categories; track category.name) {
+        <button
+          (click)="selectCategory(category.name)"
+          [class.active]="selectedCategory() === category.name"
+          class="px-6 py-2 rounded-full border-2 transition-all flex items-center gap-2"
+          [ngClass]="selectedCategory() === category.name
+                ? 'text-white border-transparent'
+                : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary-600'"
+          [style.background-color]="selectedCategory() === category.name ? category.color : ''"
+        >
+          <span>{{ category.icon }}</span>
+          {{ category.name }} ({{ getSkillCountByCategory(category.name) }})
+        </button>
+      }
+    </div>
+
+    <!-- Search Bar -->
+    <div class="max-w-md mx-auto mb-12" data-aos="fade-up" data-aos-delay="200">
+      <div class="relative">
+        <input
+          (ngModelChange)="searchQuery.set($event)"
+          [(ngModel)]="searchTerm"
+          class="w-full px-4 py-3 pl-12 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+          placeholder="Search skills..."
+          type="text"
+        >
+        <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none"
+             stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Skills Grid -->
+    <div class="grid lg:grid-cols-2 gap-6 mb-12">
+      @for (skill of filteredSkills(); track skill.name; let i = $index) {
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-all"
+          data-aos="fade-up"
+          [attr.data-aos-delay]="i * 50"
+        >
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex items-center">
+              @if (skill.icon) {
+                <span class="text-3xl mr-3">{{ skill.icon }}</span>
+              }
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ skill.name }}</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{{ skill.experience }} experience</p>
+              </div>
+            </div>
+            <span
+              class="px-3 py-1 text-xs font-semibold rounded-full"
+              [style.background-color]="getCategoryColor(skill.category) + '20'"
+              [style.color]="getCategoryColor(skill.category)"
+            >
+                  {{ skill.category }}
+                </span>
+          </div>
+
+          @if (skill.description) {
+            <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm">{{ skill.description }}</p>
+          }
+
+          <!-- Skill Level Bar -->
+          <div class="mb-4">
+            <div class="flex justify-between text-sm mb-1">
+              <span class="text-gray-600 dark:text-gray-400">Proficiency</span>
+              <span class="font-semibold text-gray-900 dark:text-white">{{ skill.level }}%</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+              <div
+                class="h-2 rounded-full transition-all duration-1000 ease-out"
+                [style.width.%]="skill.level"
+                [style.background-color]="getCategoryColor(skill.category)"
+              ></div>
+            </div>
+          </div>
+
+          <!-- Additional Info -->
+          <div class="flex items-center justify-between text-sm">
+            @if (skill.projects) {
+              <span class="text-gray-600 dark:text-gray-400">
+                    <strong>{{ skill.projects }}</strong> projects
+                  </span>
+            }
+            @if (skill.certifications && skill.certifications.length > 0) {
+              <span class="text-primary-600 dark:text-primary-400 font-semibold">
+                    Certified
+                  </span>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Skill Categories Overview -->
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-12" data-aos="fade-up">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+        Expertise Overview
+      </h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        @for (category of categories; track category.name) {
+          <div
+            class="text-center p-6 rounded-lg hover:shadow-lg transition-all cursor-pointer"
+            [style.background-color]="category.color + '10'"
+            (click)="selectCategory(category.name)"
+          >
+            <div class="text-4xl mb-3">{{ category.icon }}</div>
+            <h3 class="font-semibold text-gray-900 dark:text-white mb-2">{{ category.name }}</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">{{ category.description }}</p>
+            <div class="text-2xl font-bold" [style.color]="category.color">
+              {{ getAverageProficiency(category.name) }}%
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Average Proficiency</p>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Tools & Technologies -->
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8" data-aos="fade-up">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+        Tools & Technologies
+      </h2>
+      <div class="flex flex-wrap gap-3 justify-center">
+        @for (tool of tools; track tool) {
+          <span
+            class="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-600 dark:hover:text-primary-400 transition-colors cursor-pointer"
+            (click)="searchQuery.set(tool)"
+          >
+                {{ tool }}
+              </span>
+        }
+      </div>
+    </div>
+
+    <!-- Learning Path -->
+    <div class="mt-12 text-center" data-aos="fade-up">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+        Currently Learning
+      </h2>
+      <div class="flex flex-wrap gap-4 justify-center">
+        @for (tech of currentlyLearning; track tech) {
+          <div
+            class="px-6 py-3 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-full font-semibold">
+            {{ tech }}
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
