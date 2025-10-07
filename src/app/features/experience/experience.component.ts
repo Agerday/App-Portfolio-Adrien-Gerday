@@ -1,6 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {SeoService} from '@services/seo.service';
 import {AnalyticsService} from '@services/analytics.service';
+import {PageLayoutComponent} from '@components/layout';
+import {WorkInProgressComponent} from '@components/ui/work-in-progress/work-in-progress.component';
 
 interface Experience {
   company: string;
@@ -15,7 +17,10 @@ interface Experience {
 @Component({
   selector: 'app-experience',
   standalone: true,
-  imports: [],
+  imports: [
+    PageLayoutComponent,
+    WorkInProgressComponent
+  ],
   templateUrl: './experience.component.html',
   styleUrl: './experience.component.scss'
 })

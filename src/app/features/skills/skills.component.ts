@@ -3,6 +3,8 @@ import {SeoService} from '@services/seo.service';
 import {AnalyticsService} from '@services/analytics.service';
 import {FormsModule} from '@angular/forms';
 import {NgClass} from '@angular/common';
+import {PageLayoutComponent} from '@components/layout';
+import {WorkInProgressComponent} from '@components/ui/work-in-progress/work-in-progress.component';
 
 interface Skill {
   name: string;
@@ -27,7 +29,9 @@ interface SkillCategory {
   standalone: true,
   imports: [
     FormsModule,
-    NgClass
+    NgClass,
+    PageLayoutComponent,
+    WorkInProgressComponent
   ],
   templateUrl: './skills.component.html',
   styleUrl: './skills.component.scss'
