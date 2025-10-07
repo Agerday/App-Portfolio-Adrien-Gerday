@@ -9,11 +9,33 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    // Prevent horizontal scroll on mobile
+    overflow-x: hidden;
   }
 
+  body {
+    @apply font-sans antialiased text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+    // Improve text rendering on mobile
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  // Improve tap targets on mobile
+  button, a, input, textarea, select {
+    @apply touch-manipulation;
+  }
+
+  // Better scrollbar for mobile
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
+
+    @media (max-width: 768px) {
+      width: 4px;
+      height: 4px;
+    }
   }
 
   ::-webkit-scrollbar-track {
@@ -28,37 +50,49 @@
     @apply bg-gray-400 dark:bg-gray-600;
   }
 
-  body {
-    @apply font-sans antialiased text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
+  // Typography adjustments for mobile
   h1, h2, h3, h4, h5, h6 {
     @apply font-display font-bold;
+    // Better line height for mobile readability
+    line-height: 1.2;
+
+    @media (max-width: 640px) {
+      line-height: 1.3;
+    }
   }
 
   h1 {
-    @apply text-4xl md:text-5xl lg:text-6xl;
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl;
   }
 
   h2 {
-    @apply text-3xl md:text-4xl lg:text-5xl;
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
   }
 
   h3 {
-    @apply text-2xl md:text-3xl lg:text-4xl;
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl;
   }
 
   h4 {
-    @apply text-xl md:text-2xl lg:text-3xl;
+    @apply text-lg sm:text-xl md:text-2xl lg:text-3xl;
   }
 
   h5 {
-    @apply text-lg md:text-xl lg:text-2xl;
+    @apply text-base sm:text-lg md:text-xl lg:text-2xl;
   }
 
   h6 {
-    @apply text-base md:text-lg lg:text-xl;
+    @apply text-sm sm:text-base md:text-lg lg:text-xl;
+  }
+
+  // Better paragraph spacing on mobile
+  p {
+    @apply text-sm sm:text-base;
+    line-height: 1.6;
+
+    @media (max-width: 640px) {
+      line-height: 1.7;
+    }
   }
 
   ::selection {
@@ -74,8 +108,24 @@
   .gradient-text {
     @apply bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent;
   }
+
+  .gradient-text-purple {
+    @apply bg-gradient-to-r from-blue-600 via-purple-600 to-blue-500 bg-clip-text text-transparent;
+  }
+
+  // Container utilities with better mobile padding
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1280px;
+  }
+
+  // Mobile-optimized card
+  .mobile-card {
+    @apply bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 md:p-8;
+  }
 }
 
+// Navigation link animations (desktop only)
 .nav-link {
   position: relative;
 
@@ -102,6 +152,7 @@
   }
 }
 
+// Icon float animation (reduce on mobile)
 .float-icon-card:hover .text-5xl,
 .float-icon-card:hover .text-4xl {
   animation: float-icon 2s ease-in-out infinite;
@@ -116,7 +167,7 @@
   }
 }
 
-/* Timeline animations */
+// Timeline animations
 @keyframes ripple {
   0% {
     transform: scale(1);
@@ -152,6 +203,13 @@
       animation: glowPulse 1.5s infinite;
     }
   }
+
+  // Reduce hover effects on mobile
+  @media (max-width: 768px) {
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
 }
 
 .icon-circle {
@@ -159,6 +217,12 @@
 
   &:hover {
     transform: rotate(12deg) scale(1.1);
+  }
+
+  @media (max-width: 768px) {
+    &:hover {
+      transform: rotate(6deg) scale(1.05);
+    }
   }
 }
 
@@ -199,5 +263,28 @@
   }
   100% {
     transform: translateX(100%);
+  }
+}
+
+// Mobile-specific utilities
+@layer utilities {
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    font-size: 16px;
   }
 }

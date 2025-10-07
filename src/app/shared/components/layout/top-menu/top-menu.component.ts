@@ -1,3 +1,4 @@
+// src/app/shared/components/layout/top-menu/top-menu.component.ts
 import {
   ChangeDetectionStrategy,
   Component,
@@ -28,7 +29,7 @@ export class TopMenuComponent {
   readonly logo = 'AG';
   readonly isMobileMenuOpen = signal(false);
   readonly isScrolled = signal(false);
-  readonly openDropdown = signal<string | null>(null);
+  readonly openDropdowns = signal<Set<string>>(new Set());
 
   readonly menuItems: NavItem[] = [
     { label: 'Home', path: '/' },
@@ -70,18 +71,46 @@ export class TopMenuComponent {
 
   closeMobileMenu(): void {
     this.isMobileMenuOpen.set(false);
+    this.closeDropdowns();
   }
 
-  openDropdownMenu(label: string): void {
-    this.openDropdown.set(label);
+  toggleDropdown(label: string): void {
+    this.openDropdowns.update((dropdowns) => {
+      const newDropdowns = new Set(dropdowns);
+      if (newDropdowns.has(label)) {
+        newDropdowns.delete(label);
+      } else {
+        newDropdowns.clear();
+        newDropdowns.add(label);
+      }
+      return newDropdowns;
+    });
   }
 
-  closeDropdownMenu(): void {
-    this.openDropdown.set(null);
+  openDropdown(label: string): void {
+    this.openDropdowns.update((dropdowns) => {
+      const newDropdowns = new Set(dropdowns);
+      newDropdowns.add(label);
+      return newDropdowns;
+    });
+  }
+
+  closeDropdown(label: string): void {
+    setTimeout(() => {
+      this.openDropdowns.update((dropdowns) => {
+        const newDropdowns = new Set(dropdowns);
+        newDropdowns.delete(label);
+        return newDropdowns;
+      });
+    }, 200);
   }
 
   isDropdownOpen(label: string): boolean {
-    return this.openDropdown() === label;
+    return this.openDropdowns().has(label);
+  }
+
+  closeDropdowns(): void {
+    this.openDropdowns.set(new Set());
   }
 
   toggleTheme(): void {
@@ -101,6 +130,9 @@ export class TopMenuComponent {
   private setupRouteListener(): void {
     this.router.events
       .pipe(filter((e) => e instanceof NavigationEnd), takeUntilDestroyed())
-      .subscribe(() => this.closeMobileMenu());
+      .subscribe(() => {
+        this.closeMobileMenu();
+        this.closeDropdowns();
+      });
   }
 }
