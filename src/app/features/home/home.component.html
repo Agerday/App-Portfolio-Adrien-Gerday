@@ -1,3 +1,4 @@
+<!-- src/app/features/home/home.component.html -->
 <div class="overflow-x-hidden">
   <!-- Hero Section -->
   <section class="relative min-h-[85vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden">
@@ -146,15 +147,42 @@
     </div>
   </app-section>
 
+  <!-- GITHUB -->
+  <app-section
+    title="GitHub Activity"
+    subtitle="Real-time coding statistics and contribution patterns">
+
+    @if (githubLoading()) {
+      <div class="grid md:grid-cols-3 gap-6">
+        @for (i of [1, 2, 3]; track i) {
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 animate-pulse h-64"></div>
+        }
+      </div>
+    } @else if (githubStats()) {
+      <div class="grid lg:grid-cols-3 gap-6 mb-6">
+        <div class="lg:col-span-1" data-aos="fade-up">
+          <app-github-stats [stats]="githubStats()!"/>
+        </div>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="200">
+        <app-contribution-graph
+          [username]="'Agerday'"
+          [githubUrl]="PERSONAL_INFO.contact.github"
+        />
+      </div>
+    }
+  </app-section>
+
   <!-- Latest Projects -->
   <section class="py-16 sm:py-20 bg-gray-50 dark:bg-gray-900/50">
     <div class="container mx-auto px-4">
       <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         <div data-aos="fade-right" data-aos-duration="800">
-        <span
-          class="inline-block text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-3 sm:mb-4">
-          Latest Projects
-        </span>
+          <span
+            class="inline-block text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-3 sm:mb-4">
+            Latest Projects
+          </span>
           <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
             Transforming Ideas Into
             <span class="gradient-text-purple">Digital Experiences</span>
@@ -225,16 +253,22 @@
            data-aos="fade-up" data-aos-delay="300">
         <span class="text-xs text-gray-400 uppercase tracking-wider">Connect with me</span>
         <div class="flex gap-3 sm:gap-4">
-          <a [href]="PERSONAL_INFO.contact.github" class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 hover:-translate-y-1 transition-all" rel="noopener"
-             target="_blank">
+          <a [href]="PERSONAL_INFO.contact.github"
+             (click)="trackGitHubClick()"
+             class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 hover:-translate-y-1 transition-all"
+             rel="noopener" target="_blank"
+             aria-label="View GitHub profile">
             <i class="fab fa-github text-lg sm:text-xl"></i>
           </a>
-          <a [href]="PERSONAL_INFO.contact.linkedin" class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 hover:-translate-y-1 transition-all" rel="noopener"
-             target="_blank">
+          <a [href]="PERSONAL_INFO.contact.linkedin"
+             class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 hover:-translate-y-1 transition-all"
+             rel="noopener" target="_blank"
+             aria-label="View LinkedIn profile">
             <i class="fab fa-linkedin text-lg sm:text-xl"></i>
           </a>
           <a [href]="'mailto:' + PERSONAL_INFO.contact.email"
-             class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 hover:-translate-y-1 transition-all">
+             class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 hover:-translate-y-1 transition-all"
+             aria-label="Send email">
             <i class="fas fa-envelope text-lg sm:text-xl"></i>
           </a>
         </div>

@@ -15,4 +15,6 @@ export * from '@components/ui/cards/stat-card/stat-card.component';
 export * from '@components/ui/cards/certification-card/certification-card.component';
 export * from './search-input/search-input.component';
 export * from './faq-item/faq-item.component';
-
+export * from './github-stats/github-stats.component';
+export * from './language-chart/language-chart.component';
+export * from './contribution-graph/contribution-graph.component';
