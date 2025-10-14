@@ -1,75 +1,140 @@
 <app-page-layout>
   <app-page-header
-    subtitle="Senior Frontend Engineer actively seeking a permanent role"
-    title="Let's Build Something Amazing">
-  </app-page-header>
+    title="Let's Build Something Exceptional Together"
+    subtitle="European frontend engineer who moved to Asia to build a career, not a resume. Ready to prove myself,
+    commit long-term, and deliver world-class results."
+  />
 
-  <div class="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+  <!-- Why I'm Different Section -->
+  <div class="max-w-4xl mx-auto mb-12" data-aos="fade-up">
+    <app-card class="text-center">
+      <div class="inline-flex p-4 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl mb-6">
+        <span class="text-5xl" role="img" aria-label="rocket">🚀</span>
+      </div>
 
-    <app-card>
-      <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Get In Touch</h2>
+      <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+        Why I'm Different
+      </h2>
+
+      <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto mb-6">
+        I left my comfortable European life, moved across the world to Asia, and built a complete full-stack
+        application solo while adapting to a new culture. I didn't come here for adventure—I came to
+        <span class="font-bold text-gray-900 dark:text-white">build a career, prove myself, and commit long-term</span>
+        to the right company.
+      </p>
+
+      <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-green-50 dark:bg-green-900/20 rounded-full text-sm
+      font-semibold text-green-700 dark:text-green-400">
+        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse" aria-hidden="true"></span>
+        <span>Available Immediately • Open to Relocation • Visa Sponsorship Needed</span>
+      </div>
+    </app-card>
+  </div>
+
+  <!-- Contact Cards Grid -->
+  <div class="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
+
+    <!-- Contact Information Card -->
+    <app-card data-aos="fade-up">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+        Get In Touch
+      </h2>
 
       <div class="space-y-6">
-        <app-contact-info-item
-          icon="mail"
-          label="Email"
-          link="mailto:adrien.gerday@gmail.com"
-          value="adrien.gerday@gmail.com">
-        </app-contact-info-item>
-
-        <app-contact-info-item
-          icon="location_on"
-          label="Location"
-          value="APAC Region">
-        </app-contact-info-item>
-
-        <app-contact-info-item
-          [pulse]="true"
-          icon="check_circle"
-          label="Status"
-          value="Available for Remote/Hybrid">
-        </app-contact-info-item>
-
-        <app-contact-info-item
-          icon="bolt"
-          label="Response Time"
-          value="Within 24 Hours">
-        </app-contact-info-item>
+        @for (item of contactInfoItems; track item.label) {
+          <app-contact-info-item
+            [icon]="item.icon"
+            [label]="item.label"
+            [value]="item.value"
+            [link]="item.link"
+            [pulse]="item.pulse ?? false"
+          />
+        }
       </div>
     </app-card>
 
-    <app-card [gradient]="true">
+    <!-- LinkedIn Connect Card -->
+    <app-card
+      [gradient]="true"
+      data-aos="fade-up"
+      [attr.data-aos-delay]="animationConfig.cardDelay">
       <div class="text-center">
         <div class="inline-flex p-6 bg-white/20 backdrop-blur-sm rounded-3xl mb-6">
-          <i class="fab fa-linkedin text-white text-6xl"></i>
+          <i class="fab fa-linkedin text-white text-6xl" aria-hidden="true"></i>
         </div>
 
-        <h2 class="text-4xl md:text-5xl font-bold mb-4">Let's Connect</h2>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          Let's Connect
+        </h2>
+
         <p class="text-lg md:text-xl text-white/90 mb-8 max-w-md mx-auto">
-          The fastest way to reach me
+          Ready to discuss how I can contribute to your team
         </p>
 
+        <!-- Social Action Buttons -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a [href]="PERSONAL_INFO.contact.linkedin" rel="noopener noreferrer" target="_blank">
-            <app-button>View Profile</app-button>
-          </a>
-          <a href="https://www.linkedin.com/messaging/compose/?recipient=adrien-gerday" rel="noopener noreferrer"
-             target="_blank">
-            <app-button>Send Message</app-button>
-          </a>
+          @for (link of socialLinks; track link.label) {
+            <a
+              [href]="link.url"
+              [attr.aria-label]="link.ariaLabel"
+              (click)="trackSocialClick(link.label)"
+              target="_blank"
+              rel="noopener noreferrer">
+              <app-button variant="white">
+                @if (link.isIconFont) {
+                  <i [class]="link.icon + ' text-lg'" aria-hidden="true"></i>
+                } @else {
+                  <span class="material-symbols-rounded text-[20px]">{{ link.icon }}</span>
+                }
+                <span>{{ link.label }}</span>
+              </app-button>
+            </a>
+          }
         </div>
 
+        <!-- Trust Indicators -->
         <div class="flex items-center justify-center gap-6 pt-8 mt-8 border-t border-white/20">
           <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-white text-xl">verified</span>
-            <span class="text-sm text-white/90">Verified</span>
+            <span class="material-symbols-outlined text-white text-xl" aria-hidden="true">verified</span>
+            <span class="text-sm text-white/90">Verified Profile</span>
           </div>
           <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-white text-xl">star</span>
-            <span class="text-sm text-white/90">Top Rated</span>
+            <span class="material-symbols-outlined text-white text-xl" aria-hidden="true">workspace_premium</span>
+            <span class="text-sm text-white/90">6+ Years</span>
           </div>
         </div>
       </div>
     </app-card>
   </div>
+
+  <!-- FAQ Section -->
+  <app-section title="Frequently Asked Questions">
+    <app-card class="max-w-4xl mx-auto" data-aos="fade-up">
+      <div class="divide-y divide-gray-200 dark:divide-gray-700">
+        @for (faq of faqs; track faq.id; let i = $index) {
+          <app-faq-item
+            [faq]="faq"
+            data-aos="fade-up"
+            [attr.data-aos-delay]="i * animationConfig.faqItemDelay"
+          />
+        }
+      </div>
+    </app-card>
+
+    <!-- CTA Section -->
+    <div class="text-center mt-8" data-aos="fade-up">
+      <p class="text-gray-600 dark:text-gray-400 mb-4 text-lg">
+        Ready to talk? I respond within 24 hours.
+      </p>
+      <a
+        [href]="'mailto:' + personalInfo.contact.email"
+        (click)="trackEmailClick()"
+        aria-label="Send email to start conversation">
+        <app-button variant="primary">
+          <span class="material-symbols-rounded text-[20px]">mail</span>
+          <span>Start the Conversation</span>
+        </app-button>
+      </a>
+    </div>
+  </app-section>
 </app-page-layout>

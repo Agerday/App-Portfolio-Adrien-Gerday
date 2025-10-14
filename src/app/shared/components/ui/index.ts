@@ -14,4 +14,5 @@ export * from './empty-state/empty-state.component';
 export * from '@components/ui/cards/stat-card/stat-card.component';
 export * from '@components/ui/cards/certification-card/certification-card.component';
 export * from './search-input/search-input.component';
+export * from './faq-item/faq-item.component';
 

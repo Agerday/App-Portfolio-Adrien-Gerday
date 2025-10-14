@@ -53,26 +53,6 @@ export const routes: Routes = [
     },
   },
   {
-    path: 'skills',
-    loadComponent: () => import('@features/skills/skills.component').then(m => m.SkillsComponent),
-    data: {
-      animation: 'SkillsPage',
-      title: 'Technical Skills | Expertise & Technologies',
-      description: 'Comprehensive overview of technical skills including Angular, TypeScript, RxJS, and modern web technologies',
-      preload: true,
-    },
-  },
-  {
-    path: 'experience',
-    loadComponent: () => import('@features/experience/experience.component').then(m => m.ExperienceComponent),
-    data: {
-      animation: 'ExperiencePage',
-      title: 'Professional Experience | Career Journey',
-      description: 'Detailed professional experience in Angular development, team leadership, and enterprise application architecture',
-      preload: true,
-    },
-  },
-  {
     path: 'contact',
     loadComponent: () => import('@features/contact/contact.component').then(m => m.ContactComponent),
     data: {
