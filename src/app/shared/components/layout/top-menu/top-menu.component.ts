@@ -1,15 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  signal,
-} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, NavigationEnd, RouterLink, RouterLinkActive } from '@angular/router';
-import { filter } from 'rxjs/operators';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ThemeService } from '@services/theme.service';
-import { ButtonComponent } from '@components/ui';
+import {ChangeDetectionStrategy, Component, inject, signal,} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {NavigationEnd, Router, RouterLink, RouterLinkActive} from '@angular/router';
+import {filter} from 'rxjs/operators';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {ThemeService} from '@services/theme.service';
+import {ButtonComponent} from '@components/ui';
 
 interface NavItem {
   label: string;
@@ -30,24 +25,21 @@ export class TopMenuComponent {
   readonly isScrolled = signal(false);
   readonly openDropdowns = signal<Set<string>>(new Set());
 
-  // timers to debounce hover close per dropdown label
   private readonly hoverCloseTimers = new Map<string, number>();
 
   readonly menuItems: NavItem[] = [
-    { label: 'Home', path: '/' },
-    { label: 'About', path: '/about' },
+    {label: 'Home', path: '/'},
+    {label: 'About', path: '/about'},
     {
       label: 'Work',
       path: '/work',
       children: [
-        { label: 'Projects', path: '/projects' },
-        { label: 'Experience', path: '/experience' },
-        { label: 'Certifications', path: '/certifications' },
-        { label: 'Skills', path: '/skills' },
+        {label: 'Projects', path: '/projects'},
+        {label: 'Certifications', path: '/certifications'},
       ],
     },
-    { label: 'Resume', path: '/resume' },
-    { label: 'Contact', path: '/contact' },
+    {label: 'Resume', path: '/resume'},
+    {label: 'Contact', path: '/contact'},
   ];
 
   private readonly router = inject(Router);
@@ -59,9 +51,6 @@ export class TopMenuComponent {
     this.setupRouteListener();
   }
 
-  /* -------------------------
-     Mobile / general helpers
-     ------------------------- */
   toggleMobileMenu(): void {
     this.isMobileMenuOpen.update((v) => !v);
   }
@@ -72,7 +61,6 @@ export class TopMenuComponent {
   }
 
   toggleDropdown(label: string): void {
-    // used for mobile click toggles
     this.openDropdowns.update((set) => {
       const newSet = new Set(set);
       newSet.has(label) ? newSet.delete(label) : newSet.add(label);
@@ -93,19 +81,13 @@ export class TopMenuComponent {
     this.themeService.toggleTheme();
   }
 
-  /* -------------------------
-     Hover logic (robust)
-     ------------------------- */
-
-  // Called on mouseenter of wrapper
   onMouseEnter(label: string): void {
     this.clearHoverCloseTimer(label);
     this.openDropdown(label);
   }
 
-  // Called on mouseleave of wrapper
   onMouseLeave(label: string): void {
-    this.scheduleHoverClose(label, 150); // small delay to avoid flicker
+    this.scheduleHoverClose(label, 150);
   }
 
   private openDropdown(label: string): void {
@@ -144,17 +126,13 @@ export class TopMenuComponent {
     this.hoverCloseTimers.clear();
   }
 
-  /* -------------------------
-     Listeners
-     ------------------------- */
-
   private setupScrollListener(): void {
     window.addEventListener(
       'scroll',
       () => {
         this.isScrolled.set(window.scrollY > 10);
       },
-      { passive: true }
+      {passive: true}
     );
   }
 

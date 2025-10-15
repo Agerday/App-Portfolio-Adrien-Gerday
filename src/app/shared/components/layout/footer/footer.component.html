@@ -8,17 +8,18 @@
         <span class="font-bold gradient-text">{{ PERSONAL_INFO.name }}</span>
         <span class="hidden sm:inline">. All rights reserved.</span>
       </p>
-      <div class="flex items-center gap-2 sm:gap-3">
+      <div class="flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto">
         @for (link of socialLinks; track link.name) {
           <a [href]="link.url"
              target="_blank"
              rel="noopener noreferrer"
-             class="p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-gray-100 dark:bg-gray-800
+             class="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800
                     text-gray-600 dark:text-gray-400 hover:bg-blue-600 hover:text-white
                     dark:hover:bg-blue-600 dark:hover:text-white transition-all
-                    hover:scale-110 hover:shadow-lg hover:shadow-blue-500/30 touch-target"
+                    hover:scale-110 hover:shadow-lg hover:shadow-blue-500/30 touch-target
+                    flex items-center justify-center"
              [attr.aria-label]="link.ariaLabel">
-            <i [class]="getSocialIcon(link.name)"></i>
+            <i [class]="getSocialIcon(link.name) + ' text-[18px]'"></i>
           </a>
         }
       </div>
