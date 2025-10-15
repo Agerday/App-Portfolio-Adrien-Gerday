@@ -1,7 +1,6 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { fromEvent, Subject, throttleTime } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 import { AnalyticsService } from '@services/analytics.service';
 import { SeoService } from '@services/seo.service';
@@ -10,7 +9,6 @@ import {
   ButtonComponent,
   CardComponent,
   SectionComponent,
-  CombinedStatsComponent,
   ActivityTimelineComponent,
   LanguageChartComponent
 } from '@components/ui';
@@ -28,38 +26,33 @@ import { PERSONAL_INFO } from '@core/data/resume.data';
     ButtonComponent,
     SectionComponent,
     CardComponent,
-    CombinedStatsComponent,
     ActivityTimelineComponent,
     LanguageChartComponent
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  private readonly analyticsService = inject(AnalyticsService);
+  private readonly seoService = inject(SeoService);
+  private readonly githubService = inject(GitHubService);
+  private readonly destroy$ = new Subject<void>();
+
   readonly allTechStack = TECH_STACK;
   readonly topSkills = TOP_SKILLS;
   readonly features = FEATURES;
   readonly featuredProjects = FEATURED_PROJECTS;
   readonly PERSONAL_INFO = PERSONAL_INFO;
 
-  private readonly analyticsService = inject(AnalyticsService);
-  private readonly seoService = inject(SeoService);
-  private readonly githubService = inject(GitHubService);
-  private readonly destroy$ = new Subject<void>();
-
   readonly githubLoading = this.githubService.loading;
   readonly githubStats = this.githubService.stats;
   readonly githubLanguages = this.githubService.topLanguages;
 
   ngOnInit(): void {
-    this.seoService.update({
-      title: 'Home',
-      description: 'Senior Frontend Engineer specializing in Angular, React, and TypeScript. Building high-performance web applications.',
-      keywords: 'frontend engineer, angular developer, react developer, typescript, web development'
-    });
-
-    this.trackPageMetrics();
+    this.initializeSeo();
     this.githubService.fetchGitHubData();
+    this.analyticsService.trackPageView('home');
   }
 
   ngOnDestroy(): void {
@@ -67,34 +60,24 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  getIconClass(skill: string): string {
+    return SKILL_ICON_MAP[skill] || skill.toLowerCase();
+  }
+
   trackResumeDownload(): void {
-    this.analyticsService.trackResumeDownload();
-    const link = document.createElement('a');
-    link.href = 'assets/documents/Adrien-Gerday-Resume-React-Developer.pdf';
-    link.download = 'Adrien-Gerday-Resume-React-Developer.pdf';
-    link.click();
+    this.analyticsService.trackEvent('resume_download', 'engagement');
+    window.open('/assets/resume.pdf', '_blank');
   }
 
   trackGitHubClick(): void {
-    this.analyticsService.trackExternalLink(PERSONAL_INFO.contact.github);
+    this.analyticsService.trackEvent('github_click', 'social');
   }
 
-  getIconClass(name: string): string {
-    return SKILL_ICON_MAP[name] || '';
-  }
-
-  private trackPageMetrics(): void {
-    fromEvent(window, 'scroll')
-      .pipe(
-        throttleTime(1000),
-        takeUntil(this.destroy$)
-      )
-      .subscribe(() => {
-        const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-        if (scrollPercent > 75) {
-          this.analyticsService.trackScrollDepth(75);
-          this.destroy$.next();
-        }
-      });
+  private initializeSeo(): void {
+    this.seoService.update({
+      title: 'Home',
+      description: 'Senior Frontend Engineer specializing in Angular, React, and TypeScript. Building high-performance web applications.',
+      keywords: 'Angular, React, TypeScript, Frontend Engineer, Web Development'
+    });
   }
 }

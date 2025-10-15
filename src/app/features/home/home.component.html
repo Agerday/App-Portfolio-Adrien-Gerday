@@ -23,7 +23,8 @@
       <p class="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed"
          data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
         6+ years crafting high-performance web applications with Angular, React & TypeScript.
-        <br class="hidden sm:block"/>Specialized in scalable architecture and pixel-perfect execution.
+        <br class="hidden sm:block"/>
+        Specialized in scalable architecture and pixel-perfect execution.
       </p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center"
@@ -63,11 +64,11 @@
   <app-section subtitle="The tools that power my craft" title="Core Expertise">
     <div class="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
       @for (skill of topSkills; track skill; let i = $index) {
-        <app-card class="group hover:-translate-y-2 transition-transform duration-300 p-8 w-52"
+        <app-card class="group hover:-translate-y-2 transition-all duration-300 p-8 w-52"
                   data-aos="fade-up"
                   [attr.data-aos-delay]="i * 100">
           <div class="flex flex-col items-center justify-center gap-4">
-            <i [class]="'devicon-' + getIconClass(skill) + ' colored text-8xl'"></i>
+            <i [class]="'devicon-' + getIconClass(skill) + ' colored text-8xl transition-transform duration-300 group-hover:scale-110'"></i>
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white text-center">{{ skill }}</h3>
           </div>
         </app-card>
@@ -75,14 +76,92 @@
     </div>
   </app-section>
 
-  <!-- Combined Stats Section -->
-  @if (githubStats()) {
-    <app-combined-stats
-      [githubStats]="githubStats()!"
-      [yearsExperience]="6"
-      [projectsDelivered]="7"
-    />
-  }
+  <!-- Proven Track Record -->
+  <section class="relative py-16 sm:py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600">
+      <div class="absolute inset-0 bg-gradient-radial opacity-20"></div>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-white mb-16"
+          data-aos="zoom-in" data-aos-duration="600">
+        Proven Track Record
+      </h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 max-w-6xl mx-auto">
+        <div class="text-center text-white transform hover:scale-110 transition-transform duration-300"
+             data-aos="fade-up" data-aos-duration="800" data-aos-delay="0">
+          <div class="mb-4">
+            <span class="material-symbols-rounded text-5xl sm:text-6xl text-blue-200">schedule</span>
+          </div>
+          <div class="text-4xl sm:text-5xl font-bold mb-2">
+            6<span class="text-white/70 text-2xl">+</span>
+          </div>
+          <div class="text-sm sm:text-base text-white/90 font-medium">Years Experience</div>
+        </div>
+
+        <div class="text-center text-white transform hover:scale-110 transition-transform duration-300"
+             data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+          <div class="mb-4">
+            <span class="material-symbols-rounded text-5xl sm:text-6xl text-purple-200">rocket_launch</span>
+          </div>
+          <div class="text-4xl sm:text-5xl font-bold mb-2">7</div>
+          <div class="text-sm sm:text-base text-white/90 font-medium">Projects Delivered</div>
+        </div>
+
+        <div class="text-center text-white transform hover:scale-110 transition-transform duration-300"
+             data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+          <div class="mb-4">
+            <span class="material-symbols-rounded text-5xl sm:text-6xl text-green-200">public</span>
+          </div>
+          <div class="text-4xl sm:text-5xl font-bold mb-2">
+            1M<span class="text-white/70 text-2xl">+</span>
+          </div>
+          <div class="text-sm sm:text-base text-white/90 font-medium">End Users</div>
+        </div>
+
+        <div class="text-center text-white transform hover:scale-110 transition-transform duration-300"
+             data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
+          <div class="mb-4">
+            <span class="material-symbols-rounded text-5xl sm:text-6xl text-orange-200">verified</span>
+          </div>
+          <div class="text-4xl sm:text-5xl font-bold mb-2">
+            99.9<span class="text-white/70 text-2xl">%</span>
+          </div>
+          <div class="text-sm sm:text-base text-white/90 font-medium">Uptime</div>
+        </div>
+      </div>
+
+      <div class="mt-16 text-center">
+        <div class="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full text-sm text-white/90 border border-white/20">
+          <span class="material-symbols-rounded text-[16px]">info</span>
+          <span>Across 5 years of professional projects</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GitHub Activity -->
+  <app-section
+    title="GitHub Activity"
+    subtitle="Real coding statistics from 205,000+ lines of code on personal projects">
+    @if (githubLoading()) {
+      <div class="grid lg:grid-cols-2 gap-6">
+        @for (i of [1, 2]; track i) {
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 animate-pulse h-96"></div>
+        }
+      </div>
+    } @else {
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div data-aos="fade-up">
+          <app-activity-timeline [githubUrl]="PERSONAL_INFO.contact.github" />
+        </div>
+        <div data-aos="fade-up" data-aos-delay="100">
+          <app-language-chart [languages]="githubLanguages()" />
+        </div>
+      </div>
+    }
+  </app-section>
 
   <!-- What I Do Best -->
   <app-section subtitle="Delivering excellence across the full development lifecycle" title="What I Do Best">
@@ -110,32 +189,6 @@
     </div>
   </app-section>
 
-  <!-- Development Activity Section -->
-  <app-section
-    title="Development Activity"
-    subtitle="Real coding statistics from 205,000+ lines of code on personal projects">
-
-    @if (githubLoading()) {
-      <div class="grid lg:grid-cols-2 gap-6">
-        @for (i of [1,2]; track i) {
-          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 animate-pulse h-96"></div>
-        }
-      </div>
-    } @else {
-      <div class="grid lg:grid-cols-2 gap-6">
-        <div data-aos="fade-up">
-          <app-activity-timeline
-            [githubUrl]="PERSONAL_INFO.contact.github"
-          />
-        </div>
-
-        <div data-aos="fade-up" data-aos-delay="100">
-          <app-language-chart [languages]="githubLanguages()" />
-        </div>
-      </div>
-    }
-  </app-section>
-
   <!-- Latest Projects -->
   <section class="py-20 bg-gray-50 dark:bg-gray-900/50">
     <div class="container mx-auto px-4">
@@ -161,7 +214,7 @@
         <div class="relative h-96">
           @for (project of featuredProjects; track project.id; let i = $index) {
             <a [routerLink]="['/projects', project.id]"
-               [class]="'project-card absolute bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 transition-all duration-500 cursor-pointer w-80 h-48 ' + (i === 0 ? 'top-0 left-0 z-10' : 'bottom-0 right-0')"
+               [class]="'project-card absolute bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 transition-all duration-500 cursor-pointer hover:shadow-3xl w-80 h-48 ' + (i === 0 ? 'top-0 left-0 z-10' : 'bottom-0 right-0')"
                [attr.data-aos]="i === 0 ? 'fade-up-right' : 'fade-up-left'"
                data-aos-duration="800"
                [attr.data-aos-delay]="(i + 1) * 200">
@@ -192,11 +245,12 @@
       </h2>
       <p class="text-xl text-gray-300 mb-12 leading-relaxed"
          data-aos="fade-up" data-aos-delay="100">
-        Ready to elevate your product with world-class engineering?<br class="hidden sm:block"/>
+        Ready to elevate your product with world-class engineering?
+        <br class="hidden sm:block"/>
         Let's discuss how I can help drive your vision forward.
       </p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+      <div class="flex flex-col sm:flex-row gap-4 justify-center"
            data-aos="fade-up" data-aos-delay="200">
         <app-button [routerLink]="'/contact'" variant="primary">
           <span>Start a Conversation</span>

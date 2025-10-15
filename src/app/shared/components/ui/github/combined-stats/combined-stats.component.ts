@@ -93,7 +93,7 @@ export class CombinedStatsComponent {
       },
       {
         value: github.totalRepos,
-        label: 'Total Repos',
+        label: 'Total Personal Repos',
         suffix: '',
         icon: 'folder',
         color: 'text-cyan-200'

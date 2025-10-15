@@ -4,12 +4,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols_Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    // Prevent horizontal scroll on mobile
     overflow-x: hidden;
   }
 
@@ -17,17 +16,14 @@
     @apply font-sans antialiased text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900;
     transition: background-color 0.3s ease, color 0.3s ease;
     overflow-x: hidden;
-    // Improve text rendering on mobile
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  // Improve tap targets on mobile
   button, a, input, textarea, select {
     @apply touch-manipulation;
   }
 
-  // Better scrollbar for mobile
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -50,10 +46,8 @@
     @apply bg-gray-400 dark:bg-gray-600;
   }
 
-  // Typography adjustments for mobile
   h1, h2, h3, h4, h5, h6 {
     @apply font-display font-bold;
-    // Better line height for mobile readability
     line-height: 1.2;
 
     @media (max-width: 640px) {
@@ -85,7 +79,6 @@
     @apply text-sm sm:text-base md:text-lg lg:text-xl;
   }
 
-  // Better paragraph spacing on mobile
   p {
     @apply text-sm sm:text-base;
     line-height: 1.6;
@@ -113,19 +106,79 @@
     @apply bg-gradient-to-r from-blue-600 via-purple-600 to-blue-500 bg-clip-text text-transparent;
   }
 
-  // Container utilities with better mobile padding
   .container {
     @apply mx-auto px-4 sm:px-6 lg:px-8;
     max-width: 1280px;
   }
 
-  // Mobile-optimized card
   .mobile-card {
     @apply bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 md:p-8;
   }
+
+  // Reusable Background Patterns
+  .bg-grid-pattern {
+    background-image: linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .bg-gradient-radial {
+    background: radial-gradient(
+        circle at 20% 50%,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 50%
+    ),
+    radial-gradient(
+        circle at 80% 80%,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 50%
+    );
+  }
+
+  // Gradient Orbs - Reusable across sections
+  .gradient-orb-1,
+  .gradient-orb-2 {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.2;
+    animation: float-orb 20s ease-in-out infinite;
+  }
+
+  .gradient-orb-1 {
+    width: 600px;
+    height: 600px;
+    top: -15%;
+    left: -15%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .gradient-orb-2 {
+    width: 500px;
+    height: 500px;
+    bottom: -15%;
+    right: -10%;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    animation-delay: 10s;
+  }
+
+  // Marquee Animation
+  .marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee-track {
+    display: inline-flex;
+    animation: marquee 40s linear infinite;
+
+    &:hover {
+      animation-play-state: paused;
+    }
+  }
 }
 
-// Navigation link animations (desktop only)
+// Navigation Animations
 .nav-link {
   position: relative;
 
@@ -152,10 +205,85 @@
   }
 }
 
-// Icon float animation (reduce on mobile)
+// Icon Animations
 .float-icon-card:hover .text-5xl,
 .float-icon-card:hover .text-4xl {
   animation: float-icon 2s ease-in-out infinite;
+}
+
+// Timeline Components
+.timeline-item {
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+    .icon-circle {
+      animation: glowPulse 1.5s infinite;
+    }
+  }
+
+  @media (max-width: 768px) {
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.icon-circle {
+  transition: transform 0.4s ease;
+
+  &:hover {
+    transform: rotate(12deg) scale(1.1);
+  }
+
+  @media (max-width: 768px) {
+    &:hover {
+      transform: rotate(6deg) scale(1.05);
+    }
+  }
+}
+
+// Shimmer Effect
+.shimmer-effect {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.project-card-float:hover .shimmer-effect {
+  animation: shimmer-slide 2s ease-in-out;
+}
+
+.animate-gradient-flow {
+  background-size: 200% 200%;
+  animation: gradientFlow 4s linear infinite;
+}
+
+// Global Transitions
+* {
+  transition-property: background-color, border-color, color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+// Keyframes
+@keyframes float-orb {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(20px, -20px) scale(1.05);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes float-icon {
@@ -167,7 +295,6 @@
   }
 }
 
-// Timeline animations
 @keyframes ripple {
   0% {
     transform: scale(1);
@@ -191,41 +318,6 @@
   }
 }
 
-.timeline-item {
-  position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-
-    .icon-circle {
-      animation: glowPulse 1.5s infinite;
-    }
-  }
-
-  // Reduce hover effects on mobile
-  @media (max-width: 768px) {
-    &:hover {
-      transform: translateY(-2px);
-    }
-  }
-}
-
-.icon-circle {
-  transition: transform 0.4s ease;
-
-  &:hover {
-    transform: rotate(12deg) scale(1.1);
-  }
-
-  @media (max-width: 768px) {
-    &:hover {
-      transform: rotate(6deg) scale(1.05);
-    }
-  }
-}
-
 @keyframes gradientFlow {
   0% {
     background-position: 0% 50%;
@@ -238,25 +330,6 @@
   }
 }
 
-.animate-gradient-flow {
-  background-size: 200% 200%;
-  animation: gradientFlow 4s linear infinite;
-}
-
-* {
-  transition-property: background-color, border-color, color;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
-.shimmer-effect {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-}
-
-.project-card-float:hover .shimmer-effect {
-  animation: shimmer-slide 2s ease-in-out;
-}
-
 @keyframes shimmer-slide {
   0% {
     transform: translateX(-100%);
@@ -266,7 +339,18 @@
   }
 }
 
-// Mobile-specific utilities
+@keyframes scroll-line {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(10px);
+  }
+}
+
+// Mobile Utilities
 @layer utilities {
   .safe-top {
     padding-top: env(safe-area-inset-top);
@@ -286,5 +370,9 @@
   input[type="tel"],
   textarea {
     font-size: 16px;
+  }
+
+  .animate-scroll-line {
+    animation: scroll-line 2s ease-in-out infinite;
   }
 }
