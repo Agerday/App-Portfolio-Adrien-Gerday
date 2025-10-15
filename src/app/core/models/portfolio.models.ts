@@ -4,11 +4,6 @@ export interface Stat {
   suffix?: string;
 }
 
-export interface Skill {
-  name: string;
-  icon: string;
-}
-
 export interface Feature {
   icon: string;
   title: string;
