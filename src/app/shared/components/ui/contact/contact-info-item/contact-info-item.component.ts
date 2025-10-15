@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {IconBoxComponent} from '@components/ui';
-import {IconComponent} from '@components/ui/icon/icon.component';
+import {IconComponent} from '@components/ui/primitives/icon/icon.component';
 
 @Component({
   selector: 'app-contact-info-item',

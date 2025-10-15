@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { Certification } from '@core/data/certifications.data';
-import { CardComponent } from '@components/ui';
+import { CardComponent } from '../card/card.component';
 
 @Component({
   selector: 'app-certification-card',

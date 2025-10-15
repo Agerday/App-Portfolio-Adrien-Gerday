@@ -1,17 +1,17 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, OnInit, signal} from '@angular/core';
 
-import { AnalyticsService } from '@services/analytics.service';
-import { SeoService } from '@services/seo.service';
-import { PageLayoutComponent } from '@components/layout';
+import {AnalyticsService} from '@services/analytics.service';
+import {SeoService} from '@services/seo.service';
+import {PageLayoutComponent} from '@components/layout';
 import {
+  EmptyStateComponent,
   PageHeaderComponent,
-  SectionComponent,
-  SearchInputComponent,
   ProjectCardComponent,
-  FeaturedProjectCardComponent
+  SearchInputComponent,
+  SectionComponent
 } from '@components/ui';
 
-import { PROJECTS, PROJECT_CATEGORIES } from '@core/data/projects.data';
+import {PROJECT_CATEGORIES, PROJECTS} from '@core/data/projects.data';
 
 @Component({
   selector: 'app-projects',
@@ -22,7 +22,7 @@ import { PROJECTS, PROJECT_CATEGORIES } from '@core/data/projects.data';
     SectionComponent,
     SearchInputComponent,
     ProjectCardComponent,
-    FeaturedProjectCardComponent
+    EmptyStateComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './projects.component.html'
@@ -36,10 +36,9 @@ export class ProjectsComponent implements OnInit {
 
   readonly projects = PROJECTS;
   readonly categories = PROJECT_CATEGORIES;
-  readonly featuredProjects = this.projects.filter(p => p.featured);
 
   readonly filteredProjects = computed(() => {
-    let filtered = this.projects.filter(p => !p.featured);
+    let filtered = this.projects;
 
     if (this.selectedCategory() !== 'all') {
       filtered = filtered.filter(p => p.category === this.selectedCategory());
@@ -66,7 +65,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   getProjectCountByCategory(category: string): number {
-    return this.projects.filter(p => p.category === category && !p.featured).length;
+    return this.projects.filter(p => p.category === category).length;
   }
 
   getCategoryLabel(category: string): string {
@@ -78,5 +77,10 @@ export class ProjectsComponent implements OnInit {
       project_id: projectId,
       action
     });
+  }
+
+  clearAllFilters(): void {
+    this.searchQuery.set('');
+    this.selectedCategory.set('all');
   }
 }

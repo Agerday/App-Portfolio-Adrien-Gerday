@@ -1,11 +1,15 @@
 import {ChangeDetectionStrategy, Component, input, output} from '@angular/core';
-import {ButtonComponent, IconComponent} from '@components/ui';
+import { ButtonComponent } from '../../primitives/button/button.component';
+import { IconComponent } from '../../primitives/icon/icon.component';
 
 @Component({
   selector: 'app-empty-state',
   standalone: true,
-  imports: [IconComponent, ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    ButtonComponent,
+    IconComponent,
+  ],
   template: `
     <div class="flex flex-col items-center justify-center py-16 px-4">
       @if (icon()) {

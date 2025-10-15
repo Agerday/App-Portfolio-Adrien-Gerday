@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, computed } from '@angular/core';
 import { LanguageStats } from '@models/github.models';
-import { CardComponent } from '@components/ui';
 import {DecimalPipe} from '@angular/common';
+import { CardComponent } from '../../cards/card/card.component';
 
 @Component({
   selector: 'app-language-chart',

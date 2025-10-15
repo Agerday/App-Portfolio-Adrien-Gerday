@@ -1,10 +1,3 @@
-export const GITHUB_STATS = {
-  totalCommits: 289,
-  mostCommitsInOneDay: 32,
-  totalRepos: 4,
-  totalLinesOfCode: 205000
-} as const;
-
 export const LANGUAGE_STATS = [
   { name: 'TypeScript', percentage: 57, color: '#3178c6', linesOfCode: 17442 },
   { name: 'JavaScript', percentage: 23, color: '#f1e05a', linesOfCode: 7610 },
