@@ -1,4 +1,3 @@
-// src/app/shared/components/layout/top-menu/top-menu.component.ts
 import {
   ChangeDetectionStrategy,
   Component,
@@ -31,6 +30,9 @@ export class TopMenuComponent {
   readonly isScrolled = signal(false);
   readonly openDropdowns = signal<Set<string>>(new Set());
 
+  // timers to debounce hover close per dropdown label
+  private readonly hoverCloseTimers = new Map<string, number>();
+
   readonly menuItems: NavItem[] = [
     { label: 'Home', path: '/' },
     { label: 'About', path: '/about' },
@@ -57,6 +59,9 @@ export class TopMenuComponent {
     this.setupRouteListener();
   }
 
+  /* -------------------------
+     Mobile / general helpers
+     ------------------------- */
   toggleMobileMenu(): void {
     this.isMobileMenuOpen.update((v) => !v);
   }
@@ -67,34 +72,12 @@ export class TopMenuComponent {
   }
 
   toggleDropdown(label: string): void {
-    this.openDropdowns.update((dropdowns) => {
-      const newDropdowns = new Set(dropdowns);
-      if (newDropdowns.has(label)) {
-        newDropdowns.delete(label);
-      } else {
-        newDropdowns.clear();
-        newDropdowns.add(label);
-      }
-      return newDropdowns;
+    // used for mobile click toggles
+    this.openDropdowns.update((set) => {
+      const newSet = new Set(set);
+      newSet.has(label) ? newSet.delete(label) : newSet.add(label);
+      return newSet;
     });
-  }
-
-  openDropdown(label: string): void {
-    this.openDropdowns.update((dropdowns) => {
-      const newDropdowns = new Set(dropdowns);
-      newDropdowns.add(label);
-      return newDropdowns;
-    });
-  }
-
-  closeDropdown(label: string): void {
-    setTimeout(() => {
-      this.openDropdowns.update((dropdowns) => {
-        const newDropdowns = new Set(dropdowns);
-        newDropdowns.delete(label);
-        return newDropdowns;
-      });
-    }, 200);
   }
 
   isDropdownOpen(label: string): boolean {
@@ -102,12 +85,68 @@ export class TopMenuComponent {
   }
 
   closeDropdowns(): void {
+    this.clearAllHoverTimers();
     this.openDropdowns.set(new Set());
   }
 
   toggleTheme(): void {
     this.themeService.toggleTheme();
   }
+
+  /* -------------------------
+     Hover logic (robust)
+     ------------------------- */
+
+  // Called on mouseenter of wrapper
+  onMouseEnter(label: string): void {
+    this.clearHoverCloseTimer(label);
+    this.openDropdown(label);
+  }
+
+  // Called on mouseleave of wrapper
+  onMouseLeave(label: string): void {
+    this.scheduleHoverClose(label, 150); // small delay to avoid flicker
+  }
+
+  private openDropdown(label: string): void {
+    this.openDropdowns.update((set) => {
+      const newSet = new Set(set);
+      newSet.add(label);
+      return newSet;
+    });
+  }
+
+  private scheduleHoverClose(label: string, delay = 150): void {
+    this.clearHoverCloseTimer(label);
+    const id = window.setTimeout(() => {
+      this.openDropdowns.update((set) => {
+        const newSet = new Set(set);
+        newSet.delete(label);
+        return newSet;
+      });
+      this.hoverCloseTimers.delete(label);
+    }, delay);
+    this.hoverCloseTimers.set(label, id);
+  }
+
+  private clearHoverCloseTimer(label: string): void {
+    const t = this.hoverCloseTimers.get(label);
+    if (t != null) {
+      clearTimeout(t);
+      this.hoverCloseTimers.delete(label);
+    }
+  }
+
+  private clearAllHoverTimers(): void {
+    for (const t of this.hoverCloseTimers.values()) {
+      clearTimeout(t);
+    }
+    this.hoverCloseTimers.clear();
+  }
+
+  /* -------------------------
+     Listeners
+     ------------------------- */
 
   private setupScrollListener(): void {
     window.addEventListener(

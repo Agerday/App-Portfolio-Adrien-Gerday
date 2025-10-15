@@ -1,36 +1,32 @@
-<!-- src/app/features/home/home.component.html -->
 <div class="overflow-x-hidden">
   <!-- Hero Section -->
   <section class="relative min-h-[85vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden">
-    <div
-      class="absolute inset-0 bg-gradient-to-br from-gray-50 via-blue-50/30 to-gray-50 dark:from-gray-900 dark:via-blue-950/30 dark:to-gray-900">
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-50 via-blue-50/30 to-gray-50 dark:from-gray-900 dark:via-blue-950/30 dark:to-gray-900">
       <div class="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
       <div class="gradient-orb-1"></div>
       <div class="gradient-orb-2"></div>
     </div>
 
     <div class="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div
-        class="inline-flex items-center gap-2 px-4 py-2 mb-6 sm:mb-8 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full text-sm font-medium shadow-lg"
-        data-aos="fade-down" data-aos-duration="600">
+      <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full text-sm font-medium shadow-lg"
+           data-aos="fade-down" data-aos-duration="600">
         <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
         <span class="text-gray-900 dark:text-white">Available for hire</span>
       </div>
 
-      <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white px-4"
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-gray-900 dark:text-white"
           data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
         Senior Frontend Engineer
         <span class="block mt-2 gradient-text-purple">Building the Future</span>
       </h1>
 
-      <p
-        class="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed px-4"
-        data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
+      <p class="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed"
+         data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
         6+ years crafting high-performance web applications with Angular, React & TypeScript.
         <br class="hidden sm:block"/>Specialized in scalable architecture and pixel-perfect execution.
       </p>
 
-      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 sm:mb-12 px-4"
+      <div class="flex flex-col sm:flex-row gap-4 justify-center"
            data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
         <app-button [routerLink]="'/projects'" variant="primary">
           <span>View My Work</span>
@@ -41,30 +37,21 @@
         </app-button>
       </div>
     </div>
-
-    <div
-      class="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-gray-400 dark:text-gray-500 text-[10px] font-medium uppercase tracking-[0.2em]"
-      data-aos="fade-up" data-aos-delay="600">
-      <div
-        class="w-px h-12 bg-gradient-to-b from-transparent via-gray-400 dark:via-gray-600 to-transparent animate-scroll-line"></div>
-      <span class="opacity-60">Scroll</span>
-    </div>
   </section>
 
   <!-- Tech Marquee -->
-  <section
-    class="py-8 sm:py-12 bg-gray-50/50 dark:bg-gray-900/50 border-y border-gray-200 dark:border-gray-800 overflow-hidden">
+  <section class="py-12 bg-gray-50/50 dark:bg-gray-900/50 border-y border-gray-200 dark:border-gray-800 overflow-hidden">
     <div class="marquee-container">
       <div class="marquee-track">
         @for (tech of allTechStack; track tech) {
           <span class="inline-flex items-center gap-4 px-2">
-            <span class="text-lg sm:text-xl font-semibold text-gray-600 dark:text-gray-400">{{ tech }}</span>
+            <span class="text-xl font-semibold text-gray-600 dark:text-gray-400">{{ tech }}</span>
             <span class="text-blue-600 dark:text-blue-400">•</span>
           </span>
         }
         @for (tech of allTechStack; track tech) {
           <span class="inline-flex items-center gap-4 px-2">
-            <span class="text-lg sm:text-xl font-semibold text-gray-600 dark:text-gray-400">{{ tech }}</span>
+            <span class="text-xl font-semibold text-gray-600 dark:text-gray-400">{{ tech }}</span>
             <span class="text-blue-600 dark:text-blue-400">•</span>
           </span>
         }
@@ -74,70 +61,46 @@
 
   <!-- Core Expertise -->
   <app-section subtitle="The tools that power my craft" title="Core Expertise">
-    <div class="flex flex-wrap justify-center gap-4 sm:gap-6 max-w-6xl mx-auto">
+    <div class="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
       @for (skill of topSkills; track skill; let i = $index) {
-        <app-card class="group hover:-translate-y-2 transition-transform duration-300 p-6 sm:p-8 w-48 sm:w-52"
-                  data-aos="fade-left"
-                  data-aos-duration="1200"
-                  [attr.data-aos-delay]="i * 200"
-                  data-aos-easing="ease-out-cubic">
-          <div class="flex flex-col items-center justify-center gap-3 sm:gap-4">
-            <i [class]="'devicon-' + getIconClass(skill) + ' colored text-7xl sm:text-8xl'"></i>
-            <h3 class="text-base sm:text-lg font-semibold text-gray-900 dark:text-white text-center whitespace-nowrap">
-              {{ skill }}
-            </h3>
+        <app-card class="group hover:-translate-y-2 transition-transform duration-300 p-8 w-52"
+                  data-aos="fade-up"
+                  [attr.data-aos-delay]="i * 100">
+          <div class="flex flex-col items-center justify-center gap-4">
+            <i [class]="'devicon-' + getIconClass(skill) + ' colored text-8xl'"></i>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white text-center">{{ skill }}</h3>
           </div>
         </app-card>
       }
     </div>
   </app-section>
 
-  <!-- Impact Stats -->
-  <section class="relative py-16 sm:py-20 overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600">
-      <div class="absolute inset-0 bg-gradient-radial opacity-20"></div>
-    </div>
-
-    <div class="container mx-auto px-4 relative z-10">
-      <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-12 sm:mb-16"
-          data-aos="zoom-in" data-aos-duration="600">
-        Proven Track Record
-      </h2>
-      <div class="flex flex-wrap justify-center gap-8 sm:gap-12 md:gap-16 max-w-4xl mx-auto" id="stats-section">
-        @for (stat of stats; track stat.label; let i = $index) {
-          <div class="text-center text-white min-w-[140px]"
-               data-aos="flip-up"
-               data-aos-duration="800"
-               [attr.data-aos-delay]="i * 150">
-            <div class="text-4xl sm:text-5xl md:text-6xl font-bold mb-2">
-              {{ animatedStats()[i] }}<span class="text-white/70">{{ stat.suffix }}</span>
-            </div>
-            <div class="text-sm sm:text-base text-white/90 whitespace-nowrap">{{ stat.label }}</div>
-          </div>
-        }
-      </div>
-    </div>
-  </section>
+  <!-- Combined Stats Section -->
+  @if (githubStats()) {
+    <app-combined-stats
+      [githubStats]="githubStats()!"
+      [yearsExperience]="6"
+      [projectsDelivered]="7"
+    />
+  }
 
   <!-- What I Do Best -->
   <app-section subtitle="Delivering excellence across the full development lifecycle" title="What I Do Best">
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
       @for (feature of features; track feature.title; let i = $index) {
-        <app-card class="group hover:-translate-y-2 transition-all duration-500 p-6 sm:p-8"
+        <app-card class="group hover:-translate-y-2 transition-all duration-500 p-8"
                   data-aos="fade-up"
-                  data-aos-duration="600"
                   [attr.data-aos-delay]="i * 100">
-          <div
-            class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 flex items-center justify-center mb-4 sm:mb-6 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-500">
-            <span class="text-3xl sm:text-4xl">{{ feature.icon }}</span>
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 flex items-center justify-center mb-6 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-500">
+            <span class="text-4xl">{{ feature.icon }}</span>
           </div>
-          <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-3">{{ feature.title }}</h3>
-          <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed mb-3 sm:mb-4">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">{{ feature.title }}</h3>
+          <p class="text-base text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
             {{ feature.description }}
           </p>
           @if (feature.link) {
             <a [routerLink]="feature.link"
-               class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold text-sm sm:text-base hover:gap-3 transition-all">
+               class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold hover:gap-3 transition-all">
               <span>Explore</span>
               <span class="material-symbols-rounded text-[16px]">arrow_forward</span>
             </a>
@@ -147,47 +110,46 @@
     </div>
   </app-section>
 
-  <!-- GITHUB -->
+  <!-- Development Activity Section -->
   <app-section
-    title="GitHub Activity"
-    subtitle="Real-time coding statistics and contribution patterns">
+    title="Development Activity"
+    subtitle="Real coding statistics from 205,000+ lines of code on personal projects">
 
     @if (githubLoading()) {
-      <div class="grid md:grid-cols-3 gap-6">
-        @for (i of [1, 2, 3]; track i) {
-          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 animate-pulse h-64"></div>
+      <div class="grid lg:grid-cols-2 gap-6">
+        @for (i of [1,2]; track i) {
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 animate-pulse h-96"></div>
         }
       </div>
-    } @else if (githubStats()) {
-      <div class="grid lg:grid-cols-3 gap-6 mb-6">
-        <div class="lg:col-span-1" data-aos="fade-up">
-          <app-github-stats [stats]="githubStats()!"/>
+    } @else {
+      <div class="grid lg:grid-cols-2 gap-6">
+        <div data-aos="fade-up">
+          <app-activity-timeline
+            [username]="'Agerday'"
+            [githubUrl]="PERSONAL_INFO.contact.github"
+          />
         </div>
-      </div>
 
-      <div data-aos="fade-up" data-aos-delay="200">
-        <app-contribution-graph
-          [username]="'Agerday'"
-          [githubUrl]="PERSONAL_INFO.contact.github"
-        />
+        <div data-aos="fade-up" data-aos-delay="100">
+          <app-language-chart [languages]="githubLanguages()" />
+        </div>
       </div>
     }
   </app-section>
 
   <!-- Latest Projects -->
-  <section class="py-16 sm:py-20 bg-gray-50 dark:bg-gray-900/50">
+  <section class="py-20 bg-gray-50 dark:bg-gray-900/50">
     <div class="container mx-auto px-4">
-      <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div data-aos="fade-right" data-aos-duration="800">
-          <span
-            class="inline-block text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-3 sm:mb-4">
+          <span class="inline-block text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-4">
             Latest Projects
           </span>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
             Transforming Ideas Into
             <span class="gradient-text-purple">Digital Experiences</span>
           </h2>
-          <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-6 sm:mb-8">
+          <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
             From enterprise platforms serving millions to innovative startups, I've delivered
             scalable solutions that drive real business impact.
           </p>
@@ -197,21 +159,20 @@
           </app-button>
         </div>
 
-        <div class="relative h-80 sm:h-96">
+        <div class="relative h-96">
           @for (project of featuredProjects; track project.id; let i = $index) {
             <a [routerLink]="['/projects', project.id]"
-               [class]="'project-card absolute bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-4 sm:p-6 transition-all duration-500 cursor-pointer sm:w-72 md:w-80 h-44 sm:h-48 ' + (i === 0 ? 'top-0 left-0 z-10' : 'bottom-0 right-0')"
+               [class]="'project-card absolute bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 transition-all duration-500 cursor-pointer w-80 h-48 ' + (i === 0 ? 'top-0 left-0 z-10' : 'bottom-0 right-0')"
                [attr.data-aos]="i === 0 ? 'fade-up-right' : 'fade-up-left'"
                data-aos-duration="800"
                [attr.data-aos-delay]="(i + 1) * 200">
-              <div
-                class="inline-block px-2 sm:px-3 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs font-semibold rounded-full mb-2 sm:mb-3">
+              <div class="inline-block px-3 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs font-semibold rounded-full mb-3">
                 {{ project.badge }}
               </div>
-              <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-1 sm:mb-2">
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
                 {{ project.title }}
               </h3>
-              <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ project.technologies }}</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">{{ project.technologies }}</p>
             </a>
           }
         </div>
@@ -220,24 +181,23 @@
   </section>
 
   <!-- Final CTA -->
-  <section class="relative py-16 sm:py-24 overflow-hidden">
-    <div
-      class="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+  <section class="relative py-24 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
     </div>
 
     <div class="container mx-auto px-4 relative z-10 text-center max-w-4xl">
-      <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4 sm:mb-6"
+      <h2 class="text-4xl md:text-5xl font-bold text-white mb-6"
           data-aos="zoom-in" data-aos-duration="800">
         Let's Build Something Exceptional
       </h2>
-      <p class="text-base sm:text-lg md:text-xl text-gray-300 mb-8 sm:mb-12 leading-relaxed"
+      <p class="text-xl text-gray-300 mb-12 leading-relaxed"
          data-aos="fade-up" data-aos-delay="100">
         Ready to elevate your product with world-class engineering?<br class="hidden sm:block"/>
         Let's discuss how I can help drive your vision forward.
       </p>
 
-      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 sm:mb-12"
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12"
            data-aos="fade-up" data-aos-delay="200">
         <app-button [routerLink]="'/contact'" variant="primary">
           <span>Start a Conversation</span>
@@ -249,27 +209,27 @@
         </app-button>
       </div>
 
-      <div class="flex flex-col items-center gap-3 sm:gap-4 pt-8 sm:pt-12 border-t border-white/10"
+      <div class="flex flex-col items-center gap-4 pt-12 border-t border-white/10"
            data-aos="fade-up" data-aos-delay="300">
         <span class="text-xs text-gray-400 uppercase tracking-wider">Connect with me</span>
-        <div class="flex gap-3 sm:gap-4">
+        <div class="flex gap-4">
           <a [href]="PERSONAL_INFO.contact.github"
              (click)="trackGitHubClick()"
-             class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 hover:-translate-y-1 transition-all"
+             class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 hover:-translate-y-1 transition-all"
              rel="noopener" target="_blank"
-             aria-label="View GitHub profile">
-            <i class="fab fa-github text-lg sm:text-xl"></i>
+             aria-label="GitHub">
+            <i class="fab fa-github text-xl"></i>
           </a>
           <a [href]="PERSONAL_INFO.contact.linkedin"
-             class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 hover:-translate-y-1 transition-all"
+             class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 hover:-translate-y-1 transition-all"
              rel="noopener" target="_blank"
-             aria-label="View LinkedIn profile">
-            <i class="fab fa-linkedin text-lg sm:text-xl"></i>
+             aria-label="LinkedIn">
+            <i class="fab fa-linkedin text-xl"></i>
           </a>
           <a [href]="'mailto:' + PERSONAL_INFO.contact.email"
-             class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 hover:-translate-y-1 transition-all"
-             aria-label="Send email">
-            <i class="fas fa-envelope text-lg sm:text-xl"></i>
+             class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 hover:-translate-y-1 transition-all"
+             aria-label="Email">
+            <i class="fas fa-envelope text-xl"></i>
           </a>
         </div>
       </div>
