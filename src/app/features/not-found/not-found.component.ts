@@ -20,7 +20,6 @@ export class NotFoundComponent implements OnInit {
     {path: '/', label: 'Home'},
     {path: '/projects', label: 'Projects'},
     {path: '/about', label: 'About'},
-    {path: '/skills', label: 'Skills'},
     {path: '/contact', label: 'Contact'},
   ];
   private router = inject(Router);

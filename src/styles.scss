@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols_Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
-
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -27,8 +23,10 @@
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
+  }
 
-    @media (max-width: 768px) {
+  @media (max-width: 768px) {
+    ::-webkit-scrollbar {
       width: 4px;
       height: 4px;
     }
@@ -49,8 +47,10 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-display font-bold;
     line-height: 1.2;
+  }
 
-    @media (max-width: 640px) {
+  @media (max-width: 640px) {
+    h1, h2, h3, h4, h5, h6 {
       line-height: 1.3;
     }
   }
@@ -82,8 +82,10 @@
   p {
     @apply text-sm sm:text-base;
     line-height: 1.6;
+  }
 
-    @media (max-width: 640px) {
+  @media (max-width: 640px) {
+    p {
       line-height: 1.7;
     }
   }
@@ -115,7 +117,7 @@
     @apply bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-md p-4 sm:p-6 md:p-8;
   }
 
-  // Reusable Background Patterns
+  /* Reusable Background Patterns */
   .bg-grid-pattern {
     background-image: linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
     linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
@@ -135,7 +137,7 @@
     );
   }
 
-  // Gradient Orbs - Reusable across sections
+  /* Gradient Orbs - Reusable across sections */
   .gradient-orb-1,
   .gradient-orb-2 {
     position: absolute;
@@ -162,7 +164,7 @@
     animation-delay: 10s;
   }
 
-  // Marquee Animation
+  /* Marquee Animation */
   .marquee-container {
     overflow: hidden;
     white-space: nowrap;
@@ -171,82 +173,82 @@
   .marquee-track {
     display: inline-flex;
     animation: marquee 40s linear infinite;
+  }
 
-    &:hover {
-      animation-play-state: paused;
-    }
+  .marquee-track:hover {
+    animation-play-state: paused;
   }
 }
 
-// Navigation Animations
+/* Navigation Animations */
 .nav-link {
   position: relative;
+}
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #3b82f6, #2563eb);
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-  }
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
 
-  &:hover::after {
-    width: 80%;
-  }
+.nav-link:hover::after {
+  width: 80%;
+}
 
-  @media (max-width: 768px) {
-    &::after {
-      display: none;
-    }
+@media (max-width: 768px) {
+  .nav-link::after {
+    display: none;
   }
 }
 
-// Icon Animations
+/* Icon Animations */
 .float-icon-card:hover .text-5xl,
 .float-icon-card:hover .text-4xl {
   animation: float-icon 2s ease-in-out infinite;
 }
 
-// Timeline Components
+/* Timeline Components */
 .timeline-item {
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+.timeline-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
 
-    .icon-circle {
-      animation: glowPulse 1.5s infinite;
-    }
-  }
+.timeline-item:hover .icon-circle {
+  animation: glowPulse 1.5s infinite;
+}
 
-  @media (max-width: 768px) {
-    &:hover {
-      transform: translateY(-2px);
-    }
+@media (max-width: 768px) {
+  .timeline-item:hover {
+    transform: translateY(-2px);
   }
 }
 
 .icon-circle {
   transition: transform 0.4s ease;
+}
 
-  &:hover {
-    transform: rotate(12deg) scale(1.1);
-  }
+.icon-circle:hover {
+  transform: rotate(12deg) scale(1.1);
+}
 
-  @media (max-width: 768px) {
-    &:hover {
-      transform: rotate(6deg) scale(1.05);
-    }
+@media (max-width: 768px) {
+  .icon-circle:hover {
+    transform: rotate(6deg) scale(1.05);
   }
 }
 
-// Shimmer Effect
+/* Shimmer Effect */
 .shimmer-effect {
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
 }
@@ -260,14 +262,14 @@
   animation: gradientFlow 4s linear infinite;
 }
 
-// Global Transitions
+/* Global Transitions */
 * {
   transition-property: background-color, border-color, color;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
 
-// Keyframes
+/* Keyframes */
 @keyframes float-orb {
   0%, 100% {
     transform: translate(0, 0) scale(1);
@@ -350,7 +352,7 @@
   }
 }
 
-// Mobile Utilities
+/* Mobile Utilities */
 @layer utilities {
   .safe-top {
     padding-top: env(safe-area-inset-top);
