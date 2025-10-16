@@ -41,7 +41,7 @@ export class GitHubService {
                         totalCommits: 289,
                         mostCommitsInOneDay: 32,
                         totalRepos: 5,
-                        totalLinesOfCode: 205000
+                        totalLinesOfCode: 22300
                     });
 
                     this._loading.set(false);
@@ -85,7 +85,7 @@ export class GitHubService {
                         totalCommits,
                         mostCommitsInOneDay,
                         totalRepos: 5,
-                        totalLinesOfCode: 205000
+                        totalLinesOfCode: 22300
                     });
 
                     this._monthlyActivity.set(last6Months);

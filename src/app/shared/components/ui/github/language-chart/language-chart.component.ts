@@ -48,7 +48,7 @@ import { CardComponent } from '../../cards/card/card.component';
       <!-- Total Summary -->
       <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 text-center">
         <div class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-1">
-          205K+
+          22K+
         </div>
         <div class="text-sm text-gray-600 dark:text-gray-400 font-medium">
           Total Lines of Code Written
