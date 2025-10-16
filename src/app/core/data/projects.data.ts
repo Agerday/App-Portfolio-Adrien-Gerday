@@ -6,7 +6,6 @@ export const PROJECT_CATEGORIES: ProjectCategory[] = [
 ];
 
 export const PROJECTS: Project[] = [
-  // === PERSONAL / FEATURED ===
   {
     id: 'numbr-accounting-system',
     title: 'NUMBR – Full Accounting SaaS',
@@ -14,7 +13,7 @@ export const PROJECTS: Project[] = [
       'End-to-end accounting SaaS built independently as a full-stack solo developer. Includes secure auth, real-time sync, and responsive dashboards for small businesses.',
     shortDescription: 'Full-stack accounting SaaS with React, Firebase, and Node.js.',
     image: 'assets/images/projects/numbr-main.jpg',
-    technologies: ['React', 'TypeScript', 'Node.js', 'Firebase', 'Firestore', 'MUI', 'Vite', 'Vitest'],
+    technologies: ['React', 'TypeScript', 'Node.js', 'Firebase', 'Firestore', 'MUI', 'Redux', 'Vite', 'Vitest', 'Recharts', 'Zod'],
     category: 'personal',
     liveUrl: 'https://numbr-system.web.app/',
     featured: true,
@@ -135,8 +134,6 @@ Built with React, TypeScript, and Firebase, it features Cloud Functions for back
       'Firebase CI/CD deployment'
     ]
   },
-
-  // === ENTERPRISE / FPS FINANCE ===
   {
     id: 'tax-management-platform',
     title: 'FPS Finance – Multi-Client Tax Management Platform',

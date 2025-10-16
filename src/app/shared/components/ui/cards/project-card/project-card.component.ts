@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy, Component, input, output} from '@angular/core';
-import {RouterLink} from '@angular/router';
-import {Project} from '@models/project.models';
+import { ChangeDetectionStrategy, Component, input, output, computed } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Project } from '@models/project.models';
 
 @Component({
   selector: 'app-project-card',
@@ -18,9 +18,11 @@ import {Project} from '@models/project.models';
                   transition-all duration-500 h-full transform hover:-translate-y-2 flex flex-col
                   hover:ring-2 hover:ring-blue-500/50 dark:hover:ring-blue-400/50">
 
-        <!-- Screenshot Preview -->
+        <!-- Screenshot Preview or Placeholder -->
         <div
-          class="relative h-56 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800">
+          class="relative h-56 overflow-hidden"
+          [class]="project().image ? 'bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800' : placeholderBgClass()">
+
           @if (project().image) {
             <img
               [src]="project().image"
@@ -28,9 +30,18 @@ import {Project} from '@models/project.models';
               class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
               loading="lazy"
             />
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-transparent"></div>
+          } @else {
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-center transform transition-transform duration-500 group-hover:scale-110">
+                <div class="w-16 h-16 mx-auto mb-3 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                  <span class="material-symbols-rounded text-white text-[40px]">{{ placeholderIcon() }}</span>
+                </div>
+                <div class="text-white/80 text-sm font-medium">{{ categoryLabel() }} Project</div>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-gray-900/30 to-transparent"></div>
           }
-
-          <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-transparent"></div>
 
           @if (project().featured) {
             <div
@@ -120,9 +131,32 @@ import {Project} from '@models/project.models';
 export class ProjectCardComponent {
   project = input.required<Project>();
   categoryLabel = input.required<string>();
+
   liveClick = output<void>();
   githubClick = output<void>();
   detailClick = output<void>();
+
+  readonly placeholderIcon = computed(() => {
+    const category = this.project().category;
+    const icons: Record<string, string> = {
+      personal: 'star',
+      enterprise: 'business',
+      web: 'language',
+      mobile: 'smartphone'
+    };
+    return icons[category] || 'code';
+  });
+
+  readonly placeholderBgClass = computed(() => {
+    const category = this.project().category;
+    const bgClasses: Record<string, string> = {
+      personal: 'bg-gradient-to-br from-purple-500 via-pink-500 to-red-500',
+      enterprise: 'bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600',
+      web: 'bg-gradient-to-br from-cyan-500 via-blue-500 to-indigo-500',
+      mobile: 'bg-gradient-to-br from-green-500 via-teal-500 to-cyan-500'
+    };
+    return bgClasses[category] || 'bg-gradient-to-br from-gray-600 via-gray-700 to-gray-800';
+  });
 
   onLiveClick(event: Event): void {
     event.stopPropagation();
