@@ -10,7 +10,8 @@ export const PROJECTS: Project[] = [
     id: 'numbr-accounting-system',
     title: 'NUMBR – Full Accounting SaaS',
     description:
-      'End-to-end accounting SaaS built independently as a full-stack solo developer. Includes secure auth, real-time sync, and responsive dashboards for small businesses.',
+      'End-to-end accounting SaaS built independently as a full-stack solo developer. Includes secure auth, ' +
+      'real-time sync, and responsive dashboards for small businesses.',
     shortDescription: 'Full-stack accounting SaaS with React, Firebase, and Node.js.',
     image: 'assets/images/projects/numbr-main.jpg',
     technologies: ['React', 'TypeScript', 'Node.js', 'Firebase', 'Firestore', 'MUI', 'Redux', 'Vite', 'Vitest', 'Recharts', 'Zod'],
@@ -28,9 +29,11 @@ export const PROJECTS: Project[] = [
       'Comprehensive Vitest coverage for critical features',
       'Responsive dashboard optimized for business workflows'
     ],
-    longDescription: `NUMBR is a complete accounting SaaS I built from scratch as a solo developer. It demonstrates my ability to design, develop, and deploy a production-grade system handling authentication, data synchronization, and user-friendly dashboards for small businesses.
-
-Built with React, TypeScript, and Firebase, it features Cloud Functions for backend logic and Firestore for real-time data handling. The focus was on clean architecture, reliable state management, and smooth UX across all devices.`,
+    longDescription: `NUMBR is a complete accounting SaaS I built from scratch as a solo developer.
+    It demonstrates my ability to design, develop, and deploy a production-grade system handling authentication,
+    data synchronization, and user-friendly dashboards for small businesses.
+    Built with React, TypeScript, and Firebase, it features Cloud Functions for backend logic and Firestore for
+    real-time data handling. The focus was on clean architecture, reliable state management, and smooth UX across all devices.`,
     images: [
       'assets/images/projects/numbr-main.jpg',
       'assets/images/projects/numbr-dashboard.jpg',
@@ -61,7 +64,8 @@ Built with React, TypeScript, and Firebase, it features Cloud Functions for back
     id: 'flight-booking-react',
     title: 'Flight Booking System',
     description:
-      'Modern flight booking demo built with React featuring real-time search, multi-step booking, and responsive UI with Redux state management.',
+      'Modern flight booking demo built with React featuring real-time search, multi-step booking, ' +
+      'and responsive UI with Redux state management.',
     shortDescription: 'React-based flight booking with real-time search and filtering.',
     image: 'assets/images/projects/flight-main.jpg',
     technologies: ['React', 'TypeScript', 'Redux', 'REST API', 'Zod', 'CSS3', 'Responsive Design'],
@@ -79,7 +83,8 @@ Built with React, TypeScript, and Firebase, it features Cloud Functions for back
       'Optimized rendering with virtualization',
       'Fully responsive layout across devices'
     ],
-    longDescription: `A flight booking web app demonstrating advanced React state management, API integration, and UI/UX design. Built to simulate live flight search and multi-step booking flows, with efficient Redux usage and form validation.`,
+    longDescription: `A flight booking web app demonstrating advanced React state management, API integration
+    and UI/UX design. Built to simulate live flight search and multi-step booking flows, with efficient Redux usage and form validation.`,
     challenges: [
       'Managing complex app state across booking steps',
       'Handling real-time data updates efficiently',
@@ -102,36 +107,51 @@ Built with React, TypeScript, and Firebase, it features Cloud Functions for back
     id: 'angular-portfolio',
     title: 'Personal Portfolio Platform',
     description:
-      'Angular 18-based portfolio showcasing experience, projects, and skills with TailwindCSS, Firebase hosting, and smooth animations.',
-    shortDescription: 'Angular 18 portfolio showcasing projects and experience.',
+      'Angular 18-based portfolio showcasing experience, projects, and skills with modern UI/UX, SEO optimization, and smooth animations.',
+    shortDescription: 'Modern Angular 18 portfolio with advanced features and clean design.',
     image: 'assets/images/projects/portfolio-main.jpg',
-    technologies: ['Angular 18', 'TypeScript', 'TailwindCSS', 'Firebase', 'AOS', 'PrismJS'],
+    technologies: ['Angular 18', 'TypeScript', 'TailwindCSS', 'Signals', 'Standalone Components', 'Firebase', 'AOS'],
     category: 'personal',
     liveUrl: 'https://adriengerday.web.app/',
     githubUrl: 'https://github.com/Agerday/angular-portfolio',
     featured: true,
     year: 2025,
-    duration: '3 weeks',
+    duration: '1 week',
     role: 'Frontend Developer',
     teamSize: 1,
     highlights: [
-      'Dynamic project and resume data integration',
-      'SEO-optimized and fully responsive',
-      'CI/CD with Firebase Hosting',
-      'Smooth animations via AOS'
+      'Built with latest Angular 18 features: signals, standalone components, and new control flow',
+      'Full responsive design with TailwindCSS utility-first approach',
+      'SEO-optimized with meta tags and structured data',
+      'Smooth animations and transitions using AOS library',
+      'Dark mode support with theme persistence'
     ],
-    longDescription: `Modern portfolio platform designed to represent my professional experience, skills, and personal projects with a refined interface. Built using Angular 18 and TailwindCSS, it includes animations, SEO optimization, and Firebase CI/CD deployment.`,
-    challenges: ['Combining performance with animation', 'Ensuring strong SEO and Lighthouse scores'],
+    longDescription: `A modern portfolio platform showcasing professional experience, technical skills, and personal projects.
+    Built entirely with Angular 18's latest features including signals for reactive state management, standalone components
+    for better modularity, and the new control flow syntax (@if, @for) for cleaner templates.
+    The design prioritizes user experience with smooth scroll animations, responsive layouts across all devices, and a
+    clean interface that puts content first. Deployed on Firebase Hosting with automated CI/CD pipeline for seamless updates.`,
+    challenges: [
+      'Mastering Angular 18 signal-based reactivity model',
+      'Designing a clean, professional UI that stands out',
+      'Optimizing performance with lazy loading and image optimization',
+      'Implementing SEO best practices for a single-page application'
+    ],
     solutions: [
-      'Used AOS for lightweight animations',
-      'Optimized image loading and caching for speed',
-      'Ensured responsiveness and accessibility across screens'
+      'Leveraged signals and computed properties for efficient state management',
+      'Created custom TailwindCSS theme with consistent design system',
+      'Implemented route-based code splitting and image lazy loading',
+      'Added SSR-ready meta tags and structured JSON-LD data'
     ],
     features: [
-      'Dynamic project listings',
-      'Smooth scroll animations',
-      'Dark/light mode toggle',
-      'Firebase CI/CD deployment'
+      'Dynamic project showcase with filtering and search',
+      'Interactive resume and experience timeline',
+      'Contact form with validation',
+      'Dark/light theme toggle with persistence',
+      'Smooth scroll animations and page transitions',
+      'Fully responsive across mobile, tablet, and desktop',
+      'SEO-optimized with meta tags and sitemap',
+      'Firebase hosting with automatic deployments'
     ]
   },
   {
@@ -161,7 +181,9 @@ Built with React, TypeScript, and Firebase, it features Cloud Functions for back
       'Improved scalability and user satisfaction',
       'Enhanced UX with real-time feedback and validation'
     ],
-    longDescription: `Led the modernization of FPS Finance’s tax platform, upgrading from Angular 8 to 17 while maintaining production stability. Introduced reusable dynamic steppers, improved validation UX, and streamlined multi-client workflow architecture.`
+    longDescription: `Led the modernization of FPS Finance’s tax platform, upgrading from Angular 8 to 17 while
+     maintaining production stability. Introduced reusable dynamic steppers, improved validation UX, and streamlined
+     multi-client workflow architecture.`
   },
   {
     id: 'data-visualization-platform',
@@ -190,7 +212,9 @@ Built with React, TypeScript, and Firebase, it features Cloud Functions for back
       'Integrated backend Java logic for live calculations',
       'Completed major module solo under tight deadline'
     ],
-    longDescription: `Designed and built an advanced data visualization platform for FPS Finance, supporting massive datasets and live analytics. Delivered fully interactive, real-time charting modules with zoom, annotations, and backend-driven data shaping.`
+    longDescription: `Designed and built an advanced data visualization platform for FPS Finance, supporting massive
+    datasets and live analytics. Delivered fully interactive, real-time charting modules with zoom, annotations, and
+    backend-driven data shaping.`
   },
   {
     id: 'document-factory',
@@ -220,7 +244,9 @@ Built with React, TypeScript, and Firebase, it features Cloud Functions for back
       'Enabled cross-department collaboration with modular components',
       'Reduced paper usage drastically across departments'
     ],
-    longDescription: `Developed a robust document automation system for FPS Finance, allowing internal teams and citizens to manage, generate, and respond to official documents online. Integrated dynamic grid layouts, role-based views, and flexible template systems for efficient collaboration and digital processing.`
+    longDescription: `Developed a robust document automation system for FPS Finance, allowing internal teams and
+    citizens to manage, generate, and respond to official documents online. Integrated dynamic grid layouts,
+    role-based views, and flexible template systems for efficient collaboration and digital processing.`
   },
   {
     id: 'eu-commission-dynamic-forms',
@@ -241,7 +267,8 @@ Built with React, TypeScript, and Firebase, it features Cloud Functions for back
       'Modular architecture for maintainability',
       'Added multilingual and accessibility support'
     ],
-    longDescription: `Developed a dynamic form platform for the European Commission, managing dozens of department-specific variations within a unified codebase. Focused on modularity, multilingual support, and consistent UX across devices.`
+    longDescription: `Developed a dynamic form platform for the European Commission, managing dozens of
+    department-specific variations within a unified codebase. Focused on modularity, multilingual support, and consistent UX across devices.`
   },
   {
     id: 'private-bank-processing-tool',
@@ -262,7 +289,9 @@ Built with React, TypeScript, and Firebase, it features Cloud Functions for back
       'Integrated Excel export with Apache POI',
       'Ensured responsive UI under heavy data loads'
     ],
-    longDescription: `Built a financial data processing platform capable of handling large XML files and converting them into structured data tables. Enabled Excel exports and optimized frontend performance, cutting data processing time by more than half.`
+    longDescription: `Built a financial data processing platform capable of handling large XML files and converting
+    them into structured data tables. Enabled Excel exports and optimized frontend performance, cutting data
+    processing time by more than half.`
   },
 ];
 

@@ -194,9 +194,9 @@
     <div class="container mx-auto px-4">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div data-aos="fade-right" data-aos-duration="800">
-          <span class="inline-block text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-4">
-            Latest Projects
-          </span>
+        <span class="inline-block text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-4">
+          Latest Projects
+        </span>
           <h2 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
             Transforming Ideas Into
             <span class="gradient-text-purple">Digital Experiences</span>
@@ -212,7 +212,7 @@
         </div>
 
         <div class="relative h-96">
-          @for (project of featuredProjects; track project.id; let i = $index) {
+          @for (project of featuredProjects.slice(0, 2); track project.id; let i = $index) {
             <a [routerLink]="['/projects', project.id]"
                [class]="'project-card absolute bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 transition-all duration-500 cursor-pointer hover:shadow-3xl w-80 h-48 ' + (i === 0 ? 'top-0 left-0 z-10' : 'bottom-0 right-0')"
                [attr.data-aos]="i === 0 ? 'fade-up-right' : 'fade-up-left'"
