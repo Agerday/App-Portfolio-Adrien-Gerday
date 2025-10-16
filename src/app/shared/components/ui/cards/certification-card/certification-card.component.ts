@@ -55,18 +55,6 @@ import { CardComponent } from '../card/card.component';
             <span class="ml-2 text-gray-700 dark:text-gray-300 font-medium">{{ date() }}</span>
           </div>
         </div>
-
-        @if (cert().credentialId) {
-          <div class="flex items-center gap-3">
-            <span class="material-symbols-rounded text-gray-400 text-[20px]">badge</span>
-            <div>
-              <span class="text-sm text-gray-500 dark:text-gray-400">Certificate ID:</span>
-              <span class="ml-2 text-gray-700 dark:text-gray-300 font-mono text-sm">
-                {{ cert().credentialId }}
-              </span>
-            </div>
-          </div>
-        }
       </div>
 
       <!-- Skills -->
@@ -84,22 +72,6 @@ import { CardComponent } from '../card/card.component';
           }
         </div>
       </div>
-
-      <!-- View Certificate (clickable area only) -->
-      @if (cert().verificationUrl) {
-        <div
-          class="pt-4 border-t border-gray-200 dark:border-gray-700 cursor-pointer"
-          (click)="cardClicked.emit()">
-          <div
-            class="flex items-center justify-between text-blue-600 dark:text-blue-400 font-semibold
-            group-hover:text-blue-700 dark:group-hover:text-blue-300">
-            <span>View Certificate</span>
-            <span class="material-symbols-rounded text-[20px] group-hover:translate-x-1 transition-transform">
-              arrow_forward
-            </span>
-          </div>
-        </div>
-      }
     </app-card>
   `
 })

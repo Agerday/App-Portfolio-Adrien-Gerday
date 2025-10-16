@@ -62,37 +62,44 @@ export const TIMELINE: Timeline[] = [
   },
   {
     year: '2019',
-    title: 'Full-Stack Developer & Agile Training',
+    title: 'Full-Stack Developer & Agile Training – Switchfully',
     description: `Completed intensive full-stack bootcamp in Angular, Java (Spring Boot), and agile methodologies.
-      Built production-ready web applications through real-world simulations.`,
+       Gained hands-on experience with modern development practices and industry standards.`,
+    type: 'education'
+  },
+  {
+    year: '2016-2019',
+    title: 'Bachelor in Computer Science – EPFC',
+    description: `Earned Bachelor's degree in Computer Science from EPFC (École Pratique des Hautes Études Commerciales).
+       Built strong foundation in software development, algorithms, data structures, databases, and system architecture.`,
     type: 'education'
   }
 ];
 
 export const HIGHLIGHTS: Highlight[] = [
   {
+    icon: '✈️',
+    title: 'Big Move to Asia',
+    description: 'Left Europe to build a long-term career in Asia'
+  },
+  {
+    icon: '🎮',
+    title: 'Gaming Enthusiast',
+    description: 'Strategy games and competitive online gaming'
+  },
+  {
+    icon: '🏋️',
+    title: 'Fitness Journey',
+    description: 'Regular gym workouts and healthy lifestyle'
+  },
+  {
+    icon: '🌏',
+    title: 'Cultural Explorer',
+    description: 'Embracing Asian culture and language learning'
+  },
+  {
     icon: '📚',
-    title: 'Continuous Learning',
-    description: 'Always exploring new technologies and best practices'
-  },
-  {
-    icon: '🧭',
-    title: 'Leadership & Mentorship',
-    description: 'Guiding developers and helping teams grow through code reviews and shared best practices.'
-  },
-  {
-    icon: '⚡',
-    title: 'Performance & Optimization',
-    description: 'Delivering fast, scalable applications that feel seamless and efficient.'
-  },
-  {
-    icon: '🎨',
-    title: 'Design & UX',
-    description: 'Crafting interfaces that blend clarity, emotion, and precision.'
-  },
-  {
-    icon: '🚀',
-    title: 'Product Building',
-    description: 'Turning ambitious ideas into high-quality, user-focused products.'
+    title: 'Continuous Learner',
+    description: 'Always exploring new technologies and frameworks'
   }
 ];

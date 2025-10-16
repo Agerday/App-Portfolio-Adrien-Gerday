@@ -3,7 +3,7 @@ export interface Project {
   title: string;
   description: string;
   shortDescription: string;
-  image: string;
+  image?: string;
   technologies: string[];
   category: 'web' | 'mobile' | 'enterprise' | 'personal';
   liveUrl?: string;

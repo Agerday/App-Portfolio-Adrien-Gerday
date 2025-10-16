@@ -1,16 +1,15 @@
 import {ChangeDetectionStrategy, Component, computed, inject, OnInit, signal} from '@angular/core';
-
 import {AnalyticsService} from '@services/analytics.service';
 import {SeoService} from '@services/seo.service';
 import {PageLayoutComponent} from '@components/layout';
 import {
+  ButtonComponent,
   EmptyStateComponent,
   PageHeaderComponent,
   ProjectCardComponent,
   SearchInputComponent,
   SectionComponent
 } from '@components/ui';
-
 import {PROJECT_CATEGORIES, PROJECTS} from '@core/data/projects.data';
 
 @Component({
@@ -22,7 +21,8 @@ import {PROJECT_CATEGORIES, PROJECTS} from '@core/data/projects.data';
     SectionComponent,
     SearchInputComponent,
     ProjectCardComponent,
-    EmptyStateComponent
+    EmptyStateComponent,
+    ButtonComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './projects.component.html'
@@ -33,17 +33,14 @@ export class ProjectsComponent implements OnInit {
 
   readonly searchQuery = signal('');
   readonly selectedCategory = signal<string>('all');
-
   readonly projects = PROJECTS;
   readonly categories = PROJECT_CATEGORIES;
 
   readonly filteredProjects = computed(() => {
     let filtered = this.projects;
-
     if (this.selectedCategory() !== 'all') {
       filtered = filtered.filter(p => p.category === this.selectedCategory());
     }
-
     const search = this.searchQuery().toLowerCase();
     if (search) {
       filtered = filtered.filter(p =>
@@ -52,9 +49,26 @@ export class ProjectsComponent implements OnInit {
         p.technologies.some(t => t.toLowerCase().includes(search))
       );
     }
-
     return filtered;
   });
+
+  readonly filteredFeatured = computed(() =>
+    this.filteredProjects().filter(p => p.featured)
+  );
+
+  readonly filteredNonFeatured = computed(() =>
+    this.filteredProjects().filter(p => !p.featured)
+  );
+
+  readonly showFeaturedSection = computed(() =>
+    this.filteredFeatured().length > 0 &&
+    this.selectedCategory() === 'all' &&
+    !this.searchQuery()
+  );
+
+  readonly hasActiveFilters = computed(() =>
+    this.searchQuery() !== '' || this.selectedCategory() !== 'all'
+  );
 
   ngOnInit(): void {
     this.seoService.update({

@@ -34,7 +34,7 @@ The application provides small businesses with an intuitive interface for managi
 
 Built with modern web technologies including React, TypeScript, and Firebase, the system leverages Cloud Functions for backend processing and Firestore for real-time database capabilities. The development process included comprehensive testing strategies to ensure reliability across all critical features.`,
     images: [
-      'assets/images/projects/numbr.jpg',
+      'assets/images/projects/numbr-main.jpg',
       'assets/images/projects/numbr-dashboard.jpg',
       'assets/images/projects/numbr-dues.jpg',
       'assets/images/projects/numbr-admin.jpg'
@@ -74,7 +74,7 @@ Built with modern web technologies including React, TypeScript, and Firebase, th
     githubUrl: 'https://github.com/Agerday/flight-booking-app',
     featured: true,
     year: 2024,
-    duration: '2 months',
+    duration: '1 week',
     role: 'Frontend Developer',
     teamSize: 1,
     highlights: [
@@ -120,14 +120,13 @@ The project demonstrates proficiency in state management using Redux, API integr
     title: 'Multi-Client Tax Management Platform',
     description: 'Led frontend migration from Angular 8 to 17 for Belgian federal tax system serving multiple government clients. Modernized architecture, reduced rollout time by 30%, and improved UX across 4 systems.',
     shortDescription: 'Enterprise tax platform modernization (Angular 8→17)',
-    image: 'assets/images/projects/tax-platform.jpg',
     technologies: ['Angular 17', 'TypeScript', 'RxJS', 'NgRx', 'REST API', 'i18n'],
     category: 'enterprise',
     featured: false,
     year: 2024,
     duration: '13 months',
     role: 'Front End Lead',
-    teamSize: 8,
+    teamSize: 12,
     highlights: [
       'Migrated from Angular 8 to 17',
       'Reduced client rollout time by 30%',
@@ -143,7 +142,6 @@ This large-scale migration project involved upgrading from Angular 8 to Angular 
     title: 'Advanced Data Visualization Platform',
     description: 'Built React-based analytics platform for Belgian federal finance with real-time multi-country data visualization. Handled 1M+ records with custom Recharts implementations and dynamic calculations.',
     shortDescription: 'Real-time analytics with complex visualizations',
-    image: 'assets/images/projects/data-viz.jpg',
     technologies: ['React', 'TypeScript', 'Redux', 'Recharts', 'Java Spring Boot', 'PostgreSQL'],
     category: 'enterprise',
     featured: false,
@@ -166,7 +164,6 @@ The project required handling massive datasets efficiently while maintaining smo
     title: 'Document Factory Platform',
     description: 'Created document automation system for Belgian federal finance enabling digital citizen workflows. Built drag-and-drop UI with reusable templates, reducing document creation time significantly.',
     shortDescription: 'Document automation with template system',
-    image: 'assets/images/projects/document-factory.jpg',
     technologies: ['React', 'TypeScript', 'Java Spring Boot', 'ItextPDF', 'REST API'],
     category: 'enterprise',
     featured: false,

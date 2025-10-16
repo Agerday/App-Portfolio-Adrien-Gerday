@@ -4,47 +4,67 @@
     subtitle="Building scalable applications with modern technologies"
   />
 
-  <!-- Filters -->
+  <!-- Filters Section -->
   <app-section>
-    <div class="flex flex-wrap items-center gap-6 mb-8">
-      <!-- Category Filters -->
-      <div class="flex flex-wrap gap-2">
-        <button
-          (click)="selectedCategory.set('all')"
-          [class.text-blue-600]="selectedCategory() === 'all'"
-          [class.dark:text-blue-400]="selectedCategory() === 'all'"
-          [class.font-semibold]="selectedCategory() === 'all'"
-          class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-        >
-          All ({{ projects.length }})
-        </button>
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-sm">
+      <div class="flex items-center gap-4">
 
-        @for (category of categories; track category.value) {
-          <span class="text-gray-300 dark:text-gray-700">•</span>
-          <button
-            (click)="selectedCategory.set(category.value)"
-            [class.text-blue-600]="selectedCategory() === category.value"
-            [class.dark:text-blue-400]="selectedCategory() === category.value"
-            [class.font-semibold]="selectedCategory() === category.value"
-            class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+        <!-- Category Filters -->
+        <div class="flex items-center gap-2 flex-1">
+          <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide whitespace-nowrap">Filter</span>
+
+          <app-button
+            (clicked)="selectedCategory.set('all')"
+            [variant]="selectedCategory() === 'all' ? 'primary' : 'white'"
+            class="!px-3 !py-1.5 !text-xs !min-h-[36px]"
           >
-            {{ category.label }} ({{ getProjectCountByCategory(category.value) }})
-          </button>
-        }
+            <span>All Projects</span>
+            <span class="px-1.5 py-0.5 bg-white/20 rounded-full text-[10px]">{{ projects.length }}</span>
+          </app-button>
+
+          @for (category of categories; track category.value) {
+            <app-button
+              (clicked)="selectedCategory.set(category.value)"
+              [variant]="selectedCategory() === category.value ? 'primary' : 'white'"
+              class="!px-3 !py-1.5 !text-xs !min-h-[36px]"
+            >
+              <span>{{ category.label }}</span>
+              <span class="px-1.5 py-0.5 bg-white/20 rounded-full text-[10px]">{{ getProjectCountByCategory(category.value) }}</span>
+            </app-button>
+          }
+        </div>
+
+        <!-- Search -->
+        <div class="w-64">
+          <app-search-input
+            [value]="searchQuery()"
+            (valueChange)="searchQuery.set($event)"
+            placeholder="Search projects, tech..."
+          />
+        </div>
       </div>
 
-      <!-- Search -->
-      <div class="ml-auto w-full sm:w-64">
-        <app-search-input
-          [value]="searchQuery()"
-          (valueChange)="searchQuery.set($event)"
-          placeholder="Search projects..."
-        />
-      </div>
+      <!-- Active Filters Info -->
+      @if (hasActiveFilters()) {
+        <div class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
+          <div class="text-xs text-gray-600 dark:text-gray-400">
+            Showing <span class="font-bold text-blue-600 dark:text-blue-400">{{ filteredProjects().length }}</span>
+            @if (filteredProjects().length === 1) {
+              project
+            } @else {
+              projects
+            }
+          </div>
+          <app-button (clicked)="clearAllFilters()" variant="white" class="!px-3 !py-1 !text-xs !min-h-[32px]">
+            <span class="material-symbols-rounded text-[14px]">close</span>
+            <span>Clear</span>
+          </app-button>
+        </div>
+      }
     </div>
   </app-section>
 
-  <!-- Projects Grid or Empty State -->
+  <!-- Projects Grid -->
   <app-section>
     @if (filteredProjects().length === 0) {
       <app-empty-state
@@ -55,16 +75,48 @@
         (action)="clearAllFilters()"
       />
     } @else {
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        @for (project of filteredProjects(); track project.id) {
-          <app-project-card
-            [project]="project"
-            [categoryLabel]="getCategoryLabel(project.category)"
-            (liveClick)="trackProjectClick(project.id, 'live')"
-            (githubClick)="trackProjectClick(project.id, 'github')"
-            (detailClick)="trackProjectClick(project.id, 'view')"
-          />
+
+      <!-- Featured Projects First -->
+      @if (showFeaturedSection()) {
+        <div class="mb-12">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="material-symbols-rounded text-yellow-600 dark:text-yellow-400 text-[28px]">star</span>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Featured Projects</h2>
+          </div>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @for (project of filteredFeatured(); track project.id) {
+              <app-project-card
+                [project]="project"
+                [categoryLabel]="getCategoryLabel(project.category)"
+                (liveClick)="trackProjectClick(project.id, 'live')"
+                (githubClick)="trackProjectClick(project.id, 'github')"
+                (detailClick)="trackProjectClick(project.id, 'view')"
+              />
+            }
+          </div>
+        </div>
+      }
+
+      <!-- All Projects -->
+      <div>
+        @if (showFeaturedSection()) {
+          <div class="flex items-center gap-3 mb-6">
+            <span class="material-symbols-rounded text-blue-600 dark:text-blue-400 text-[28px]">apps</span>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">All Projects</h2>
+          </div>
         }
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          @for (project of showFeaturedSection() ? filteredNonFeatured() : filteredProjects(); track project.id) {
+            <app-project-card
+              [project]="project"
+              [categoryLabel]="getCategoryLabel(project.category)"
+              (liveClick)="trackProjectClick(project.id, 'live')"
+              (githubClick)="trackProjectClick(project.id, 'github')"
+              (detailClick)="trackProjectClick(project.id, 'view')"
+            />
+          }
+        </div>
       </div>
     }
   </app-section>
