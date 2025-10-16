@@ -70,7 +70,7 @@ export const TIMELINE: Timeline[] = [
   {
     year: '2016-2019',
     title: 'Bachelor in Computer Science – EPFC',
-    description: `Earned Bachelor's degree in Computer Science from EPFC (École Pratique des Hautes Études Commerciales).
+    description: `Earned Bachelor's degree in Computer Science from EPFC.
        Built strong foundation in software development, algorithms, data structures, databases, and system architecture.`,
     type: 'education'
   }

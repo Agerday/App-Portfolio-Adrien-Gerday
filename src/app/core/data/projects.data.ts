@@ -1,38 +1,37 @@
-import { Project, ProjectCategory } from '@models/project.models';
+import {Project, ProjectCategory} from '@models/project.models';
 
 export const PROJECT_CATEGORIES: ProjectCategory[] = [
-  { value: 'personal', label: 'Personal Projects' },
-  { value: 'enterprise', label: 'Enterprise' },
-  { value: 'web', label: 'Web Apps' }
+  {value: 'personal', label: 'Personal Projects'},
+  {value: 'enterprise', label: 'Enterprise'}
 ];
 
 export const PROJECTS: Project[] = [
+  // === PERSONAL / FEATURED ===
   {
     id: 'numbr-accounting-system',
-    title: 'NUMBR - Full Accounting SaaS',
-    description: 'End-to-end accounting application built independently as a solo full-stack developer. Features responsive React UI with secure authentication, real-time Firestore sync, and optimized dashboards for small businesses.',
-    shortDescription: 'Full-stack accounting SaaS with React, Firebase, and Node.js',
+    title: 'NUMBR – Full Accounting SaaS',
+    description:
+      'End-to-end accounting SaaS built independently as a full-stack solo developer. Includes secure auth, real-time sync, and responsive dashboards for small businesses.',
+    shortDescription: 'Full-stack accounting SaaS with React, Firebase, and Node.js.',
     image: 'assets/images/projects/numbr-main.jpg',
     technologies: ['React', 'TypeScript', 'Node.js', 'Firebase', 'Firestore', 'MUI', 'Vite', 'Vitest'],
     category: 'personal',
     liveUrl: 'https://numbr-system.web.app/',
     featured: true,
     year: 2025,
-    duration: '3 months (ongoing)',
+    duration: 'Started April 2025 (ongoing)',
     role: 'Full-Stack Solo Developer',
     teamSize: 1,
     highlights: [
-      'Built complete frontend, backend, and deployment infrastructure',
+      'Built complete frontend, backend, and deployment pipeline',
       'Implemented secure authentication with Firebase Auth',
-      'Real-time data synchronization with Firestore',
-      'Comprehensive unit and integration testing with Vitest',
-      'Responsive dashboard optimized for small business workflows'
+      'Real-time data sync with Firestore and Cloud Functions',
+      'Comprehensive Vitest coverage for critical features',
+      'Responsive dashboard optimized for business workflows'
     ],
-    longDescription: `NUMBR is a modern accounting SaaS application I built entirely from scratch as a solo developer. This project showcases my ability to handle the full development lifecycle - from initial architecture design through deployment and maintenance.
+    longDescription: `NUMBR is a complete accounting SaaS I built from scratch as a solo developer. It demonstrates my ability to design, develop, and deploy a production-grade system handling authentication, data synchronization, and user-friendly dashboards for small businesses.
 
-The application provides small businesses with an intuitive interface for managing their accounting needs, featuring real-time data synchronization, secure user authentication, and a responsive design that works seamlessly across devices.
-
-Built with modern web technologies including React, TypeScript, and Firebase, the system leverages Cloud Functions for backend processing and Firestore for real-time database capabilities. The development process included comprehensive testing strategies to ensure reliability across all critical features.`,
+Built with React, TypeScript, and Firebase, it features Cloud Functions for backend logic and Firestore for real-time data handling. The focus was on clean architecture, reliable state management, and smooth UX across all devices.`,
     images: [
       'assets/images/projects/numbr-main.jpg',
       'assets/images/projects/numbr-dashboard.jpg',
@@ -40,147 +39,234 @@ Built with modern web technologies including React, TypeScript, and Firebase, th
       'assets/images/projects/numbr-admin.jpg'
     ],
     challenges: [
-      'Designing a scalable architecture as a solo developer',
-      'Implementing secure financial data handling',
-      'Creating an intuitive UX for complex accounting workflows',
-      'Managing real-time data consistency across multiple users'
+      'Designing scalable architecture as a solo developer',
+      'Securing financial data in real time',
+      'Maintaining data consistency across users',
+      'Simplifying complex accounting logic for non-experts'
     ],
     solutions: [
-      'Used Firebase ecosystem for rapid development with enterprise-grade security',
-      'Implemented comprehensive Firestore security rules for data protection',
-      'Conducted user research to simplify complex accounting concepts',
-      'Leveraged Firestore transactions for data consistency guarantees'
+      'Used Firebase ecosystem for rapid, secure cloud development',
+      'Implemented strict Firestore security rules and role-based access',
+      'Created modular form system to simplify workflows',
+      'Applied Firestore transactions for real-time consistency'
     ],
     features: [
-      'Real-time dashboard with business metrics',
+      'Real-time dashboard and analytics',
       'Transaction management and categorization',
-      'Invoice generation and tracking',
-      'Financial reports and analytics',
-      'Multi-currency support',
-      'Secure user authentication',
-      'Responsive design for mobile and desktop',
-      'Cloud-based data backup'
+      'Member and invoice management',
+      'Secure authentication and backups',
+      'Mobile and desktop responsive design'
     ]
   },
   {
     id: 'flight-booking-react',
     title: 'Flight Booking System',
-    description: 'Modern flight booking application built with React featuring real-time flight search, booking management, and responsive design. Demonstrates advanced state management and API integration.',
-    shortDescription: 'React-based flight booking with real-time search',
+    description:
+      'Modern flight booking demo built with React featuring real-time search, multi-step booking, and responsive UI with Redux state management.',
+    shortDescription: 'React-based flight booking with real-time search and filtering.',
     image: 'assets/images/projects/flight-main.jpg',
-    technologies: ['React', 'TypeScript', 'Redux', 'REST API', 'CSS3', 'Responsive Design'],
-    category: 'web',
+    technologies: ['React', 'TypeScript', 'Redux', 'REST API', 'Zod', 'CSS3', 'Responsive Design'],
+    category: 'personal',
     liveUrl: 'https://flight-booking-app-react.web.app/',
     githubUrl: 'https://github.com/Agerday/flight-booking-app',
     featured: true,
-    year: 2024,
+    year: 2025,
     duration: '1 week',
     role: 'Frontend Developer',
     teamSize: 1,
     highlights: [
       'Real-time flight search and filtering',
       'Complex state management with Redux',
-      'Responsive design for all devices',
-      'Optimized performance with lazy loading'
+      'Optimized rendering with virtualization',
+      'Fully responsive layout across devices'
     ],
-    longDescription: `A comprehensive flight booking application that showcases modern React development practices. The application provides users with an intuitive interface to search for flights, compare prices, and manage bookings.
-
-The project demonstrates proficiency in state management using Redux, API integration for real-time flight data, and creating responsive, user-friendly interfaces. Special attention was paid to performance optimization and code quality.`,
-    images: [
-      'assets/images/projects/flight-results.jpg',
-      'assets/images/projects/flight-seats.jpg',
-      'assets/images/projects/flight-extras.jpg',
-      'assets/images/projects/flight-confirmation.jpg'
-    ],
+    longDescription: `A flight booking web app demonstrating advanced React state management, API integration, and UI/UX design. Built to simulate live flight search and multi-step booking flows, with efficient Redux usage and form validation.`,
     challenges: [
-      'Managing complex application state across multiple views',
-      'Handling real-time flight data updates',
-      'Creating an intuitive multi-step booking flow',
-      'Optimizing performance for large datasets'
+      'Managing complex app state across booking steps',
+      'Handling real-time data updates efficiently',
+      'Ensuring UX clarity across devices'
     ],
     solutions: [
-      'Implemented Redux for predictable state management',
-      'Used caching strategies for frequently accessed data',
-      'Designed clear visual hierarchy for booking steps',
-      'Applied virtualization for rendering large flight lists'
+      'Implemented predictable Redux store with middleware',
+      'Optimized component rendering using memoization',
+      'Applied clear visual hierarchy and input validation'
     ],
     features: [
-      'Advanced flight search with multiple filters',
+      'Live search with filtering',
+      'Multi-step booking wizard',
       'Real-time price comparison',
-      'Multi-step booking process',
-      'Booking history and management',
-      'Responsive design',
-      'Form validation',
-      'Loading states and error handling',
-      'Accessible interface (WCAG compliant)'
+      'Booking history management',
+      'Accessible and mobile-ready UI'
     ]
   },
   {
+    id: 'angular-portfolio',
+    title: 'Personal Portfolio Platform',
+    description:
+      'Angular 18-based portfolio showcasing experience, projects, and skills with TailwindCSS, Firebase hosting, and smooth animations.',
+    shortDescription: 'Angular 18 portfolio showcasing projects and experience.',
+    image: 'assets/images/projects/portfolio-main.jpg',
+    technologies: ['Angular 18', 'TypeScript', 'TailwindCSS', 'Firebase', 'AOS', 'PrismJS'],
+    category: 'personal',
+    liveUrl: 'https://adriengerday.web.app/',
+    githubUrl: 'https://github.com/Agerday/angular-portfolio',
+    featured: true,
+    year: 2025,
+    duration: '3 weeks',
+    role: 'Frontend Developer',
+    teamSize: 1,
+    highlights: [
+      'Dynamic project and resume data integration',
+      'SEO-optimized and fully responsive',
+      'CI/CD with Firebase Hosting',
+      'Smooth animations via AOS'
+    ],
+    longDescription: `Modern portfolio platform designed to represent my professional experience, skills, and personal projects with a refined interface. Built using Angular 18 and TailwindCSS, it includes animations, SEO optimization, and Firebase CI/CD deployment.`,
+    challenges: ['Combining performance with animation', 'Ensuring strong SEO and Lighthouse scores'],
+    solutions: [
+      'Used AOS for lightweight animations',
+      'Optimized image loading and caching for speed',
+      'Ensured responsiveness and accessibility across screens'
+    ],
+    features: [
+      'Dynamic project listings',
+      'Smooth scroll animations',
+      'Dark/light mode toggle',
+      'Firebase CI/CD deployment'
+    ]
+  },
+
+  // === ENTERPRISE / FPS FINANCE ===
+  {
     id: 'tax-management-platform',
-    title: 'Multi-Client Tax Management Platform',
-    description: 'Led frontend migration from Angular 8 to 17 for Belgian federal tax system serving multiple government clients. Modernized architecture, reduced rollout time by 30%, and improved UX across 4 systems.',
-    shortDescription: 'Enterprise tax platform modernization (Angular 8→17)',
-    technologies: ['Angular 17', 'TypeScript', 'RxJS', 'NgRx', 'REST API', 'i18n'],
+    title: 'FPS Finance – Multi-Client Tax Management Platform',
+    description:
+      'Led frontend modernization and migration to Angular 17, optimizing tax workflows for four different government clients.',
+    shortDescription: 'Enterprise tax management modernization (Angular 17).',
+    technologies: [
+      'Angular 17',
+      'RxJS',
+      'TypeScript',
+      'Angular Material',
+      'i18n',
+      'SCSS',
+      'GitLab CI/CD'
+    ],
     category: 'enterprise',
     featured: false,
-    year: 2024,
-    duration: '13 months',
+    year: 2025,
+    duration: 'Jan 2024 – Feb 2025',
     role: 'Front End Lead',
     teamSize: 12,
     highlights: [
-      'Migrated from Angular 8 to 17',
-      'Reduced client rollout time by 30%',
-      'Eliminated legacy technical debt',
-      'Improved system reliability and UX'
+      'Migrated entire system from Angular 8 to 17',
+      'Built modular architecture for multi-client support',
+      'Improved scalability and user satisfaction',
+      'Enhanced UX with real-time feedback and validation'
     ],
-    longDescription: `Led the complete frontend modernization of a critical tax management platform used by the Belgian Federal Public Service Finance. The system serves multiple government clients with complex tax workflow requirements.
-
-This large-scale migration project involved upgrading from Angular 8 to Angular 17, introducing modular architecture patterns, and significantly improving the codebase maintainability. The project required careful coordination with backend teams and stakeholders while maintaining zero downtime for production systems.`
+    longDescription: `Led the modernization of FPS Finance’s tax platform, upgrading from Angular 8 to 17 while maintaining production stability. Introduced reusable dynamic steppers, improved validation UX, and streamlined multi-client workflow architecture.`
   },
   {
     id: 'data-visualization-platform',
-    title: 'Advanced Data Visualization Platform',
-    description: 'Built React-based analytics platform for Belgian federal finance with real-time multi-country data visualization. Handled 1M+ records with custom Recharts implementations and dynamic calculations.',
-    shortDescription: 'Real-time analytics with complex visualizations',
-    technologies: ['React', 'TypeScript', 'Redux', 'Recharts', 'Java Spring Boot', 'PostgreSQL'],
+    title: 'FPS Finance – Advanced Data Visualization Platform',
+    description:
+      'Developed a high-performance analytics system handling large datasets with real-time interactive charts and data tables.',
+    shortDescription: 'Interactive analytics platform with real-time data and charts.',
+    technologies: [
+      'React',
+      'Redux',
+      'Java (Spring Boot)',
+      'Material UI',
+      'Chart.js',
+      'REST API',
+      'GitLab CI/CD'
+    ],
     category: 'enterprise',
     featured: false,
-    year: 2023,
-    duration: '12 months',
-    role: 'Front End Lead / Back End Assist',
+    year: 2024,
+    duration: 'Jan 2023 – Jan 2024',
+    role: 'Front End Lead / Back End Lead',
     teamSize: 6,
     highlights: [
-      'Real-time multi-country data visualization',
-      'Custom interactive Recharts components',
-      'High-performance rendering for 1M+ records',
-      'Backend calculations with Java Spring Boot'
+      'Built complete charting and analytics modules',
+      'Enabled real-time data visualization and interaction',
+      'Integrated backend Java logic for live calculations',
+      'Completed major module solo under tight deadline'
     ],
-    longDescription: `Developed a sophisticated analytics platform for the Belgian Federal Public Service Finance, providing real-time data visualization across multiple countries and datasets.
-
-The project required handling massive datasets efficiently while maintaining smooth interactivity. Custom Recharts visualizations were developed to meet specific government reporting requirements, including bubble charts, line charts, and mixed chart types with dynamic data updates.`
+    longDescription: `Designed and built an advanced data visualization platform for FPS Finance, supporting massive datasets and live analytics. Delivered fully interactive, real-time charting modules with zoom, annotations, and backend-driven data shaping.`
   },
   {
     id: 'document-factory',
-    title: 'Document Factory Platform',
-    description: 'Created document automation system for Belgian federal finance enabling digital citizen workflows. Built drag-and-drop UI with reusable templates, reducing document creation time significantly.',
-    shortDescription: 'Document automation with template system',
-    technologies: ['React', 'TypeScript', 'Java Spring Boot', 'ItextPDF', 'REST API'],
+    title: 'FPS Finance – Document Factory Platform',
+    description:
+      'Developed a modular document generation system enabling full digitalization of citizen workflows with real-time feedback.',
+    shortDescription: 'Document automation and digital workflow platform.',
+    technologies: [
+      'React',
+      'Redux',
+      'Java (Spring Boot)',
+      'PrimeReact',
+      'Dynamic Grid Layout',
+      'Drag & Drop',
+      'Role-based Access',
+      'GitLab CI/CD'
+    ],
     category: 'enterprise',
     featured: false,
-    year: 2022,
-    duration: '30 months',
+    year: 2023,
+    duration: 'Aug 2020 – Jan 2023',
     role: 'Front End Lead',
     teamSize: 7,
     highlights: [
-      'Replaced paper-based processes with digital workflows',
-      'Drag-and-drop template builder',
-      'Reusable component library',
-      'Scalable template engine'
+      'Digitalized entire document workflow for citizens',
+      'Built smart drag-and-drop grid and reusable UI blocks',
+      'Enabled cross-department collaboration with modular components',
+      'Reduced paper usage drastically across departments'
     ],
-    longDescription: `Built a comprehensive document automation platform for the Belgian Federal Public Service Finance, revolutionizing how government documents are created and distributed.
-
-The system features an intuitive drag-and-drop interface for creating document templates, a reusable component library for consistent formatting, and integration with backend services for dynamic data population. This platform significantly reduced the time required to create and distribute official documents while improving accuracy and consistency.`
-  }
+    longDescription: `Developed a robust document automation system for FPS Finance, allowing internal teams and citizens to manage, generate, and respond to official documents online. Integrated dynamic grid layouts, role-based views, and flexible template systems for efficient collaboration and digital processing.`
+  },
+  {
+    id: 'eu-commission-dynamic-forms',
+    title: 'European Commission – Dynamic Form Platform',
+    description:
+      'Led frontend for multi-department form platform supporting conditional logic, multilingual support, and responsive design.',
+    shortDescription: 'Dynamic multilingual form system for EU institutions.',
+    technologies: ['Angular 8', 'RxJS', 'Material', 'SCSS', 'Responsive Design', 'i18n', 'GitLab CI/CD'],
+    category: 'enterprise',
+    featured: false,
+    year: 2020,
+    duration: 'Apr 2020 – Aug 2020',
+    role: 'Front End Lead',
+    teamSize: 6,
+    highlights: [
+      'Unified conditional logic across departments',
+      'Improved UX and increased form completion rate',
+      'Modular architecture for maintainability',
+      'Added multilingual and accessibility support'
+    ],
+    longDescription: `Developed a dynamic form platform for the European Commission, managing dozens of department-specific variations within a unified codebase. Focused on modularity, multilingual support, and consistent UX across devices.`
+  },
+  {
+    id: 'private-bank-processing-tool',
+    title: 'Private Bank – Financial Data Processing Tool',
+    description:
+      'Developed a system to import and process massive XML datasets into dynamic tables, with real-time Excel export and optimization.',
+    shortDescription: 'Processed and visualized large XML financial datasets with Excel export.',
+    technologies: ['Angular 8', 'RxJS', 'Material', 'Java (Spring Boot)', 'Apache POI', 'XML', 'Excel', 'GitLab CI/CD'],
+    category: 'enterprise',
+    featured: false,
+    year: 2020,
+    duration: 'Jan 2020 – Apr 2020',
+    role: 'Front End Lead',
+    teamSize: 5,
+    highlights: [
+      'Optimized large XML data processing and display by 50%',
+      'Built performant data tables for 1000+ rows',
+      'Integrated Excel export with Apache POI',
+      'Ensured responsive UI under heavy data loads'
+    ],
+    longDescription: `Built a financial data processing platform capable of handling large XML files and converting them into structured data tables. Enabled Excel exports and optimized frontend performance, cutting data processing time by more than half.`
+  },
 ];
 
 export const FEATURED_PROJECTS = PROJECTS.filter(p => p.featured).map(p => ({

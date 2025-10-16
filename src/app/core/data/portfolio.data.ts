@@ -1,10 +1,4 @@
-import {Feature, Stat} from '@models/portfolio.models';
-
-export const STATS: Stat[] = [
-  {value: 6, label: 'Years Experience', suffix: '+'},
-  {value: 7, label: 'Projects Delivered', suffix: ''},
-  {value: 289, label: 'GitHub Commits (Last 6 months)', suffix: '+'}
-];
+import {Feature} from '@models/portfolio.models';
 
 export const FEATURES: Feature[] = [
   {
