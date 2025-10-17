@@ -1,17 +1,17 @@
-import {ChangeDetectionStrategy, Component, effect, inject, isDevMode, OnInit} from '@angular/core';
-import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterOutlet} from '@angular/router';
-import {filter} from 'rxjs/operators';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, effect, inject, isDevMode } from '@angular/core';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import {ThemeService} from '@services/theme.service';
-import {AnalyticsService} from '@services/analytics.service';
-import {SeoService} from '@services/seo.service';
-import {LoaderService} from '@services/loader.service';
-import {PerformanceMonitoringService} from '@services/performance-monitoring.service';
-import {ScrollService} from '@shared/services/scroll-to-top.service';
+import { ThemeService } from '@services/theme.service';
+import { AnalyticsService } from '@services/analytics.service';
+import { SeoService } from '@services/seo.service';
+import { LoaderService } from '@services/loader.service';
+import { PerformanceMonitoringService } from '@services/performance-monitoring.service';
+import { ScrollService } from '@shared/services/scroll-to-top.service';
 
-import {FooterComponent, TopMenuComponent, ScrollToTopComponent} from '@components/layout';
-import {LoaderComponent} from '@components/ui';
+import { FooterComponent, TopMenuComponent, ScrollToTopComponent } from '@components/layout';
+import { LoaderComponent } from '@components/ui';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +27,7 @@ import {LoaderComponent} from '@components/ui';
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   private readonly router = inject(Router);
   private readonly themeService = inject(ThemeService);
   private readonly analyticsService = inject(AnalyticsService);
@@ -36,22 +36,21 @@ export class AppComponent implements OnInit {
   private readonly performanceService = inject(PerformanceMonitoringService);
   private readonly scrollService = inject(ScrollService);
 
-  private readonly darkModeEffect = effect(() => {
-    document.documentElement.classList.toggle('dark', this.themeService.isDarkMode());
-  });
-
   constructor() {
-    this.themeService.initializeTheme();
+    this.initializeApp();
     this.setupRouterEvents();
+    this.setupThemeEffect();
   }
 
-  ngOnInit(): void {
+  private initializeApp(): void {
+    this.themeService.initializeTheme();
     this.initializeAOS();
     this.seoService.setDefaultTags();
+    this.analyticsService.initialize();
     this.analyticsService.trackPageView(this.router.url);
 
     if (!isDevMode()) {
-      this.performanceService.initializeMonitoring();
+      this.performanceService.initialize();
     }
   }
 
@@ -65,51 +64,37 @@ export class AppComponent implements OnInit {
 
     this.router.events
       .pipe(
-        filter(e =>
+        filter((e): e is NavigationEnd | NavigationCancel | NavigationError =>
           e instanceof NavigationEnd ||
           e instanceof NavigationCancel ||
           e instanceof NavigationError
         ),
         takeUntilDestroyed()
       )
-      .subscribe((e) => {
+      .subscribe(() => {
         this.loaderService.hide();
-
-        if (e instanceof NavigationEnd) {
-          this.analyticsService.trackPageView(e.urlAfterRedirects);
-          this.scrollService.scrollToTop();
-          this.updateSeoFromRoute();
-        }
+        this.scrollService.scrollToTop();
       });
   }
 
-  private updateSeoFromRoute(): void {
-    const route = this.getActivatedRoute();
-    const {title, description, keywords} = route.snapshot.data;
-
-    if (title) {
-      this.seoService.update({title, description, keywords});
-    }
-  }
-
-  private getActivatedRoute() {
-    let route = this.router.routerState.root;
-    while (route.firstChild) {
-      route = route.firstChild;
-    }
-    return route;
+  private setupThemeEffect(): void {
+    effect(() => {
+      document.documentElement.classList.toggle('dark', this.themeService.isDarkMode());
+    });
   }
 
   private initializeAOS(): void {
-    import('aos')
-      .then(AOS => {
-        AOS.init({
-          duration: 800,
-          once: true,
-          offset: 100,
-          delay: 100
-        });
-      })
-      .catch(err => console.error('Failed to load AOS:', err));
+    if (typeof window === 'undefined') return;
+
+    import('aos').then((AOS) => {
+      (AOS as any).default.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+        offset: 50,
+        delay: 0,
+        anchorPlacement: 'top-bottom'
+      });
+    });
   }
 }

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {SeoService} from '@services/seo.service';
 import {AnalyticsService} from '@services/analytics.service';
 import {PageLayoutComponent} from '@components/layout';
@@ -13,7 +13,7 @@ import {EDUCATION, EXPERIENCE, PERSONAL_INFO, SKILLS} from '@core/data/resume.da
   templateUrl: './resume.component.html',
   styleUrl: './resume.component.scss'
 })
-export class ResumeComponent implements OnInit {
+export class ResumeComponent {
   readonly personalInfo = PERSONAL_INFO;
   readonly experience = EXPERIENCE;
   readonly education = EDUCATION;
@@ -21,7 +21,7 @@ export class ResumeComponent implements OnInit {
   private readonly seoService = inject(SeoService);
   private readonly analyticsService = inject(AnalyticsService);
 
-  ngOnInit(): void {
+  constructor() {
     this.seoService.update({
       title: 'Resume',
       description: `Professional resume of ${this.personalInfo.name}, ${this.personalInfo.title}`,

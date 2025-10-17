@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Subject } from 'rxjs';
 
 import { AnalyticsService } from '@services/analytics.service';
 import { SeoService } from '@services/seo.service';
@@ -33,11 +32,10 @@ import { PERSONAL_INFO } from '@core/data/resume.data';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent {
   private readonly analyticsService = inject(AnalyticsService);
   private readonly seoService = inject(SeoService);
   private readonly githubService = inject(GitHubService);
-  private readonly destroy$ = new Subject<void>();
 
   readonly allTechStack = TECH_STACK;
   readonly topSkills = TOP_SKILLS;
@@ -46,18 +44,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   readonly PERSONAL_INFO = PERSONAL_INFO;
 
   readonly githubLoading = this.githubService.loading;
-  readonly githubStats = this.githubService.stats;
   readonly githubLanguages = this.githubService.topLanguages;
 
-  ngOnInit(): void {
+  constructor() {
     this.initializeSeo();
     this.githubService.fetchGitHubData();
     this.analyticsService.trackPageView('home');
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   getIconClass(skill: string): string {

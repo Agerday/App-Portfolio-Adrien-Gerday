@@ -1,10 +1,9 @@
-import {Component, Input} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-page-header',
   standalone: true,
-  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="text-center mb-12 sm:mb-14 md:mb-16 relative px-4">
       <div
@@ -19,13 +18,14 @@ import {CommonModule} from '@angular/common';
 
       <div class="relative z-10">
         <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
-          {{ title }}
+          {{ title() }}
         </h1>
-        <p *ngIf="subtitle"
-           class="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300
-                  max-w-3xl mx-auto mb-2 leading-relaxed">
-          {{ subtitle }}
-        </p>
+        @if (subtitle()) {
+          <p class="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300
+                    max-w-3xl mx-auto mb-2 leading-relaxed">
+            {{ subtitle() }}
+          </p>
+        }
         <div class="mt-4 sm:mt-5 h-1 w-20 sm:w-28 bg-gradient-to-r from-blue-500 to-blue-600
                     mx-auto rounded-full"></div>
       </div>
@@ -47,6 +47,6 @@ import {CommonModule} from '@angular/common';
   `]
 })
 export class PageHeaderComponent {
-  @Input() title: string = '';
-  @Input() subtitle?: string;
+  title = input.required<string>();
+  subtitle = input<string>();
 }

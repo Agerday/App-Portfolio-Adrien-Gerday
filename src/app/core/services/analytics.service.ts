@@ -1,8 +1,8 @@
-import {inject, Injectable, isDevMode, OnDestroy} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
-import {filter} from 'rxjs/operators';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {environment} from '../../../environment';
+import { DestroyRef, inject, Injectable, isDevMode, signal, computed } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { environment } from '../../../environment';
 
 declare global {
   interface Window {
@@ -15,125 +15,112 @@ interface EventParams {
   event_category?: string;
   event_label?: string;
   value?: number;
-
   [key: string]: any;
 }
 
-@Injectable({providedIn: 'root'})
-export class AnalyticsService implements OnDestroy {
-  private router = inject(Router);
+interface SessionMetrics {
+  readonly startTime: number;
+  readonly pageViewCount: number;
+  readonly engagementTime: number;
+  readonly lastActiveTime: number;
+  readonly isActive: boolean;
+}
+
+@Injectable({ providedIn: 'root' })
+export class AnalyticsService {
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly GA_MEASUREMENT_ID = environment.googleAnalyticsId;
-  private initialized = false;
-  private sessionStartTime!: number;
-  private pageViewCount = 0;
 
-  private eventListeners: Array<{ target: any; event: string; handler: any }> = [];
-  private engagementInterval?: number;
-  private inactivityTimer?: number;
+  private readonly _initialized = signal(false);
+  private readonly _sessionMetrics = signal<SessionMetrics>({
+    startTime: Date.now(),
+    pageViewCount: 0,
+    engagementTime: 0,
+    lastActiveTime: Date.now(),
+    isActive: true
+  });
 
-  private engagementTime = 0;
-  private lastActiveTime = Date.now();
-  private isActive = true;
+  readonly initialized = this._initialized.asReadonly();
+  readonly sessionMetrics = this._sessionMetrics.asReadonly();
+  readonly sessionDuration = computed(() =>
+    Math.floor((Date.now() - this.sessionMetrics().startTime) / 1000)
+  );
 
-  constructor() {
-    if (environment.production && !isDevMode()) {
-      this.initializeGoogleAnalytics();
-      this.trackRouterEvents();
-      this.trackSessionMetrics();
+  private engagementIntervalId?: number;
+  private inactivityTimerId?: number;
+
+  initialize(): void {
+    if (this._initialized() || !environment.production || isDevMode()) {
+      return;
     }
+
+    this.initializeGoogleAnalytics();
+    this.setupRouterTracking();
+    this.setupSessionMetrics();
+    this.setupCleanup();
+
+    this._initialized.set(true);
   }
 
   trackPageView(url: string, title?: string): void {
     if (!this.isAnalyticsAvailable()) return;
 
-    this.pageViewCount++;
+    this._sessionMetrics.update(m => ({
+      ...m,
+      pageViewCount: m.pageViewCount + 1
+    }));
+
     window.gtag!('event', 'page_view', {
       page_path: url,
       page_title: title || document.title,
       page_location: window.location.href,
-      page_view_count: this.pageViewCount,
+      page_view_count: this.sessionMetrics().pageViewCount,
     });
   }
 
   trackEvent(action: string, category: string, params?: EventParams): void {
     if (!this.isAnalyticsAvailable()) return;
-    window.gtag!('event', action, {event_category: category, ...params});
+    window.gtag!('event', action, { event_category: category, ...params });
   }
 
   trackException(description: string, fatal = false): void {
     if (!this.isAnalyticsAvailable()) return;
-    window.gtag!('event', 'exception', {description, fatal});
+    window.gtag!('event', 'exception', { description, fatal });
   }
 
-  trackTiming(name: string, value: number, category?: string, label?: string): void {
+  trackTiming(name: string, value: number, category = 'Performance', label?: string): void {
     if (!this.isAnalyticsAvailable()) return;
     window.gtag!('event', 'timing_complete', {
       name,
       value,
-      event_category: category || 'Performance',
+      event_category: category,
       event_label: label,
     });
   }
 
   trackSocialInteraction(network: string, action: string, target?: string): void {
     if (!this.isAnalyticsAvailable()) return;
-    window.gtag!('event', 'social', {
+    window.gtag!('event', 'social_interaction', {
       social_network: network,
       social_action: action,
-      social_target: target || window.location.href,
+      social_target: target,
     });
   }
 
-  trackProjectView(projectId: string, projectName: string): void {
-    this.trackEvent('view_project', 'projects', {
-      event_label: projectName,
-      project_id: projectId,
-    });
-  }
-
-  trackContactFormSubmit(method: string): void {
-    this.trackEvent('contact_form_submit', 'engagement', {
-      event_label: method,
+  trackContactFormSubmit(formName: string, success = true): void {
+    this.trackEvent('form_submit', 'contact', {
+      form_name: formName,
+      success,
     });
   }
 
   trackResumeDownload(): void {
-    this.trackEvent('resume_download', 'engagement', {
-      event_label: 'pdf',
-    });
-  }
-
-  trackSkillFilter(skill: string): void {
-    this.trackEvent('filter_skills', 'engagement', {
-      event_label: skill,
-    });
-  }
-
-  trackScrollDepth(percentage: number): void {
-    this.trackEvent('scroll', 'engagement', {
-      event_label: `${percentage}%`,
-      value: percentage,
-    });
-  }
-
-  trackExternalLink(url: string): void {
-    this.trackEvent('click', 'external_link', {
-      event_label: url,
-      transport_type: 'beacon',
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.eventListeners.forEach(({target, event, handler}) => {
-      target.removeEventListener(event, handler);
-    });
-
-    if (this.engagementInterval) clearInterval(this.engagementInterval);
-    if (this.inactivityTimer) clearTimeout(this.inactivityTimer);
+    this.trackEvent('resume_download', 'engagement');
   }
 
   private initializeGoogleAnalytics(): void {
-    if (this.initialized || !this.GA_MEASUREMENT_ID) return;
+    if (typeof window === 'undefined' || !this.GA_MEASUREMENT_ID) return;
 
     const script = document.createElement('script');
     script.async = true;
@@ -141,89 +128,98 @@ export class AnalyticsService implements OnDestroy {
     document.head.appendChild(script);
 
     window.dataLayer = window.dataLayer || [];
-    window.gtag = function () {
-      window.dataLayer!.push(arguments);
+    window.gtag = function gtag(...args: any[]) {
+      window.dataLayer!.push(args);
     };
 
     window.gtag('js', new Date());
     window.gtag('config', this.GA_MEASUREMENT_ID, {
       send_page_view: false,
-      cookie_flags: 'SameSite=None;Secure',
+      anonymize_ip: true,
     });
-
-    this.initialized = true;
-    this.sessionStartTime = Date.now();
   }
 
-  private trackRouterEvents(): void {
+  private setupRouterTracking(): void {
     this.router.events
       .pipe(
-        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-        takeUntilDestroyed()
+        filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe((event: NavigationEnd) => {
+      .subscribe((event) => {
         this.trackPageView(event.urlAfterRedirects);
       });
   }
 
-  private trackSessionMetrics(): void {
-    const beforeUnloadHandler = () => {
-      const sessionDuration = Date.now() - this.sessionStartTime;
-      this.trackEvent('session', 'duration', {
-        value: Math.round(sessionDuration / 1000),
-        event_label: 'session_end',
-      });
-    };
+  private setupSessionMetrics(): void {
+    this.startEngagementTracking();
+    this.setupInactivityDetection();
+    this.setupVisibilityTracking();
+  }
 
-    this.addEventListener(window, 'beforeunload', beforeUnloadHandler);
-
-    const trackEngagement = () => {
-      if (this.isActive) this.engagementTime += Date.now() - this.lastActiveTime;
-      this.lastActiveTime = Date.now();
-    };
-
-    const activityHandler = () => {
-      if (!this.isActive) {
-        this.isActive = true;
-        this.lastActiveTime = Date.now();
+  private startEngagementTracking(): void {
+    this.engagementIntervalId = window.setInterval(() => {
+      if (this.sessionMetrics().isActive) {
+        this._sessionMetrics.update(m => ({
+          ...m,
+          engagementTime: m.engagementTime + 1
+        }));
       }
-      trackEngagement();
-    };
+    }, 1000);
+  }
 
-    ['mousedown', 'keydown', 'scroll', 'touchstart'].forEach(event =>
-      this.addEventListener(window, event, activityHandler, {passive: true})
-    );
-
+  private setupInactivityDetection(): void {
     const resetInactivityTimer = () => {
-      clearTimeout(this.inactivityTimer);
-      this.inactivityTimer = window.setTimeout(() => {
-        this.isActive = false;
-        trackEngagement();
+      this._sessionMetrics.update(m => ({
+        ...m,
+        lastActiveTime: Date.now(),
+        isActive: true
+      }));
+
+      if (this.inactivityTimerId) {
+        clearTimeout(this.inactivityTimerId);
+      }
+
+      this.inactivityTimerId = window.setTimeout(() => {
+        this._sessionMetrics.update(m => ({ ...m, isActive: false }));
       }, 30000);
     };
 
-    this.addEventListener(window, 'mousemove', resetInactivityTimer, {passive: true});
-    resetInactivityTimer();
+    ['mousedown', 'keydown', 'scroll', 'touchstart'].forEach(event => {
+      document.addEventListener(event, resetInactivityTimer, { passive: true });
+    });
 
-    this.engagementInterval = window.setInterval(() => {
-      if (this.engagementTime > 0) {
-        this.trackEvent('engagement', 'time_spent', {
-          value: Math.round(this.engagementTime / 1000),
-        });
-        this.engagementTime = 0;
-      }
-    }, 60000);
+    resetInactivityTimer();
   }
 
-  private addEventListener(target: any, event: string, handler: any, options?: any): void {
-    target.addEventListener(event, handler, options);
-    this.eventListeners.push({target, event, handler});
+  private setupVisibilityTracking(): void {
+    document.addEventListener('visibilitychange', () => {
+      this._sessionMetrics.update(m => ({
+        ...m,
+        isActive: document.visibilityState === 'visible'
+      }));
+    });
+  }
+
+  private setupCleanup(): void {
+    this.destroyRef.onDestroy(() => {
+      if (this.engagementIntervalId) {
+        clearInterval(this.engagementIntervalId);
+      }
+      if (this.inactivityTimerId) {
+        clearTimeout(this.inactivityTimerId);
+      }
+
+      const metrics = this.sessionMetrics();
+      this.trackEvent('session_end', 'engagement', {
+        duration: this.sessionDuration(),
+        engagement_time: metrics.engagementTime,
+        page_views: metrics.pageViewCount,
+      });
+    });
   }
 
   private isAnalyticsAvailable(): boolean {
     return typeof window !== 'undefined' &&
-      !!window.gtag &&
-      environment.production &&
-      this.initialized;
+      typeof window.gtag === 'function';
   }
 }

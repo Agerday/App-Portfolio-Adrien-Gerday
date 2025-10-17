@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
-import {SeoService} from '@services/seo.service';
-import {CERTIFICATIONS} from '@core/data/certifications.data';
-import {PageLayoutComponent} from '@components/layout';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { SeoService } from '@services/seo.service';
+import { CERTIFICATIONS } from '@core/data/certifications.data';
+import { PageLayoutComponent } from '@components/layout';
 import {
   CardComponent,
   CertificationCardComponent,
@@ -24,15 +24,14 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './certifications.component.html'
 })
-export class CertificationsComponent implements OnInit {
+export class CertificationsComponent {
   readonly certifications = CERTIFICATIONS;
   private readonly seoService = inject(SeoService);
 
-  ngOnInit(): void {
+  constructor() {
     this.seoService.update({
       title: 'Professional Certifications',
-      description: 'Professional certifications and training in full-stack development, Angular, Java, ' +
-        'and modern web technologies',
+      description: 'Professional certifications and training in full-stack development, Angular, Java, and modern web technologies',
       keywords: 'certifications, full-stack developer, Angular, Java, Spring Boot, professional training'
     });
   }
@@ -43,11 +42,5 @@ export class CertificationsComponent implements OnInit {
       year: 'numeric',
       month: 'long'
     });
-  }
-
-  openCertificate(url?: string): void {
-    if (url) {
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }
   }
 }

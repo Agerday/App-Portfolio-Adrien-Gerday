@@ -1,9 +1,8 @@
-import {ChangeDetectionStrategy, Component, computed, inject, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, signal} from '@angular/core';
 import {AnalyticsService} from '@services/analytics.service';
 import {SeoService} from '@services/seo.service';
 import {PageLayoutComponent} from '@components/layout';
 import {
-  ButtonComponent,
   EmptyStateComponent,
   PageHeaderComponent,
   ProjectCardComponent,
@@ -21,13 +20,12 @@ import {PROJECT_CATEGORIES, PROJECTS} from '@core/data/projects.data';
     SectionComponent,
     SearchInputComponent,
     ProjectCardComponent,
-    EmptyStateComponent,
-    ButtonComponent
+    EmptyStateComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './projects.component.html'
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent {
   private readonly analyticsService = inject(AnalyticsService);
   private readonly seoService = inject(SeoService);
 
@@ -62,19 +60,24 @@ export class ProjectsComponent implements OnInit {
 
   readonly showFeaturedSection = computed(() =>
     this.filteredFeatured().length > 0 &&
-    this.selectedCategory() === 'all' &&
-    !this.searchQuery()
+    this.selectedCategory() === 'all'
   );
 
   readonly hasActiveFilters = computed(() =>
     this.searchQuery() !== '' || this.selectedCategory() !== 'all'
   );
 
-  ngOnInit(): void {
+  constructor() {
+    this.initializeSeo();
+    this.analyticsService.trackPageView('projects');
+  }
+
+  private initializeSeo(): void {
     this.seoService.update({
       title: 'Projects',
-      description: 'Full-stack applications and enterprise solutions built with React, Angular, and modern web technologies',
-      keywords: 'React, Angular, TypeScript, full-stack, web development, portfolio'
+      description: 'Explore my portfolio of Angular and React applications, showcasing modern web development ' +
+        'practices and innovative solutions.',
+      keywords: 'projects, portfolio, Angular, React, web development, case studies'
     });
   }
 

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, computed, inject, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, signal} from '@angular/core';
 import {SeoService} from '@services/seo.service';
 import {AnalyticsService} from '@services/analytics.service';
 import {TESTIMONIALS} from '@core/data/testimonials.data';
@@ -26,7 +26,7 @@ interface ProjectLink {
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './testimonials.component.html'
 })
-export class TestimonialsComponent implements OnInit {
+export class TestimonialsComponent {
   private readonly seoService = inject(SeoService);
   private readonly analyticsService = inject(AnalyticsService);
 
@@ -42,11 +42,11 @@ export class TestimonialsComponent implements OnInit {
     return this.allTestimonials;
   });
 
-  ngOnInit(): void {
+  constructor() {
     this.seoService.update({
       title: 'Client Testimonials & Reviews',
-      description: 'Read what colleagues say about working with me. Real feedback from real projects showcasing ' +
-        'quality, reliability, and professional excellence.',
+      description: 'Read what colleagues say about working with me. Real feedback from real projects showcasing quality,' +
+        ' reliability, and professional excellence.',
       keywords: 'testimonials, reviews, recommendations, professional references'
     });
 
