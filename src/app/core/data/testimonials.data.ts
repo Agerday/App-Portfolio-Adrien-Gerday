@@ -7,7 +7,7 @@ export const TESTIMONIALS: Testimonial[] = [
     position: 'Business Analyst and Associate',
     company: 'FPS Finance (Belgium)',
     companyUrl: 'https://finance.belgium.be/en',
-    quote: 'I had the chance to work with Adrien on the IRCT project back in 2023 at FPS Finances ' +
+    quote: 'I had the chance to work with Adrien on the IRCT project in 2023 at FPS Finances ' +
       ', an advanced data visualization platform that demanded precision and scalability. His technical depth and ' +
       'problem-solving mindset made a real difference. In April 2025, we teamed up again to build NUMBR from scratch, ' +
       'and I was impressed by how quickly he turned complex ideas into a working product. Adrien brings structure, ' +
