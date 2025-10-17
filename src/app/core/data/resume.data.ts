@@ -74,7 +74,7 @@ export const EXPERIENCE: Experience[] = [
 export const EDUCATION: Education[] = [
   {
     degree: 'Bachelor in Computer Science',
-    school: 'EPFC (École Pratique des Hautes Études Commerciales)',
+    school: 'EPFC',
     location: 'Brussels, Belgium',
     duration: '2016 – 2019',
     description: 'Comprehensive degree program covering software development, algorithms, data structures, databases, networking, and system architecture.'
