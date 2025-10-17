@@ -78,7 +78,17 @@ export const routes: Routes = [
       animation: 'CertificationsPage',
       title: 'Certifications | Professional Credentials',
       description: 'Professional certifications in Angular, cloud platforms, and software development',
-    },
+    }
+  },
+  {
+    path: 'testimonials',
+    loadComponent: () => import('@features/testimonials/testimonials.component').then(m => m.TestimonialsComponent),
+    data: {
+      animation: 'TestimonialsPage',
+      title: 'Testimonials | Colleagues Reviews',
+      description: 'Read what colleagues say about working with me. Real testimonials and feedback from successful projects.',
+      keywords: 'testimonials, reviews, colleague feedback, recommendations'
+    }
   },
   {
     path: 'error',

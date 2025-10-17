@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy, Component, inject, signal,} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {NavigationEnd, Router, RouterLink, RouterLinkActive} from '@angular/router';
-import {filter} from 'rxjs/operators';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {ThemeService} from '@services/theme.service';
-import {ButtonComponent} from '@components/ui';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ThemeService } from '@services/theme.service';
+import { ButtonComponent } from '@components/ui';
 
 interface NavItem {
   label: string;
@@ -28,18 +28,19 @@ export class TopMenuComponent {
   private readonly hoverCloseTimers = new Map<string, number>();
 
   readonly menuItems: NavItem[] = [
-    {label: 'Home', path: '/'},
-    {label: 'About', path: '/about'},
+    { label: 'Home', path: '/' },
+    { label: 'About', path: '/about' },
     {
       label: 'Work',
       path: '/work',
       children: [
-        {label: 'Projects', path: '/projects'},
-        {label: 'Certifications', path: '/certifications'},
+        { label: 'Projects', path: '/projects' },
+        { label: 'Certifications', path: '/certifications' },
+        { label: 'Testimonials', path: '/testimonials' },
       ],
     },
-    {label: 'Resume', path: '/resume'},
-    {label: 'Contact', path: '/contact'},
+    { label: 'Resume', path: '/resume' },
+    { label: 'Contact', path: '/contact' },
   ];
 
   private readonly router = inject(Router);
@@ -72,25 +73,11 @@ export class TopMenuComponent {
     return this.openDropdowns().has(label);
   }
 
-  closeDropdowns(): void {
-    this.clearAllHoverTimers();
-    this.openDropdowns.set(new Set());
-  }
-
-  toggleTheme(): void {
-    this.themeService.toggleTheme();
-  }
-
   onMouseEnter(label: string): void {
-    this.clearHoverCloseTimer(label);
-    this.openDropdown(label);
-  }
-
-  onMouseLeave(label: string): void {
-    this.scheduleHoverClose(label, 150);
-  }
-
-  private openDropdown(label: string): void {
+    if (this.hoverCloseTimers.has(label)) {
+      window.clearTimeout(this.hoverCloseTimers.get(label));
+      this.hoverCloseTimers.delete(label);
+    }
     this.openDropdowns.update((set) => {
       const newSet = new Set(set);
       newSet.add(label);
@@ -98,50 +85,42 @@ export class TopMenuComponent {
     });
   }
 
-  private scheduleHoverClose(label: string, delay = 150): void {
-    this.clearHoverCloseTimer(label);
-    const id = window.setTimeout(() => {
+  onMouseLeave(label: string): void {
+    const timer = window.setTimeout(() => {
       this.openDropdowns.update((set) => {
         const newSet = new Set(set);
         newSet.delete(label);
         return newSet;
       });
       this.hoverCloseTimers.delete(label);
-    }, delay);
-    this.hoverCloseTimers.set(label, id);
+    }, 150);
+    this.hoverCloseTimers.set(label, timer);
   }
 
-  private clearHoverCloseTimer(label: string): void {
-    const t = this.hoverCloseTimers.get(label);
-    if (t != null) {
-      clearTimeout(t);
-      this.hoverCloseTimers.delete(label);
-    }
+  closeDropdowns(): void {
+    this.openDropdowns.set(new Set());
   }
 
-  private clearAllHoverTimers(): void {
-    for (const t of this.hoverCloseTimers.values()) {
-      clearTimeout(t);
-    }
-    this.hoverCloseTimers.clear();
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
   }
 
   private setupScrollListener(): void {
-    window.addEventListener(
-      'scroll',
-      () => {
-        this.isScrolled.set(window.scrollY > 10);
-      },
-      {passive: true}
-    );
+    if (typeof window === 'undefined') return;
+
+    window.addEventListener('scroll', () => {
+      this.isScrolled.set(window.scrollY > 20);
+    });
   }
 
   private setupRouteListener(): void {
     this.router.events
-      .pipe(filter((e) => e instanceof NavigationEnd), takeUntilDestroyed())
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntilDestroyed()
+      )
       .subscribe(() => {
         this.closeMobileMenu();
-        this.closeDropdowns();
       });
   }
 }
