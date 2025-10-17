@@ -12,6 +12,7 @@ export const TESTIMONIALS: Testimonial[] = [
       'problem-solving mindset made a real difference. In April 2025, we teamed up again to build NUMBR from scratch, ' +
       'and I was impressed by how quickly he turned complex ideas into a working product. Adrien brings structure, ' +
       'speed, and results every single time.',
+    image: 'assets/images/colleagues/MD.jpg',
     rating: 5,
     date: '2025-08-15',
     projectId: ['data-visualization-platform', 'NUMBR'],
@@ -25,14 +26,14 @@ export const TESTIMONIALS: Testimonial[] = [
     company: 'FPS Finance (Belgium)',
     companyUrl: 'https://finance.belgium.be/en',
     quote: 'Exceptional technical expertise combined with great communication skills. He scared me back then when' +
-      'he asked to refactor a massive legacy module to make it fully generic and reusable but I trusted him' +
+      ' he asked to refactor a massive legacy module to make it fully generic and reusable but I trusted him' +
       ' and he reworked everything in just one week. That decision ended up saving us countless hours on future ' +
       'implementations. A visionary. Adrien constantly challenged the business by proposing smarter functionalities to improve ' +
       'user experience and avoid the endless loop of filling forms and clicking send until there are no errors. ' +
       'I’ll truly miss him and wish him the best of luck in his new adventure in Asia.',
     rating: 5,
     date: '2025-01-25',
-    projectId: ['finance-platform, data-visualization-platform'],
+    projectId: ['tax-management-platform', 'data-visualization-platform'],
     tags: ['React', 'Java', 'User Experience', 'Performance'],
     featured: true
   },
@@ -40,7 +41,7 @@ export const TESTIMONIALS: Testimonial[] = [
     id: '3',
     name: 'Kevin Gillet',
     position: 'Frontend Developer & Tester',
-    company: 'eGov Select',
+    company: 'Egov Select',
     companyUrl: 'https://egovselect.be/',
     linkedinUrl: 'https://www.linkedin.com/in/kevin-gillet-a67249175/',
     quote: 'I met Adrien during the Switchfully training back in 2019 and we’ve been learning, building, and ' +
@@ -50,6 +51,7 @@ export const TESTIMONIALS: Testimonial[] = [
       ' it felt like building cool stuff with a friend.',
     rating: 5,
     date: '2025-08-01',
+    image: 'assets/images/colleagues/KG.jpg',
     tags: ['Frontend', 'Testing', 'Collaboration'],
     featured: false
   },
@@ -65,7 +67,8 @@ export const TESTIMONIALS: Testimonial[] = [
       'product and our team. It’s been a real pleasure having him on board.',
     rating: 5,
     date: '2025-02-02',
-    projectId: ['finance-platform, data-visualization-platform'],
+    image: 'assets/images/colleagues/MVC.jpg',
+    projectId: ['eu-commission-dynamic-forms'],
     tags: ['User Experience', 'Angular', 'Attention to details'],
     featured: false
   },
@@ -84,7 +87,8 @@ export const TESTIMONIALS: Testimonial[] = [
       'experiences I’ve had.',
     rating: 5,
     date: '2025-02-09',
-    projectId: ['data-visualization-platform',],
+    image: 'assets/images/colleagues/JO.jpg',
+    projectId: ['data-visualization-platform', 'private-bank-processing-tool'],
     tags: ['Angular', 'Java'],
     featured: false
   }

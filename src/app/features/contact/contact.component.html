@@ -80,13 +80,13 @@
               (click)="trackSocialClick(link.label)"
               target="_blank"
               rel="noopener noreferrer">
-              <app-button variant="white">
+              <app-button variant="white" class="!min-h-[56px] sm:!min-h-[64px]">
                 @if (link.isIconFont) {
-                  <i [class]="link.icon + ' text-lg'" aria-hidden="true"></i>
+                  <i [class]="link.icon + ' !text-[20px]'" aria-hidden="true"></i>
                 } @else {
-                  <span class="material-symbols-rounded text-[20px]">{{ link.icon }}</span>
+                  <span class="material-symbols-rounded !text-[20px]">{{ link.icon }}</span>
                 }
-                <span>{{ link.label }}</span>
+                <span class="text-base leading-none">{{ link.label }}</span>
               </app-button>
             </a>
           }

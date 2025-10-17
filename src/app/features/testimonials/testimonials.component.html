@@ -1,164 +1,139 @@
 <app-page-layout>
-  <app-page-header
-    title="What colleagues say..."
-  />
+  <app-page-header title="What colleagues say..." />
 
   <app-section>
     <!-- Testimonials Grid -->
     <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
       @for (testimonial of filteredTestimonials(); track testimonial.id; let i = $index) {
         <app-card
-          class="group hover:-translate-y-2 transition-all duration-300 h-full flex flex-col"
+          class="group hover:-translate-y-2 transition-all duration-300 relative"
           data-aos="fade-up"
           [attr.data-aos-delay]="i * 100">
 
-          <!-- Header -->
-          <div class="flex items-start justify-between mb-6">
-            <div class="flex items-start gap-4 flex-1">
-              <!-- Avatar -->
-              <div class="flex-shrink-0">
-                @if (testimonial.image) {
-                  <img
-                    [src]="testimonial.image"
-                    [alt]="testimonial.name"
-                    class="w-14 h-14 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600"
-                  />
-                } @else {
-                  <div class="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-purple-600
-                              flex items-center justify-center text-white font-bold text-lg">
-                    {{ getInitials(testimonial.name) }}
-                  </div>
-                }
-              </div>
-
-              <!-- Info -->
-              <div class="flex-1 min-w-0">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-1">
-                  {{ testimonial.name }}
-                </h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                  {{ testimonial.position }}
-                </p>
-                @if (testimonial.companyUrl) {
-                  <a
-                    [href]="testimonial.companyUrl"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-sm text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1">
-                    {{ testimonial.company }}
-                    <span class="material-symbols-rounded text-[14px]">open_in_new</span>
-                  </a>
-                } @else {
-                  <p class="text-sm text-gray-500 dark:text-gray-500">
-                    {{ testimonial.company }}
-                  </p>
-                }
-              </div>
-            </div>
-
-            <!-- Featured Badge -->
-            @if (testimonial.featured) {
-              <span class="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-yellow-400 to-orange-500
-                           text-white text-xs font-bold rounded-full shadow-lg flex-shrink-0">
-                <span class="material-symbols-rounded text-[14px]">★</span>
-                Featured
+          <!-- Featured Badge -->
+          @if (testimonial.featured) {
+            <div class="absolute top-4 right-4 z-10">
+              <span class="inline-flex items-center gap-1 px-2 py-1 bg-gradient-to-r from-yellow-400 to-orange-500
+                           text-white text-xs font-bold rounded-full shadow-lg">
+                <span class="material-symbols-rounded text-[12px]">★</span>
+                <span>Featured</span>
               </span>
-            }
-          </div>
+            </div>
+          }
 
-          <!-- Rating -->
-          <div class="flex items-center gap-1 mb-4">
-            @for (star of getRatingStars(testimonial.rating); track star) {
-              <span class="material-symbols-rounded text-yellow-400 text-[20px]">★</span>
-            }
-          </div>
-
-          <!-- Quote -->
-          <blockquote class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6 flex-1 relative">
-            <span class="text-5xl text-blue-500/20 absolute -top-2 -left-1 leading-none">"</span>
-            <p class="relative z-10">{{ testimonial.quote }}</p>
-          </blockquote>
-
-          <!-- Footer -->
-          <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700 flex-wrap gap-3">
-            <!-- Tags -->
-            <div class="flex flex-wrap gap-2">
-              @for (tag of testimonial.tags.slice(0, 3); track tag) {
-                <span class="px-2.5 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400
-                             text-xs font-medium rounded-lg border border-blue-200 dark:border-blue-800">
-                  {{ tag }}
-                </span>
+          <!-- Centered content -->
+          <div class="flex flex-col justify-center items-center h-full w-full text-center">
+            <!-- Avatar -->
+            <div class="mb-4">
+              @if (testimonial.image) {
+                <img
+                  [src]="testimonial.image"
+                  [alt]="testimonial.name"
+                  class="w-16 h-16 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 mx-auto"
+                />
+              } @else {
+                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600
+                            flex items-center justify-center text-white font-bold text-lg mx-auto">
+                  {{ getInitials(testimonial.name) }}
+                </div>
               }
             </div>
 
-            <!-- Project Link -->
-            @if (testimonial.projectId) {
+            <!-- Name -->
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-1">
+              {{ testimonial.name }}
+            </h3>
+
+            <!-- Position -->
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">
+              {{ testimonial.position }}
+            </p>
+
+            <!-- Company -->
+            @if (testimonial.companyUrl) {
               <a
-                [routerLink]="['/projects', testimonial.projectId]"
-                class="inline-flex items-center gap-1 text-sm text-blue-600 dark:text-blue-400
-                       hover:gap-2 transition-all font-medium">
-                <span>View Project</span>
-                <span class="material-symbols-rounded text-[16px]">arrow_forward</span>
+                [href]="testimonial.companyUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sm text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1 mb-4">
+                {{ testimonial.company }}
+                <span class="material-symbols-rounded text-[14px]">open_in_new</span>
               </a>
+            } @else {
+              <p class="text-sm text-gray-500 dark:text-gray-500 mb-4">
+                {{ testimonial.company }}
+              </p>
+            }
+
+            <!-- Rating -->
+            <div class="flex items-center gap-1 mb-4">
+              @for (star of getRatingStars(testimonial.rating); track star) {
+                <span class="material-symbols-rounded text-yellow-400 text-[20px]">★</span>
+              }
+            </div>
+
+            <!-- Quote -->
+            <blockquote class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3 relative px-2">
+              <span class="text-4xl text-blue-500/20 absolute -top-1 left-0 leading-none">"</span>
+              <p class="relative text-sm italic">{{ testimonial.quote }}</p>
+              <span class="text-4xl text-blue-500/20 absolute -bottom-2 right-0 leading-none">"</span>
+            </blockquote>
+
+            <!-- Date -->
+            <p class="text-xs text-gray-500 dark:text-gray-500 mb-4">
+              {{ formatDate(testimonial.date) }}
+            </p>
+
+            <!-- Tags -->
+            @if (testimonial.tags.length > 0) {
+              <div class="flex flex-wrap justify-center gap-2 mb-4">
+                @for (tag of testimonial.tags.slice(0, 3); track tag) {
+                  <span class="px-2.5 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400
+                               text-xs font-medium rounded-lg border border-blue-200 dark:border-blue-800">
+                    {{ tag }}
+                  </span>
+                }
+              </div>
+            }
+
+            <!-- Related Projects -->
+            @if (getProjectLinks(testimonial.projectId).length > 0) {
+              <div class="w-full pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-center gap-2 mb-2">
+                  <span class="material-symbols-rounded text-[16px] text-gray-600 dark:text-gray-400">work</span>
+                  <span class="text-xs font-medium text-gray-600 dark:text-gray-400">
+                    Related Project{{ getProjectLinks(testimonial.projectId).length > 1 ? 's' : '' }}
+                  </span>
+                </div>
+                <div class="flex flex-wrap justify-center gap-2">
+                  @for (project of getProjectLinks(testimonial.projectId); track project.id) {
+                    <a
+                      [href]="['/projects', project.id]"
+                      class="inline-flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-blue-50 to-purple-50
+                             dark:from-blue-900/20 dark:to-purple-900/20 text-blue-600 dark:text-blue-400
+                             text-xs font-medium rounded-lg border border-blue-200 dark:border-blue-800
+                             hover:shadow-md hover:scale-105 transition-all group/link">
+                      <span class="truncate max-w-[180px]">{{ project.title }}</span>
+                      <span class="material-symbols-rounded text-[14px] group-hover/link:translate-x-0.5 transition-transform">arrow_forward</span>
+                    </a>
+                  }
+                </div>
+              </div>
             }
           </div>
-
-          <!-- Date -->
-          <p class="text-xs text-gray-500 dark:text-gray-500 mt-4">
-            {{ formatDate(testimonial.date) }}
-          </p>
         </app-card>
       }
     </div>
-
-    <!-- Empty State -->
-    @if (filteredTestimonials().length === 0) {
-      <div class="text-center py-16" data-aos="fade-up">
-        <span class="material-symbols-rounded text-6xl text-gray-400 dark:text-gray-600 mb-4 block">
-          sentiment_satisfied
-        </span>
-        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-          No testimonials found
-        </h3>
-        <p class="text-gray-600 dark:text-gray-400">
-          Try adjusting your filters
-        </p>
-      </div>
-    }
   </app-section>
 
   <!-- CTA Section -->
-  <app-section>
-    <app-card class="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20
-                     border-2 border-blue-200 dark:border-blue-800"
-              data-aos="fade-up">
-      <div class="text-center max-w-2xl mx-axuto py-8">
-        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl
-                    flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-          <span class="material-symbols-rounded text-white text-3xl">handshake</span>
-        </div>
-
-        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-          Ready to Work Together?
-        </h2>
-
-        <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-          Join these satisfied clients and let's build something amazing together.
-          I'm committed to delivering excellence in every project.
-        </p>
-
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <app-button [routerLink]="'/contact'" variant="primary">
-            <span>Start a Project</span>
-            <span class="material-symbols-rounded text-[20px]">arrow_forward</span>
-          </app-button>
-
-          <app-button [routerLink]="'/projects'" variant="white">
-            <span>View Projects</span>
-            <span class="material-symbols-rounded text-[20px]">arrow_forward</span>
-          </app-button>
-        </div>
-      </div>
-    </app-card>
-  </app-section>
+  <app-cta-section
+    icon="handshake"
+    title="Ready to Work Together?"
+    description="Join these satisfied colleagues and let's build something amazing together. I'm committed to delivering excellence in every project."
+    [buttons]="[
+      { label: 'Start a Project', route: '/contact', variant: 'primary' },
+      { label: 'View Projects', route: '/projects', variant: 'white' }
+    ]"
+  />
 </app-page-layout>

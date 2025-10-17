@@ -1,23 +1,27 @@
 import {ChangeDetectionStrategy, Component, computed, inject, OnInit, signal} from '@angular/core';
-import {RouterLink} from '@angular/router';
 import {SeoService} from '@services/seo.service';
 import {AnalyticsService} from '@services/analytics.service';
 import {TESTIMONIALS} from '@core/data/testimonials.data';
+import {PROJECTS} from '@core/data/projects.data';
 import {PageLayoutComponent} from '@components/layout';
-import {ButtonComponent, CardComponent, PageHeaderComponent, SectionComponent} from '@components/ui';
+import {CardComponent, CtaSectionComponent, PageHeaderComponent, SectionComponent} from '@components/ui';
 
 type FilterType = 'all' | 'featured';
+
+interface ProjectLink {
+  id: string;
+  title: string;
+}
 
 @Component({
   selector: 'app-testimonials',
   standalone: true,
   imports: [
-    RouterLink,
     PageLayoutComponent,
     PageHeaderComponent,
     SectionComponent,
     CardComponent,
-    ButtonComponent
+    CtaSectionComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './testimonials.component.html'
@@ -27,6 +31,7 @@ export class TestimonialsComponent implements OnInit {
   private readonly analyticsService = inject(AnalyticsService);
 
   readonly allTestimonials = TESTIMONIALS;
+  readonly allProjects = PROJECTS;
   readonly activeFilter = signal<FilterType>('all');
 
   readonly filteredTestimonials = computed(() => {
@@ -67,5 +72,18 @@ export class TestimonialsComponent implements OnInit {
 
   getRatingStars(rating: number): number[] {
     return Array(rating).fill(0);
+  }
+
+  getProjectLinks(projectIds?: string[]): ProjectLink[] {
+    if (!projectIds || projectIds.length === 0) {
+      return [];
+    }
+
+    return projectIds
+      .map(id => {
+        const project = this.allProjects.find(p => p.id === id);
+        return project ? {id: project.id, title: project.title} : null;
+      })
+      .filter((link): link is ProjectLink => link !== null);
   }
 }

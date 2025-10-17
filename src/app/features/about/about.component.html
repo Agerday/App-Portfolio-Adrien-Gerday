@@ -183,22 +183,14 @@
     </div>
   </app-section>
 
-  <app-section>
-    <app-card>
-      <div class="text-center">
-        <h2 class="text-3xl font-bold mb-6">Let's Work Together</h2>
-        <p class="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
-          I'm always interested in hearing about new projects and opportunities.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <app-button [routerLink]="'/contact'" variant="primary">
-            Start a Conversation
-          </app-button>
-          <app-button [routerLink]="'/projects'" variant="white">
-            View My Work
-          </app-button>
-        </div>
-      </div>
-    </app-card>
-  </app-section>
+  <!-- CTA Section -->
+  <app-cta-section
+    icon="handshake"
+    title="Ready to Work Together?"
+    description="I'm always interested in hearing about new projects and opportunities."
+    [buttons]="[
+      { label: 'Start a Conversation', route: '/contact', variant: 'primary' },
+      { label: 'View My work', route: '/projects', variant: 'white' }
+    ]"
+  />
 </app-page-layout>
