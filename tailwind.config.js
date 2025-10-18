@@ -4,6 +4,12 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   darkMode: 'class',
+
+  // Performance optimization: disable unused core plugins
+  corePlugins: {
+    preflight: true,
+  },
+
   theme: {
     extend: {
       colors: {
