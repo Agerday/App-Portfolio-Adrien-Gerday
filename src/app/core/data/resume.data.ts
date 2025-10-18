@@ -17,7 +17,7 @@ export const EXPERIENCE: Experience[] = [
   {
     position: 'Full-Stack Solo Developer',
     company: 'NUMBR – Accounting SaaS',
-    duration: '2025 – Present',
+    duration: '04/2025 – Present',
     responsibilities: [
       'Built complete accounting application from scratch using React, TypeScript, and Firebase.',
       'Designed responsive UI with Material-UI, implemented secure authentication and real-time Firestore sync.',
@@ -28,7 +28,7 @@ export const EXPERIENCE: Experience[] = [
   {
     position: 'Front End Lead',
     company: 'FPS Finance – Multi-Client Tax Management Platform',
-    duration: '2024',
+    duration: '01/2024 - 02/2025',
     responsibilities: [
       'Led frontend modernization for four tax clients using Angular 17.',
       'Refactored legacy code into modular architecture with reusable components.',
@@ -39,7 +39,7 @@ export const EXPERIENCE: Experience[] = [
   {
     position: 'Front End Lead (React) & Back End Lead (Java)',
     company: 'FPS Finance – Data Visualization Platform',
-    duration: '2023',
+    duration: '01/2023 - 12/2023',
     responsibilities: [
       'Delivered advanced analytics dashboards with React, Redux, and Chart.js.',
       'Implemented interactive visualizations with live calculations.',
@@ -83,7 +83,7 @@ export const EDUCATION: Education[] = [
     degree: 'Full-Stack Developer & Agile Training',
     school: 'Switchfully',
     location: 'Belgium',
-    duration: 'Sep 2019 - Dec 2019',
+    duration: '09/2019 - 12/2019',
     description: 'Intensive bootcamp (4 months) focused on Angular, Java (Spring Boot), TypeScript, testing, and agile practices.'
   }
 ];
