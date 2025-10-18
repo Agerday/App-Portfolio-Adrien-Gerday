@@ -38,7 +38,7 @@ export class AnalyticsService {
     pageViewCount: 0,
     engagementTime: 0,
     lastActiveTime: Date.now(),
-    isActive: true
+    isActive: true,
   });
 
   readonly initialized = this._initialized.asReadonly();
@@ -51,28 +51,26 @@ export class AnalyticsService {
   private inactivityTimerId?: number;
 
   initialize(): void {
-    if (this._initialized()) {
-      return;
-    }
+    if (this._initialized()) return;
+    if (!environment.features.analytics || !this.GA_MEASUREMENT_ID) return;
 
-    if (!environment.features.analytics || !this.GA_MEASUREMENT_ID) {
-      return;
-    }
-
-    this.initializeGoogleAnalytics();
-    this.setupRouterTracking();
-    this.setupSessionMetrics();
-    this.setupCleanup();
-
-    this._initialized.set(true);
+    this.loadGoogleAnalytics()
+      .then(() => {
+        this.setupRouterTracking();
+        this.setupSessionMetrics();
+        this.setupCleanup();
+        this._initialized.set(true);
+        console.info('[Analytics] Initialized');
+      })
+      .catch((err) => console.error('[Analytics] Initialization failed', err));
   }
 
   trackPageView(url: string, title?: string): void {
     if (!this.isAnalyticsAvailable()) return;
 
-    this._sessionMetrics.update(m => ({
+    this._sessionMetrics.update((m) => ({
       ...m,
-      pageViewCount: m.pageViewCount + 1
+      pageViewCount: m.pageViewCount + 1,
     }));
 
     window.gtag!('event', 'page_view', {
@@ -118,25 +116,32 @@ export class AnalyticsService {
     this.trackEvent('resume_download', 'engagement');
   }
 
-  private initializeGoogleAnalytics(): void {
-    if (typeof window === 'undefined' || !this.GA_MEASUREMENT_ID) return;
+  private loadGoogleAnalytics(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (typeof window === 'undefined' || !this.GA_MEASUREMENT_ID) return reject('No GA ID');
 
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${this.GA_MEASUREMENT_ID}`;
-    document.head.appendChild(script);
+      if (document.querySelector(`script[src*="${this.GA_MEASUREMENT_ID}"]`)) {
+        return resolve();
+      }
 
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function gtag(...args: any[]) {
-      window.dataLayer!.push(args);
-    };
-
-    window.gtag('js', new Date());
-    window.gtag('config', this.GA_MEASUREMENT_ID, {
-      anonymize_ip: true,
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${this.GA_MEASUREMENT_ID}`;
+      script.onload = () => {
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function gtag(...args: any[]) {
+          window.dataLayer!.push(args);
+        };
+        window.gtag('js', new Date());
+        window.gtag('config', this.GA_MEASUREMENT_ID, {
+          anonymize_ip: true,
+        });
+        resolve();
+      };
+      script.onerror = reject;
+      document.head.appendChild(script);
     });
   }
-
 
   private setupRouterTracking(): void {
     this.router.events
@@ -158,9 +163,9 @@ export class AnalyticsService {
   private startEngagementTracking(): void {
     this.engagementIntervalId = window.setInterval(() => {
       if (this.sessionMetrics().isActive) {
-        this._sessionMetrics.update(m => ({
+        this._sessionMetrics.update((m) => ({
           ...m,
-          engagementTime: m.engagementTime + 1
+          engagementTime: m.engagementTime + 1,
         }));
       }
     }, 1000);
@@ -168,10 +173,10 @@ export class AnalyticsService {
 
   private setupInactivityDetection(): void {
     const resetInactivityTimer = () => {
-      this._sessionMetrics.update(m => ({
+      this._sessionMetrics.update((m) => ({
         ...m,
         lastActiveTime: Date.now(),
-        isActive: true
+        isActive: true,
       }));
 
       if (this.inactivityTimerId) {
@@ -179,11 +184,11 @@ export class AnalyticsService {
       }
 
       this.inactivityTimerId = window.setTimeout(() => {
-        this._sessionMetrics.update(m => ({ ...m, isActive: false }));
+        this._sessionMetrics.update((m) => ({ ...m, isActive: false }));
       }, 30000);
     };
 
-    ['mousedown', 'keydown', 'scroll', 'touchstart'].forEach(event => {
+    ['mousedown', 'keydown', 'scroll', 'touchstart'].forEach((event) => {
       document.addEventListener(event, resetInactivityTimer, { passive: true });
     });
 
@@ -192,21 +197,17 @@ export class AnalyticsService {
 
   private setupVisibilityTracking(): void {
     document.addEventListener('visibilitychange', () => {
-      this._sessionMetrics.update(m => ({
+      this._sessionMetrics.update((m) => ({
         ...m,
-        isActive: document.visibilityState === 'visible'
+        isActive: document.visibilityState === 'visible',
       }));
     });
   }
 
   private setupCleanup(): void {
     this.destroyRef.onDestroy(() => {
-      if (this.engagementIntervalId) {
-        clearInterval(this.engagementIntervalId);
-      }
-      if (this.inactivityTimerId) {
-        clearTimeout(this.inactivityTimerId);
-      }
+      if (this.engagementIntervalId) clearInterval(this.engagementIntervalId);
+      if (this.inactivityTimerId) clearTimeout(this.inactivityTimerId);
 
       const metrics = this.sessionMetrics();
       this.trackEvent('session_end', 'engagement', {
@@ -218,7 +219,6 @@ export class AnalyticsService {
   }
 
   private isAnalyticsAvailable(): boolean {
-    return typeof window !== 'undefined' &&
-      typeof window.gtag === 'function';
+    return typeof window !== 'undefined' && typeof window.gtag === 'function';
   }
 }

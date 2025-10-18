@@ -28,28 +28,6 @@ export class ProjectDetailComponent implements OnInit {
   readonly lightboxOpen = signal(false);
   readonly currentImageIndex = signal(0);
 
-  readonly nextProject = computed(() => {
-    const current = this.project();
-    if (!current) return null;
-    const currentIndex = PROJECTS.findIndex(p => p.id === current.id);
-    if (currentIndex < PROJECTS.length - 1) {
-      const next = PROJECTS[currentIndex + 1];
-      return {id: next.id, title: next.title};
-    }
-    return null;
-  });
-
-  readonly previousProject = computed(() => {
-    const current = this.project();
-    if (!current) return null;
-    const currentIndex = PROJECTS.findIndex(p => p.id === current.id);
-    if (currentIndex > 0) {
-      const prev = PROJECTS[currentIndex - 1];
-      return {id: prev.id, title: prev.title};
-    }
-    return null;
-  });
-
   constructor() {
     effect(() => {
       const handleEscape = (e: KeyboardEvent) => {
@@ -84,6 +62,14 @@ export class ProjectDetailComponent implements OnInit {
     } else {
       this.router.navigate(['/projects']);
     }
+  }
+
+  trackLinkClick(type: 'github' | 'live', projectTitle: string): void {
+    const label = type === 'github' ? 'GitHub Source' : 'Live Demo';
+    this.analyticsService.trackEvent('project_link_click', 'projects', {
+      link_type: type,
+      project_title: projectTitle
+    });
   }
 
   openLightbox(index: number): void {

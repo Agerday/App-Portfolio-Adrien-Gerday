@@ -59,7 +59,7 @@ export class HomeComponent {
   }
 
   trackResumeDownload(): void {
-    this.analyticsService.trackEvent('resume_download', 'engagement');
+    this.analyticsService.trackResumeDownload();
     const link = document.createElement('a');
     link.href = 'assets/documents/Adrien-Gerday-Resume-React-Developer.pdf';
     link.download = 'Adrien-Gerday-Resume-React-Developer.pdf';

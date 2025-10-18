@@ -123,7 +123,7 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/Agerday/App-Portfolio-Adrien-Gerday',
     featured: true,
     year: 2025,
-    duration: '1 week',
+    duration: '10 days',
     role: 'Frontend Developer',
     teamSize: 1,
     highlights: [

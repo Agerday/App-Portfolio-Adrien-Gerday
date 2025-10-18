@@ -2,8 +2,6 @@ import {bootstrapApplication} from '@angular/platform-browser';
 import {provideRouter, withInMemoryScrolling, withRouterConfig, withViewTransitions} from '@angular/router';
 import {provideHttpClient, withFetch, withInterceptors} from '@angular/common/http';
 import {provideAnimations} from '@angular/platform-browser/animations';
-import {provideServiceWorker} from '@angular/service-worker';
-import {isDevMode} from '@angular/core';
 
 import {routes} from './app/app.routes';
 import {errorInterceptor} from '@interceptors/error.interceptor';
@@ -35,10 +33,6 @@ bootstrapApplication(AppComponent, {
       ]),
       withFetch()
     ),
-    provideAnimations(),
-    provideServiceWorker('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      registrationStrategy: 'registerWhenStable:30000',
-    }),
+    provideAnimations()
   ],
 }).catch((err) => console.error('Bootstrap Error:', err));
