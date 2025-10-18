@@ -60,7 +60,6 @@ export class AnalyticsService {
         this.setupSessionMetrics();
         this.setupCleanup();
         this._initialized.set(true);
-        console.info('[Analytics] Initialized');
       })
       .catch((err) => console.error('[Analytics] Initialization failed', err));
   }

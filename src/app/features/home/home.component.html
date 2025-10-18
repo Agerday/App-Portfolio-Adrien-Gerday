@@ -1,12 +1,17 @@
 <div class="overflow-x-hidden">
   <!-- Hero Section -->
   <section class="relative min-h-[85vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-gray-50 via-blue-50/30 to-gray-50 dark:from-gray-900 dark:via-blue-950/30 dark:to-gray-900">
-      <div class="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
-      <div class="gradient-orb-1"></div>
-      <div class="gradient-orb-2"></div>
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-gray-50 via-blue-50/30 to-gray-50 dark:from-gray-900 dark:via-blue-950/30 dark:to-gray-900
+             before:content-[''] before:absolute before:inset-0 before:bg-grid-pattern before:opacity-[0.03]">
     </div>
 
+    <div class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div aria-hidden="true" class="gradient-orb-1 transform-gpu will-change-transform"></div>
+      <div aria-hidden="true" class="gradient-orb-2 transform-gpu will-change-transform"></div>
+    </div>
+
+    <!-- Content -->
     <div class="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full text-sm font-medium shadow-lg"
            data-aos="fade-down" data-aos-duration="600">
@@ -64,7 +69,7 @@
   <app-section subtitle="The tools that power my craft" title="Core Expertise">
     <div class="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
       @for (skill of topSkills; track skill; let i = $index) {
-        <app-card class="group hover:-translate-y-2 transition-all duration-300 p-8 w-52"
+        <app-card class="group hover:-translate-y-2 will-change-transform transition-all duration-300 p-8 w-52"
                   data-aos="fade-up"
                   [attr.data-aos-delay]="i * 100">
           <div class="flex flex-col items-center justify-center gap-4">
@@ -167,7 +172,7 @@
   <app-section subtitle="Delivering excellence across the full development lifecycle" title="What I Do Best">
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
       @for (feature of features; track feature.title; let i = $index) {
-        <app-card class="group hover:-translate-y-2 transition-all duration-500 p-8"
+        <app-card class="group hover:-translate-y-2 will-change-transform transition-all duration-500 p-8"
                   data-aos="fade-up"
                   [attr.data-aos-delay]="i * 100">
           <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 flex items-center justify-center mb-6 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-500">
@@ -194,9 +199,9 @@
     <div class="container mx-auto px-4">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div data-aos="fade-right" data-aos-duration="800">
-        <span class="inline-block text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-4">
-          Latest Projects
-        </span>
+          <span class="inline-block text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-4">
+            Latest Projects
+          </span>
           <h2 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
             Transforming Ideas Into
             <span class="gradient-text-purple">Digital Experiences</span>
