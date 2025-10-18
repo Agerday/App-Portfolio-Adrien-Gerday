@@ -120,7 +120,6 @@ export const PROJECTS: Project[] = [
     image: 'assets/images/projects/portfolio-main.webp',
     technologies: ['Angular 18', 'TypeScript', 'TailwindCSS', 'Signals', 'Standalone Components', 'Firebase', 'AOS'],
     category: 'personal',
-    liveUrl: 'https://adriengerday.web.app/',
     githubUrl: 'https://github.com/Agerday/App-Portfolio-Adrien-Gerday',
     featured: true,
     year: 2025,
