@@ -1,17 +1,17 @@
-import { ChangeDetectionStrategy, Component, effect, inject, isDevMode } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterOutlet } from '@angular/router';
-import { filter } from 'rxjs/operators';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {ChangeDetectionStrategy, Component, effect, inject, isDevMode} from '@angular/core';
+import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterOutlet} from '@angular/router';
+import {filter} from 'rxjs/operators';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
-import { ThemeService } from '@services/theme.service';
-import { AnalyticsService } from '@services/analytics.service';
-import { SeoService } from '@services/seo.service';
-import { LoaderService } from '@services/loader.service';
-import { PerformanceMonitoringService } from '@services/performance-monitoring.service';
-import { ScrollService } from '@shared/services/scroll-to-top.service';
+import {ThemeService} from '@services/theme.service';
+import {AnalyticsService} from '@services/analytics.service';
+import {SeoService} from '@services/seo.service';
+import {LoaderService} from '@services/loader.service';
+import {PerformanceMonitoringService} from '@services/performance-monitoring.service';
+import {ScrollService} from '@shared/services/scroll-to-top.service';
 
-import { FooterComponent, TopMenuComponent, ScrollToTopComponent } from '@components/layout';
-import { LoaderComponent } from '@components/ui';
+import {FooterComponent, ScrollToTopComponent, TopMenuComponent} from '@components/layout';
+import {LoaderComponent} from '@components/ui';
 
 @Component({
   selector: 'app-root',
@@ -47,8 +47,6 @@ export class AppComponent {
     this.initializeAOS();
     this.seoService.setDefaultTags();
     this.analyticsService.initialize();
-    this.analyticsService.trackPageView(this.router.url);
-
     if (!isDevMode()) {
       this.performanceService.initialize();
     }
@@ -64,10 +62,11 @@ export class AppComponent {
 
     this.router.events
       .pipe(
-        filter((e): e is NavigationEnd | NavigationCancel | NavigationError =>
-          e instanceof NavigationEnd ||
-          e instanceof NavigationCancel ||
-          e instanceof NavigationError
+        filter(
+          (e): e is NavigationEnd | NavigationCancel | NavigationError =>
+            e instanceof NavigationEnd ||
+            e instanceof NavigationCancel ||
+            e instanceof NavigationError
         ),
         takeUntilDestroyed()
       )
