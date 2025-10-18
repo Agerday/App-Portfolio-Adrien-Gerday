@@ -133,10 +133,10 @@ export class AnalyticsService {
 
     window.gtag('js', new Date());
     window.gtag('config', this.GA_MEASUREMENT_ID, {
-      send_page_view: false,
       anonymize_ip: true,
     });
   }
+
 
   private setupRouterTracking(): void {
     this.router.events
