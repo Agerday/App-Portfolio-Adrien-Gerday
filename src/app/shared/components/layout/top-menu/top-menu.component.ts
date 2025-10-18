@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { filter } from 'rxjs/operators';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ThemeService } from '@services/theme.service';
-import { ButtonComponent } from '@components/ui';
+import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {NavigationEnd, Router, RouterLink, RouterLinkActive} from '@angular/router';
+import {filter} from 'rxjs/operators';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {ThemeService} from '@services/theme.service';
+import {ButtonComponent} from '@components/ui';
+import {IconComponent} from '@components/ui/primitives/icon/menu-icon.component';
 
 interface NavItem {
   label: string;
@@ -15,7 +16,7 @@ interface NavItem {
 @Component({
   selector: 'app-top-menu',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, ButtonComponent],
+  imports: [CommonModule, RouterLink, RouterLinkActive, ButtonComponent, IconComponent, IconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './top-menu.component.html',
 })
@@ -28,19 +29,19 @@ export class TopMenuComponent {
   private readonly hoverCloseTimers = new Map<string, number>();
 
   readonly menuItems: NavItem[] = [
-    { label: 'Home', path: '/' },
-    { label: 'About', path: '/about' },
+    {label: 'Home', path: '/'},
+    {label: 'About', path: '/about'},
     {
       label: 'Work',
       path: '/work',
       children: [
-        { label: 'Projects', path: '/projects' },
-        { label: 'Certifications', path: '/certifications' },
-        { label: 'Testimonials', path: '/testimonials' },
+        {label: 'Projects', path: '/projects'},
+        {label: 'Certifications', path: '/certifications'},
+        {label: 'Testimonials', path: '/testimonials'},
       ],
     },
-    { label: 'Resume', path: '/resume' },
-    { label: 'Contact', path: '/contact' },
+    {label: 'Resume', path: '/resume'},
+    {label: 'Contact', path: '/contact'},
   ];
 
   private readonly router = inject(Router);

@@ -378,14 +378,3 @@
     animation: scroll-line 2s ease-in-out infinite;
   }
 }
-
-.material-symbols-rounded {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease;
-}
-
-.fonts-loaded .material-symbols-rounded {
-  opacity: 1;
-  visibility: visible;
-}

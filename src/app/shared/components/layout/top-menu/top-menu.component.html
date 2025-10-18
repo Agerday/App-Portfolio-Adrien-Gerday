@@ -26,7 +26,6 @@
       <div class="hidden md:flex items-center gap-1">
         @for (item of menuItems; track item.path) {
           @if (item.children) {
-            <!-- wrapper listens for hover; no mt gap on dropdown to avoid mouseleave gap -->
             <div
               class="relative"
               (mouseenter)="onMouseEnter(item.path)"
@@ -39,10 +38,11 @@
                 aria-haspopup="true"
                 [attr.aria-expanded]="isDropdownOpen(item.path)">
                 {{ item.label }}
-                <span class="material-symbols-rounded text-[18px] transition-transform"
-                      [class.rotate-180]="isDropdownOpen(item.path)">
-                  keyboard_arrow_down
-                </span>
+                <menu-icon
+                  name="keyboard_arrow_down"
+                  size="sm"
+                  class="transition-transform"
+                  [class.rotate-180]="isDropdownOpen(item.path)"/>
               </button>
 
               @if (isDropdownOpen(item.path)) {
@@ -79,20 +79,24 @@
       <!-- Right Side Actions -->
       <div class="flex items-center gap-2 sm:gap-3">
         <!-- Theme Toggle -->
-        <button (click)="toggleTheme()"
-                [attr.aria-label]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
-                class="p-2 sm:p-2.5 rounded-lg sm:rounded-xl text-gray-600 dark:text-gray-400
-                       hover:bg-gray-100 dark:hover:bg-gray-800 transition-all hover:scale-110
-                       touch-target">
-          <span class="material-symbols-rounded text-[20px] sm:text-[20px]">
-            {{ isDarkMode() ? 'light_mode' : 'dark_mode' }}
-          </span>
+        <button
+          (click)="toggleTheme()"
+          [attr.aria-label]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
+          class="p-2 sm:p-2.5 rounded-lg sm:rounded-xl text-gray-600 dark:text-gray-400
+         hover:bg-gray-100 dark:hover:bg-gray-800 transition-all hover:scale-110
+         touch-target relative overflow-hidden"
+        >
+          <menu-icon
+            [name]="isDarkMode() ? 'light_mode' : 'dark_mode'"
+            size="md"
+            class="transition-transform duration-500 ease-out"
+          ></menu-icon>
         </button>
 
         <!-- Desktop CTA -->
         <app-button [routerLink]="'/contact'" class="hidden sm:flex !px-3 !py-1.5" variant="primary">
           <span class="text-xs font-semibold">Hire Me</span>
-          <span class="material-symbols-rounded text-[14px]">arrow_forward</span>
+          <menu-icon name="arrow_forward" size="sm"/>
         </app-button>
 
         <!-- Mobile Menu Toggle -->
@@ -101,9 +105,7 @@
                 aria-label="Toggle mobile menu"
                 class="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-400
                        hover:bg-gray-100 dark:hover:bg-gray-800 transition-all touch-target">
-          <span class="material-symbols-rounded text-[24px]">
-            {{ isMobileMenuOpen() ? 'close' : 'menu' }}
-          </span>
+          <menu-icon [name]="isMobileMenuOpen() ? 'close' : 'menu'" size="md"/>
         </button>
       </div>
     </div>
@@ -124,10 +126,9 @@
                          rounded-xl transition-all touch-target"
                   (click)="toggleDropdown(item.path)">
                   <span>{{ item.label }}</span>
-                  <span class="material-symbols-rounded text-[20px] transition-transform"
-                        [class.rotate-180]="isDropdownOpen(item.path)">
-                    keyboard_arrow_down
-                  </span>
+                  <menu-icon name="keyboard_arrow_down" size="md"
+                            class="transition-transform"
+                            [class.rotate-180]="isDropdownOpen(item.path)"/>
                 </button>
 
                 @if (isDropdownOpen(item.path)) {
@@ -161,7 +162,7 @@
           <div class="pt-2 px-4">
             <app-button [routerLink]="'/contact'" variant="primary" class="w-full" (clicked)="closeMobileMenu()">
               <span>Hire Me</span>
-              <span class="material-symbols-rounded text-[20px]">arrow_forward</span>
+              <menu-icon name="arrow_forward" size="md"/>
             </app-button>
           </div>
         </div>
