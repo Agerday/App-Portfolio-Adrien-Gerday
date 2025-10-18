@@ -8,7 +8,7 @@ export const PERSONAL_INFO: PersonalInfo = {
     Proven track record leading frontend teams and delivering enterprise-grade solutions for government and financial institutions.`,
   contact: {
     email: 'adrien.gerday@gmail.com',
-    linkedin: 'https://www.linkedin.com/in/adriengerday/',
+    linkedin: 'https://www.linkedin.com/in/adrien-gerday/',
     github: 'https://github.com/Agerday'
   }
 };

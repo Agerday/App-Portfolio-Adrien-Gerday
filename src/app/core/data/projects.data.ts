@@ -11,7 +11,8 @@ export const PROJECTS: Project[] = [
     title: 'NUMBR – Full Accounting SaaS',
     description:
       'End-to-end accounting SaaS built independently as a full-stack solo developer. Includes secure auth, ' +
-      'real-time sync, and responsive dashboards for small businesses.',
+      'real-time sync, and responsive dashboards for small businesses.' +
+      ' Test credentials: test@gmail.com/Test123',
     shortDescription: 'Full-stack accounting SaaS with React, Firebase, and Node.js.',
     image: 'assets/images/projects/numbr-main.webp',
     technologies: ['React', 'TypeScript', 'Node.js', 'Firebase', 'Firestore', 'MUI', 'Redux', 'Vite', 'Vitest', 'Recharts', 'Zod'],

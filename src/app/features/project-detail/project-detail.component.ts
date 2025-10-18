@@ -5,13 +5,15 @@ import {SeoService} from '@services/seo.service';
 import {AnalyticsService} from '@services/analytics.service';
 import {PROJECTS} from '@core/data/projects.data';
 import {Project} from '@models/project.models';
+import {SocialIconComponent} from '@components/ui/primitives/icon/social-icon.component';
 
 @Component({
   selector: 'app-project-detail',
   standalone: true,
   imports: [
     RouterLink,
-    TitleCasePipe
+    TitleCasePipe,
+    SocialIconComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './project-detail.component.html'

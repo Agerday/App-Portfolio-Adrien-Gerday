@@ -11,11 +11,3 @@ export const TOP_SKILLS: string[] = [
   'Node.js',
   'Java'
 ];
-
-export const SKILL_ICON_MAP: Record<string, string> = {
-  'TypeScript': 'typescript-plain',
-  'Angular': 'angularjs-plain',
-  'React': 'react-original',
-  'Node.js': 'nodejs-plain',
-  'Java': 'java-plain'
-};

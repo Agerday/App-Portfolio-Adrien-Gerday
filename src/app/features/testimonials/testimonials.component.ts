@@ -5,6 +5,7 @@ import {TESTIMONIALS} from '@core/data/testimonials.data';
 import {PROJECTS} from '@core/data/projects.data';
 import {PageLayoutComponent} from '@components/layout';
 import {CardComponent, CtaSectionComponent, PageHeaderComponent, SectionComponent} from '@components/ui';
+import {SocialIconComponent} from '@components/ui/primitives/icon/social-icon.component';
 
 type FilterType = 'all' | 'featured';
 
@@ -21,7 +22,8 @@ interface ProjectLink {
     PageHeaderComponent,
     SectionComponent,
     CardComponent,
-    CtaSectionComponent
+    CtaSectionComponent,
+    SocialIconComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './testimonials.component.html'

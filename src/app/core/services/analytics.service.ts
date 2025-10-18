@@ -1,4 +1,4 @@
-import { DestroyRef, inject, Injectable, isDevMode, signal, computed } from '@angular/core';
+import { DestroyRef, inject, Injectable, signal, computed } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -51,7 +51,11 @@ export class AnalyticsService {
   private inactivityTimerId?: number;
 
   initialize(): void {
-    if (this._initialized() || !environment.production || isDevMode()) {
+    if (this._initialized()) {
+      return;
+    }
+
+    if (!environment.features.analytics || !this.GA_MEASUREMENT_ID) {
       return;
     }
 
@@ -82,11 +86,6 @@ export class AnalyticsService {
   trackEvent(action: string, category: string, params?: EventParams): void {
     if (!this.isAnalyticsAvailable()) return;
     window.gtag!('event', action, { event_category: category, ...params });
-  }
-
-  trackException(description: string, fatal = false): void {
-    if (!this.isAnalyticsAvailable()) return;
-    window.gtag!('event', 'exception', { description, fatal });
   }
 
   trackTiming(name: string, value: number, category = 'Performance', label?: string): void {

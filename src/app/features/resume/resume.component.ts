@@ -4,11 +4,12 @@ import {AnalyticsService} from '@services/analytics.service';
 import {PageLayoutComponent} from '@components/layout';
 import {ButtonComponent, CardComponent} from '@components/ui';
 import {EDUCATION, EXPERIENCE, PERSONAL_INFO, SKILLS} from '@core/data/resume.data';
+import {SocialIconComponent} from '@components/ui/primitives/icon/social-icon.component';
 
 @Component({
   selector: 'app-resume',
   standalone: true,
-  imports: [PageLayoutComponent, ButtonComponent, CardComponent],
+  imports: [PageLayoutComponent, ButtonComponent, CardComponent, SocialIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './resume.component.html',
   styleUrl: './resume.component.scss'

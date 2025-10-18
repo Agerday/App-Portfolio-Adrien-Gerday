@@ -68,7 +68,7 @@
                   data-aos="fade-up"
                   [attr.data-aos-delay]="i * 100">
           <div class="flex flex-col items-center justify-center gap-4">
-            <i [class]="'devicon-' + getIconClass(skill) + ' colored text-8xl transition-transform duration-300 group-hover:scale-110'"></i>
+            <app-tech-icon [tech]="skill" [size]="96" className="transition-transform duration-300 group-hover:scale-110" />
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white text-center">{{ skill }}</h3>
           </div>
         </app-card>
@@ -266,24 +266,15 @@
            data-aos="fade-up" data-aos-delay="300">
         <span class="text-xs text-gray-400 uppercase tracking-wider">Connect with me</span>
         <div class="flex gap-4">
-          <a [href]="PERSONAL_INFO.contact.github"
-             (click)="trackGitHubClick()"
-             class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 hover:-translate-y-1 transition-all"
-             rel="noopener" target="_blank"
-             aria-label="GitHub">
-            <i class="fab fa-github text-xl"></i>
-          </a>
-          <a [href]="PERSONAL_INFO.contact.linkedin"
-             class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 hover:-translate-y-1 transition-all"
-             rel="noopener" target="_blank"
-             aria-label="LinkedIn">
-            <i class="fab fa-linkedin text-xl"></i>
-          </a>
-          <a [href]="'mailto:' + PERSONAL_INFO.contact.email"
-             class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 hover:-translate-y-1 transition-all"
-             aria-label="Email">
-            <i class="fas fa-envelope text-xl"></i>
-          </a>
+          @for (link of socialLinks; track link.platform) {
+            <a [href]="link.url"
+               (click)="link.platform === 'github' ? trackGitHubClick() : null"
+               class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 hover:-translate-y-1 transition-all"
+               rel="noopener" target="_blank"
+               [attr.aria-label]="link.platform">
+              <app-social-icon [platform]="link.platform" [size]="20" />
+            </a>
+          }
         </div>
       </div>
     </div>

@@ -19,7 +19,7 @@
                     hover:scale-110 hover:shadow-lg hover:shadow-blue-500/30 touch-target
                     flex items-center justify-center"
              [attr.aria-label]="link.ariaLabel">
-            <i [class]="getSocialIcon(link.name) + ' text-[18px]'"></i>
+            <app-social-icon [name]="link.name" />
           </a>
         }
       </div>

@@ -13,7 +13,7 @@ import { CardComponent } from '../../cards/card/card.component';
       <div class="mb-6">
         <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">Language Breakdown</h3>
         <p class="text-sm text-gray-600 dark:text-gray-400">
-          Based on {{ totalLines() | number }} lines of code across all projects
+          Based on {{ totalLines() | number }} lines of code across all personal projects
         </p>
       </div>
 

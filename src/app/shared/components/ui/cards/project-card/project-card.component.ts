@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, input, output, computed } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { Project } from '@models/project.models';
+import {ChangeDetectionStrategy, Component, computed, input, output} from '@angular/core';
+import {RouterLink} from '@angular/router';
+import {Project} from '@models/project.models';
+import {SocialIconComponent} from '@components/ui/primitives/icon/social-icon.component';
 
 @Component({
   selector: 'app-project-card',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, SocialIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a
@@ -18,7 +19,7 @@ import { Project } from '@models/project.models';
                   transition-all duration-500 h-full transform hover:-translate-y-2 flex flex-col
                   hover:ring-2 hover:ring-blue-500/50 dark:hover:ring-blue-400/50">
 
-        <!-- Screenshot Preview or Placeholder -->
+        <!-- Screenshot Preview -->
         <div
           class="relative h-56 overflow-hidden"
           [class]="project().image ? 'bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800' : placeholderBgClass()">
@@ -34,7 +35,8 @@ import { Project } from '@models/project.models';
           } @else {
             <div class="absolute inset-0 flex items-center justify-center">
               <div class="text-center transform transition-transform duration-500 group-hover:scale-110">
-                <div class="w-16 h-16 mx-auto mb-3 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                <div
+                  class="w-16 h-16 mx-auto mb-3 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
                   <span class="material-symbols-rounded text-white text-[40px]">{{ placeholderIcon() }}</span>
                 </div>
                 <div class="text-white/80 text-sm font-medium">{{ categoryLabel() }} Project</div>
@@ -104,7 +106,7 @@ import { Project } from '@models/project.models';
                 <a [href]="project().githubUrl" target="_blank" rel="noopener noreferrer"
                    (click)="onGithubClick($event)"
                    class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg border border-gray-200 dark:border-gray-600 transition-all">
-                  <i class="fab fa-github"></i>
+                  <app-social-icon platform="github" [size]="20"/>
                   Code
                 </a>
               }

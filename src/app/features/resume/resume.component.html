@@ -34,14 +34,12 @@
             <span class="material-symbols-rounded text-[18px]">mail</span>
             <span>{{ personalInfo.contact.email }}</span>
           </a>
-          <a [href]="personalInfo.contact.linkedin" class="flex items-center gap-1 hover:underline" rel="noopener"
-             target="_blank">
-            <i class="fab fa-linkedin text-lg"></i>
+          <a [href]="personalInfo.contact.linkedin" class="flex items-center gap-1 hover:underline" rel="noopener" target="_blank">
+            <app-social-icon platform="linkedin" [size]="18" />
             <span>LinkedIn</span>
           </a>
-          <a [href]="personalInfo.contact.github" class="flex items-center gap-1 hover:underline" rel="noopener"
-             target="_blank">
-            <i class="fab fa-github text-lg"></i>
+          <a [href]="personalInfo.contact.github" class="flex items-center gap-1 hover:underline" rel="noopener" target="_blank">
+            <app-social-icon platform="github" [size]="18" />
             <span>GitHub</span>
           </a>
         </div>
@@ -52,8 +50,7 @@
     <div class="space-y-8">
       <!-- Professional Summary -->
       <section>
-        <h3
-          class="text-2xl font-bold text-gray-900 dark:text-white mb-4 pb-2 border-b-2 border-gray-200 dark:border-gray-700">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 pb-2 border-b-2 border-gray-200 dark:border-gray-700">
           Professional Summary
         </h3>
         <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
@@ -63,8 +60,7 @@
 
       <!-- Experience -->
       <section>
-        <h3
-          class="text-2xl font-bold text-gray-900 dark:text-white mb-4 pb-2 border-b-2 border-gray-200 dark:border-gray-700">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 pb-2 border-b-2 border-gray-200 dark:border-gray-700">
           Professional Experience
         </h3>
 
@@ -90,8 +86,7 @@
 
       <!-- Education -->
       <section>
-        <h3
-          class="text-2xl font-bold text-gray-900 dark:text-white mb-4 pb-2 border-b-2 border-gray-200 dark:border-gray-700">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 pb-2 border-b-2 border-gray-200 dark:border-gray-700">
           Education
         </h3>
         @for (edu of education; track edu.degree) {
@@ -110,8 +105,7 @@
 
       <!-- Skills -->
       <section>
-        <h3
-          class="text-2xl font-bold text-gray-900 dark:text-white mb-4 pb-2 border-b-2 border-gray-200 dark:border-gray-700">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 pb-2 border-b-2 border-gray-200 dark:border-gray-700">
           Technical Skills
         </h3>
         <div class="text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">

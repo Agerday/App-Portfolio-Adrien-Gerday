@@ -65,6 +65,18 @@
               </p>
             }
 
+            <!-- Company -->
+            @if (testimonial.linkedinUrl) {
+              <a
+                [href]="testimonial.linkedinUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sm text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1 mb-4">
+                LinkedIn
+                <app-social-icon platform="linkedin"/>
+              </a>
+            }
+
             <!-- Rating -->
             <div class="flex items-center gap-1 mb-4">
               @for (star of getRatingStars(testimonial.rating); track star) {

@@ -1,21 +1,24 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {RouterLink} from '@angular/router';
 
-import { AnalyticsService } from '@services/analytics.service';
-import { SeoService } from '@services/seo.service';
-import { GitHubService } from '@services/github.service';
+import {AnalyticsService} from '@services/analytics.service';
+import {SeoService} from '@services/seo.service';
+import {GitHubService} from '@services/github.service';
 import {
+  ActivityTimelineComponent,
   ButtonComponent,
   CardComponent,
-  SectionComponent,
-  ActivityTimelineComponent,
-  LanguageChartComponent
+  LanguageChartComponent,
+  SectionComponent
 } from '@components/ui';
 
-import { SKILL_ICON_MAP, TECH_STACK, TOP_SKILLS } from '@core/data/skills.data';
-import { FEATURES } from '@core/data/portfolio.data';
-import { FEATURED_PROJECTS } from '@core/data/projects.data';
-import { PERSONAL_INFO } from '@core/data/resume.data';
+import {TECH_STACK, TOP_SKILLS} from '@core/data/skills.data';
+import {FEATURES} from '@core/data/portfolio.data';
+import {FEATURED_PROJECTS} from '@core/data/projects.data';
+import {PERSONAL_INFO} from '@core/data/resume.data';
+import {SocialIconComponent} from '@components/ui/primitives/icon/social-icon.component';
+import {SOCIAL_LINKS} from '@core/data/social-links.data';
+import {TechIconComponent} from '@components/ui/primitives/icon/tech-icon.component';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +29,9 @@ import { PERSONAL_INFO } from '@core/data/resume.data';
     SectionComponent,
     CardComponent,
     ActivityTimelineComponent,
-    LanguageChartComponent
+    LanguageChartComponent,
+    SocialIconComponent,
+    TechIconComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.component.html',
@@ -42,6 +47,7 @@ export class HomeComponent {
   readonly features = FEATURES;
   readonly featuredProjects = FEATURED_PROJECTS;
   readonly PERSONAL_INFO = PERSONAL_INFO;
+  readonly socialLinks = SOCIAL_LINKS;
 
   readonly githubLoading = this.githubService.loading;
   readonly githubLanguages = this.githubService.topLanguages;
@@ -52,13 +58,12 @@ export class HomeComponent {
     this.analyticsService.trackPageView('home');
   }
 
-  getIconClass(skill: string): string {
-    return SKILL_ICON_MAP[skill] || skill.toLowerCase();
-  }
-
   trackResumeDownload(): void {
     this.analyticsService.trackEvent('resume_download', 'engagement');
-    window.open('/assets/resume.pdf', '_blank');
+    const link = document.createElement('a');
+    link.href = 'assets/documents/Adrien-Gerday-Resume-React-Developer.pdf';
+    link.download = 'Adrien-Gerday-Resume-React-Developer.pdf';
+    link.click();
   }
 
   trackGitHubClick(): void {

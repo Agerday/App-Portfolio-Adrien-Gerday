@@ -1,18 +1,19 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-
-import { SeoService } from '@services/seo.service';
-import { AnalyticsService } from '@services/analytics.service';
+import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
+import {SeoService} from '@services/seo.service';
+import {AnalyticsService} from '@services/analytics.service';
 import {
   ButtonComponent,
   CardComponent,
   ContactInfoItemComponent,
+  FaqItemComponent,
   PageHeaderComponent,
-  SectionComponent,
-  FaqItemComponent
+  SectionComponent
 } from '@components/ui';
-import { PageLayoutComponent } from '@components/layout';
-import { PERSONAL_INFO } from '@core/data/resume.data';
-import { FAQS } from '@core/data/faq.data';
+import {PageLayoutComponent} from '@components/layout';
+import {PERSONAL_INFO} from '@core/data/resume.data';
+import {FAQS} from '@core/data/faq.data';
+import {LINKEDIN_MESSAGE_LINK, SOCIAL_LINKS} from '@core/data/social-links.data';
+import {SocialIconComponent} from '@components/ui/primitives/icon/social-icon.component';
 
 const ANIMATION_CONFIG = {
   cardDelay: 100,
@@ -27,26 +28,10 @@ interface ContactInfoConfig {
   readonly pulse?: boolean;
 }
 
-interface SocialLinkConfig {
-  readonly url: string;
-  readonly label: string;
-  readonly icon: string;
-  readonly isIconFont?: boolean;
-  readonly ariaLabel: string;
-}
-
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [
-    CardComponent,
-    ButtonComponent,
-    PageHeaderComponent,
-    ContactInfoItemComponent,
-    PageLayoutComponent,
-    SectionComponent,
-    FaqItemComponent
-  ],
+  imports: [CardComponent, ButtonComponent, PageHeaderComponent, ContactInfoItemComponent, PageLayoutComponent, SectionComponent, FaqItemComponent, SocialIconComponent, SocialIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './contact.component.html'
 })
@@ -59,45 +44,16 @@ export class ContactComponent implements OnInit {
   readonly animationConfig = ANIMATION_CONFIG;
 
   readonly contactInfoItems: readonly ContactInfoConfig[] = [
-    {
-      icon: 'mail',
-      label: 'Email',
-      value: PERSONAL_INFO.contact.email,
-      link: `mailto:${PERSONAL_INFO.contact.email}`
-    },
-    {
-      icon: 'public',
-      label: 'Location',
-      value: 'Asia • Open to Relocation'
-    },
-    {
-      icon: 'check_circle',
-      label: 'Status',
-      value: 'Available Immediately',
-      pulse: true
-    },
-    {
-      icon: 'schedule',
-      label: 'Time Zones',
-      value: 'Experienced with -8h difference'
-    }
+    {icon: 'mail', label: 'Email', value: PERSONAL_INFO.contact.email, link: `mailto:${PERSONAL_INFO.contact.email}`},
+    {icon: 'public', label: 'Location', value: 'Asia • Open to Relocation'},
+    {icon: 'check_circle', label: 'Status', value: 'Available Immediately', pulse: true},
+    {icon: 'schedule', label: 'Time Zones', value: 'Experienced with -8h difference'}
   ] as const;
 
-  readonly socialLinks: readonly SocialLinkConfig[] = [
-    {
-      url: PERSONAL_INFO.contact.linkedin,
-      label: 'View Profile',
-      icon: 'fab fa-linkedin',
-      isIconFont: true,
-      ariaLabel: 'View LinkedIn profile'
-    },
-    {
-      url: `https://www.linkedin.com/messaging/compose/?recipient=${this.getLinkedInUsername()}`,
-      label: 'Send Message',
-      icon: 'send',
-      ariaLabel: 'Send LinkedIn message'
-    }
-  ] as const;
+  readonly socialLinks = [
+    SOCIAL_LINKS.find(link => link.platform === 'linkedin')!,
+    LINKEDIN_MESSAGE_LINK
+  ];
 
   ngOnInit(): void {
     this.seoService.update({
@@ -105,7 +61,6 @@ export class ContactComponent implements OnInit {
       description: 'Senior Frontend Engineer available for relocation in APAC. Ready to commit long-term and deliver world-class results.',
       keywords: 'frontend engineer, hire developer, remote work, relocation, visa sponsorship, APAC'
     });
-
     this.analyticsService.trackPageView('contact');
   }
 
@@ -114,13 +69,6 @@ export class ContactComponent implements OnInit {
   }
 
   trackEmailClick(): void {
-    this.analyticsService.trackEvent('email_click', 'contact', {
-      method: 'cta_button'
-    });
-  }
-
-  private getLinkedInUsername(): string {
-    const match = PERSONAL_INFO.contact.linkedin.match(/in\/([^/]+)/);
-    return match ? match[1] : 'adrien-gerday';
+    this.analyticsService.trackEvent('email_click', 'contact', {method: 'cta_button'});
   }
 }

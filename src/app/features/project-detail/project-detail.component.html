@@ -52,7 +52,7 @@
               @if (proj.githubUrl) {
                 <a [href]="proj.githubUrl" target="_blank" rel="noopener noreferrer"
                    class="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
-                  <i class="fab fa-github text-lg"></i>
+                  <app-social-icon platform="github" [size]="20" />
                   Source
                 </a>
               }

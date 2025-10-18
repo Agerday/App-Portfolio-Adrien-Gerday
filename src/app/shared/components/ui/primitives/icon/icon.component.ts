@@ -27,7 +27,7 @@ import {ChangeDetectionStrategy, Component, computed, input} from '@angular/core
 })
 export class IconComponent {
   name = input.required<string>();
-  iconStyle = input<'outlined' | 'rounded'>('outlined');
+  iconStyle = input<'outlined' | 'rounded'>('rounded');
   size = input<'sm' | 'md' | 'lg'>('md');
 
   readonly iconClass = computed(() => {

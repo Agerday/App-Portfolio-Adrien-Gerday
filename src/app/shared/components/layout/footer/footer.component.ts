@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {PERSONAL_INFO} from '@core/data/resume.data';
+import {SocialIconComponent} from '@components/ui/primitives/icon/social-icon.component';
 
 interface SocialLink {
   name: string;
@@ -11,6 +12,9 @@ interface SocialLink {
   selector: 'app-footer',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    SocialIconComponent
+  ],
   templateUrl: './footer.component.html'
 })
 export class FooterComponent {
@@ -34,13 +38,4 @@ export class FooterComponent {
     },
   ];
   protected readonly PERSONAL_INFO = PERSONAL_INFO;
-
-  getSocialIcon(name: string): string {
-    const icons: Record<string, string> = {
-      'GitHub': 'fab fa-github text-xl',
-      'LinkedIn': 'fab fa-linkedin text-xl',
-      'Email': 'fas fa-envelope text-xl'
-    };
-    return icons[name] || 'fas fa-link text-xl';
-  }
 }
