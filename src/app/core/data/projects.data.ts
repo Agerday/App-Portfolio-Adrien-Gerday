@@ -13,7 +13,7 @@ export const PROJECTS: Project[] = [
       'End-to-end accounting SaaS built independently as a full-stack solo developer. Includes secure auth, ' +
       'real-time sync, and responsive dashboards for small businesses.',
     shortDescription: 'Full-stack accounting SaaS with React, Firebase, and Node.js.',
-    image: 'assets/images/projects/numbr-main.jpg',
+    image: 'assets/images/projects/numbr-main.webp',
     technologies: ['React', 'TypeScript', 'Node.js', 'Firebase', 'Firestore', 'MUI', 'Redux', 'Vite', 'Vitest', 'Recharts', 'Zod'],
     category: 'personal',
     liveUrl: 'https://numbr-system.web.app/',
@@ -35,10 +35,10 @@ export const PROJECTS: Project[] = [
     Built with React, TypeScript, and Firebase, it features Cloud Functions for backend logic and Firestore for
     real-time data handling. The focus was on clean architecture, reliable state management, and smooth UX across all devices.`,
     images: [
-      'assets/images/projects/numbr-main.jpg',
-      'assets/images/projects/numbr-dashboard.jpg',
-      'assets/images/projects/numbr-dues.jpg',
-      'assets/images/projects/numbr-admin.jpg'
+      'assets/images/projects/numbr-main.webp',
+      'assets/images/projects/numbr-dashboard.webp',
+      'assets/images/projects/numbr-dues.webp',
+      'assets/images/projects/numbr-admin.webp'
     ],
     challenges: [
       'Designing scalable architecture as a solo developer',
@@ -67,7 +67,7 @@ export const PROJECTS: Project[] = [
       'Modern flight booking demo built with React featuring real-time search, multi-step booking, ' +
       'and responsive UI with Redux state management.',
     shortDescription: 'React-based flight booking with real-time search and filtering.',
-    image: 'assets/images/projects/flight-main.jpg',
+    image: 'assets/images/projects/flight-main.webp',
     technologies: ['React', 'TypeScript', 'Redux', 'REST API', 'Zod', 'CSS3', 'Responsive Design'],
     category: 'personal',
     liveUrl: 'https://flight-booking-app-react.web.app/',
@@ -85,6 +85,13 @@ export const PROJECTS: Project[] = [
     ],
     longDescription: `A flight booking web app demonstrating advanced React state management, API integration
     and UI/UX design. Built to simulate live flight search and multi-step booking flows, with efficient Redux usage and form validation.`,
+    images: [
+      'assets/images/projects/flight-main.webp',
+      'assets/images/projects/flight-results.webp',
+      'assets/images/projects/flight-seats.webp',
+      'assets/images/projects/flight-extras.webp',
+      'assets/images/projects/flight-confirmation.webp'
+    ],
     challenges: [
       'Managing complex app state across booking steps',
       'Handling real-time data updates efficiently',
@@ -109,7 +116,7 @@ export const PROJECTS: Project[] = [
     description:
       'Angular 18-based portfolio showcasing experience, projects, and skills with modern UI/UX, SEO optimization, and smooth animations.',
     shortDescription: 'Modern Angular 18 portfolio with advanced features and clean design.',
-    image: 'assets/images/projects/portfolio-main.jpg',
+    image: 'assets/images/projects/portfolio-main.webp',
     technologies: ['Angular 18', 'TypeScript', 'TailwindCSS', 'Signals', 'Standalone Components', 'Firebase', 'AOS'],
     category: 'personal',
     liveUrl: 'https://adriengerday.web.app/',
@@ -205,7 +212,7 @@ export const PROJECTS: Project[] = [
     year: 2024,
     duration: 'Jan 2023 – Jan 2024',
     role: 'Front End Lead / Back End Lead',
-    teamSize: 6,
+    teamSize: 7,
     highlights: [
       'Built complete charting and analytics modules',
       'Enabled real-time data visualization and interaction',
@@ -260,7 +267,7 @@ export const PROJECTS: Project[] = [
     year: 2020,
     duration: 'Apr 2020 – Aug 2020',
     role: 'Front End Lead',
-    teamSize: 6,
+    teamSize: 4,
     highlights: [
       'Unified conditional logic across departments',
       'Improved UX and increased form completion rate',
@@ -282,7 +289,7 @@ export const PROJECTS: Project[] = [
     year: 2020,
     duration: 'Jan 2020 – Apr 2020',
     role: 'Front End Lead',
-    teamSize: 5,
+    teamSize: 4,
     highlights: [
       'Optimized large XML data processing and display by 50%',
       'Built performant data tables for 1000+ rows',

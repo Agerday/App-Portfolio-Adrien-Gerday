@@ -12,7 +12,7 @@ export const TESTIMONIALS: Testimonial[] = [
       'problem-solving mindset made a real difference. In April 2025, we teamed up again to build NUMBR from scratch, ' +
       'and I was impressed by how quickly he turned complex ideas into a working product. Adrien brings structure, ' +
       'speed, and results every single time.',
-    image: 'assets/images/colleagues/MD.jpg',
+    image: 'assets/images/colleagues/MD.webp',
     rating: 5,
     date: '2025-08-15',
     projectId: ['data-visualization-platform', 'NUMBR'],
@@ -51,7 +51,7 @@ export const TESTIMONIALS: Testimonial[] = [
       ' it felt like building cool stuff with a friend.',
     rating: 5,
     date: '2025-08-01',
-    image: 'assets/images/colleagues/KG.jpg',
+    image: 'assets/images/colleagues/KG.webp',
     tags: ['Frontend', 'Testing', 'Collaboration'],
     featured: false
   },
@@ -67,7 +67,7 @@ export const TESTIMONIALS: Testimonial[] = [
       'product and our team. It’s been a real pleasure having him on board.',
     rating: 5,
     date: '2025-02-02',
-    image: 'assets/images/colleagues/MVC.jpg',
+    image: 'assets/images/colleagues/MVC.webp',
     projectId: ['eu-commission-dynamic-forms'],
     tags: ['User Experience', 'Angular', 'Attention to details'],
     featured: false
@@ -87,7 +87,7 @@ export const TESTIMONIALS: Testimonial[] = [
       'experiences I’ve had.',
     rating: 5,
     date: '2025-02-09',
-    image: 'assets/images/colleagues/JO.jpg',
+    image: 'assets/images/colleagues/JO.webp',
     projectId: ['data-visualization-platform', 'private-bank-processing-tool'],
     tags: ['Angular', 'Java'],
     featured: false

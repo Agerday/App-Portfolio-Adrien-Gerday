@@ -15,6 +15,8 @@ interface MonthActivity {
 @Injectable({providedIn: 'root'})
 export class GitHubService {
   private readonly http = inject(HttpClient);
+  private readonly CACHE_KEY = 'github_data';
+  private readonly CACHE_DURATION = 3600000;
 
   private readonly _stats = signal<GitHubStats | null>(null);
   private readonly _languages = signal<readonly LanguageStats[]>(LANGUAGE_STATS);
@@ -44,6 +46,15 @@ export class GitHubService {
     };
 
     const fallbackActivity: MonthActivity[] = this.generateFallbackActivity();
+
+    const cached = localStorage.getItem(this.CACHE_KEY);
+    if (cached) {
+      const {data, timestamp} = JSON.parse(cached);
+      if (Date.now() - timestamp < this.CACHE_DURATION) {
+        this._stats.set(data);
+        return;
+      }
+    }
 
     this.http
       .get<any>(`https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=last`)

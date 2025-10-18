@@ -1,12 +1,11 @@
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:3000/api',
-  googleAnalyticsId: '',
+  production: true,
+  googleAnalyticsId: 'G-CRPTVVFWYZ',
   sentryDsn: '',
-  version: '1.0.0-dev',
+  version: '1.0.0',
   features: {
     blog: true,
-    analytics: false,
+    analytics: true,
     pwa: true,
     animations: true,
   },
