@@ -17,7 +17,7 @@ import {FEATURES} from '@core/data/portfolio.data';
 import {FEATURED_PROJECTS} from '@core/data/projects.data';
 import {PERSONAL_INFO} from '@core/data/resume.data';
 import {SocialIconComponent} from '@components/ui/primitives/icon/social-icon.component';
-import {SOCIAL_LINKS} from '@core/data/social-links.data';
+import {RESUME_DOWNLOAD, RESUME_LINK, SOCIAL_LINKS} from '@core/data/social-links.data';
 import {TechIconComponent} from '@components/ui/primitives/icon/tech-icon.component';
 
 @Component({
@@ -61,8 +61,8 @@ export class HomeComponent {
   trackResumeDownload(): void {
     this.analyticsService.trackResumeDownload();
     const link = document.createElement('a');
-    link.href = 'assets/documents/Adrien-Gerday-Resume-React-Developer.pdf';
-    link.download = 'Adrien-Gerday-Resume-React-Developer.pdf';
+    link.href = RESUME_LINK;
+    link.download = RESUME_DOWNLOAD;
     link.click();
   }
 

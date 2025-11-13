@@ -5,6 +5,7 @@ import {PageLayoutComponent} from '@components/layout';
 import {ButtonComponent, CardComponent} from '@components/ui';
 import {EDUCATION, EXPERIENCE, PERSONAL_INFO, SKILLS} from '@core/data/resume.data';
 import {SocialIconComponent} from '@components/ui/primitives/icon/social-icon.component';
+import {RESUME_DOWNLOAD, RESUME_LINK} from '@core/data/social-links.data';
 
 @Component({
   selector: 'app-resume',
@@ -33,8 +34,8 @@ export class ResumeComponent {
   downloadPDF(): void {
     this.analyticsService.trackResumeDownload();
     const link = document.createElement('a');
-    link.href = 'assets/documents/Adrien-Gerday-Resume-React-Developer.pdf';
-    link.download = 'Adrien-Gerday-Resume-React-Developer.pdf';
+    link.href = RESUME_LINK;
+    link.download = RESUME_DOWNLOAD;
     link.click();
   }
 

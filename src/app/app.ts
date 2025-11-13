@@ -35,7 +35,6 @@ export class AppComponent {
   private readonly loaderService = inject(LoaderService);
   private readonly performanceService = inject(PerformanceMonitoringService);
   private readonly scrollService = inject(ScrollService);
-  cookieAccepted = localStorage.getItem('cookie_consent') === 'true';
 
   constructor() {
     this.initializeApp();
@@ -50,9 +49,6 @@ export class AppComponent {
     this.analyticsService.initialize();
     if (!isDevMode()) {
       this.performanceService.initialize();
-    }
-    if (!isDevMode() && localStorage.getItem('cookie_consent') === 'true') {
-      (window as any).enableAnalytics?.();
     }
   }
 
@@ -99,11 +95,5 @@ export class AppComponent {
         anchorPlacement: 'top-bottom'
       });
     });
-  }
-
-  acceptCookies() {
-    this.cookieAccepted = true;
-    localStorage.setItem('cookie_consent', 'true');
-    (window as any).enableAnalytics?.();
   }
 }

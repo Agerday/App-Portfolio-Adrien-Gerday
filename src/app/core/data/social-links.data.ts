@@ -39,3 +39,6 @@ export const LINKEDIN_MESSAGE_LINK = {
   ariaLabel: 'Send LinkedIn message',
   label: 'Send Message'
 };
+
+export const RESUME_LINK = 'assets/documents/Adrien-Gerday-Resume-Senior-Frontend-Engineer.pdf'
+export const RESUME_DOWNLOAD = 'Adrien-Gerday-Resume-Senior-Frontend-Engineer.pdf'

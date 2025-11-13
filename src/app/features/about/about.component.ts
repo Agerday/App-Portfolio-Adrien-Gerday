@@ -9,6 +9,7 @@ import {ButtonComponent, CtaSectionComponent, SectionComponent} from '@component
 import {BadgeComponent} from '@components/ui/primitives/badge/badge.component';
 
 import {HIGHLIGHTS, TIMELINE, VALUES} from '@core/data/about.data';
+import {RESUME_DOWNLOAD, RESUME_LINK} from '@core/data/social-links.data';
 
 @Component({
   selector: 'app-about',
@@ -58,8 +59,8 @@ export class AboutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   downloadResume(): void {
     const link = document.createElement('a');
-    link.href = 'assets/documents/Adrien-Gerday-Resume-React-Developer.pdf';
-    link.download = 'Adrien-Gerday-Resume-React-Developer.pdf';
+    link.href = RESUME_LINK;
+    link.download = RESUME_DOWNLOAD;
     link.click();
   }
 
